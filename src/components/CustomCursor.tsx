@@ -68,7 +68,7 @@ export function CustomCursor() {
 
   if (!enabled) return null;
 
-  const ringSize = mode === "image" ? 80 : mode === "link" ? 60 : mode === "slider" ? 60 : 40;
+  const ringSize = mode === "image" ? 72 : mode === "link" ? 48 : mode === "slider" ? 48 : 32;
   const ringBg =
     mode === "image" ? "rgba(255,255,255,0.1)" :
     mode === "link" ? "rgba(45,90,61,0.1)" :

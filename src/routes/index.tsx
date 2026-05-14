@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
-import { BeforeAfter } from "@/components/BeforeAfter";
+
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
 import { ServicesScroll } from "@/components/ServicesScroll";

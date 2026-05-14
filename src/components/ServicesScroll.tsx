@@ -111,7 +111,7 @@ export function ServicesScroll({ items }: { items: Service[] }) {
   const prog = max > 0 ? Math.min(1, Math.max(0, -tx / max)) : 0;
 
   return (
-    <div ref={pinRef} style={{ height: `${items.length * 35 + 60}vh` }} className="relative">
+    <div ref={pinRef} style={{ height: `${items.length * 60}vh` }} className="relative">
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
         <div className="flex-1 flex">
           <div className="w-[35%] flex items-center px-10 lg:px-16">

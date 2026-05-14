@@ -229,7 +229,7 @@ function Index() {
         <div className="container-x">
           <Reveal variant="fade" className="flex flex-wrap items-center justify-center text-center" >
             <div
-              className="text-[#999] uppercase"
+              className="trust-badges text-[#999] uppercase"
               style={{ fontSize: 12, letterSpacing: "2px" }}
             >
               {trusts.map((t, i) => (

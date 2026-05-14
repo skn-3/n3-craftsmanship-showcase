@@ -3,22 +3,24 @@ import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useReveal } from "@/hooks/use-reveal";
 
-import hero from "@/assets/hero.jpg";
-import featured from "@/assets/featured.jpg";
-import about from "@/assets/about.jpg";
-import sTotal from "@/assets/s-total.jpg";
-import sBath from "@/assets/s-bath.jpg";
-import sKitchen from "@/assets/s-kitchen.jpg";
-import sRoof from "@/assets/s-roof.jpg";
-import sFacade from "@/assets/s-facade.jpg";
-import sTerrace from "@/assets/s-terrace.jpg";
-import sExtension from "@/assets/s-extension.jpg";
-import sWindows from "@/assets/s-windows.jpg";
+import heroVideo from "@/assets/hero.mp4";
+import featured from "@/assets/villa-saltsjobad-n3.png";
+import about from "@/assets/team.png";
+import sTotal from "@/assets/s-total.png";
+import sBath from "@/assets/s-bath.png";
+import sKitchen from "@/assets/s-kitchen.png";
+import sRoof from "@/assets/s-roof.png";
+import sFacade from "@/assets/s-facade.png";
+import sTerrace from "@/assets/s-terrace.png";
+import sExtension from "@/assets/s-extension.png";
+import sPainting from "@/assets/s-painting.png";
 import sInterior from "@/assets/s-interior.jpg";
-import before1 from "@/assets/before1.jpg";
-import after1 from "@/assets/after1.jpg";
-import before2 from "@/assets/before2.jpg";
-import after2 from "@/assets/after2.jpg";
+import baKitchenBefore from "@/assets/ba-kitchen-before.png";
+import baKitchenAfter from "@/assets/ba-kitchen-after.png";
+import baBathBefore from "@/assets/ba-bath-before.png";
+import baBathAfter from "@/assets/ba-bath-after.png";
+import baFacadeBefore from "@/assets/ba-facade-before.png";
+import baFacadeAfter from "@/assets/ba-facade-after.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -44,7 +46,7 @@ const services = [
   { img: sFacade, name: "Fasad", desc: "Fasadrenovering som ger ditt hem nytt liv." },
   { img: sTerrace, name: "Altan & Terrass", desc: "Uterum och altaner byggda för skandinaviskt klimat." },
   { img: sExtension, name: "Tillbyggnad", desc: "Mer utrymme, smart planerat och sömlöst integrerat." },
-  { img: sWindows, name: "Fönster & Dörrar", desc: "Energieffektiva fönster och dörrar med stil." },
+  { img: sPainting, name: "Målning & Tapetsering", desc: "Professionell målning och tapetsering som ger rummet ny karaktär." },
   { img: sInterior, name: "Inredning", desc: "Inredningshjälp som sätter pricken över i." },
 ];
 
@@ -87,12 +89,13 @@ function Index() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center">
-        <img
-          src={hero}
-          alt="Modernt skandinaviskt hem"
+        <video
+          src={heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          width={1920}
-          height={1280}
         />
         <div
           className="absolute inset-0"
@@ -180,7 +183,7 @@ function Index() {
           <div className="lg:col-span-3">
             <img
               src={featured}
-              alt="Villa Lindström"
+              alt="Villa Sandberg"
               width={1200}
               height={1600}
               loading="lazy"
@@ -190,13 +193,13 @@ function Index() {
           <div ref={r3} className="reveal lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
-              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Lindström</h2>
-              <p className="mt-2 text-[#999] font-light text-sm">Totalrenovering · Bromma</p>
+              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
+              <p className="mt-2 text-[#999] font-light text-sm">Altan & Terrass · Saltsjöbaden</p>
               <p className="mt-6 text-white/75 leading-[1.7] text-[15px]">
-                En komplett förvandling av en 70-tals villa till ett modernt familjehem. Nytt kök med marmorbänk, tre badrum i natursten, och en tillbyggnad med panoramafönster mot trädgården.
+                En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.
               </p>
               <p className="mt-6 text-[13px] font-medium" style={{ color: "var(--tra)" }}>
-                12 veckor &nbsp;·&nbsp; 145 kvm &nbsp;·&nbsp; Totalrenovering
+                6 veckor &nbsp;·&nbsp; 48 kvm &nbsp;·&nbsp; Altan & Terrass
               </p>
               <a href="#kontakt" className="btn-outline-light mt-8">Se hela projektet →</a>
             </div>
@@ -211,17 +214,17 @@ function Index() {
             <Eyebrow>Resultat</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px]">Före & efter</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <BeforeAfter before={before1} after={after1} alt="Badrum" />
-              <p className="mt-4 font-medium text-[var(--kol)]">Badrum, Östermalm</p>
-              <p className="text-sm text-[#777]">Renovering · 6 veckor</p>
-            </div>
-            <div>
-              <BeforeAfter before={before2} after={after2} alt="Kök" />
-              <p className="mt-4 font-medium text-[var(--kol)]">Kök, Bromma</p>
-              <p className="text-sm text-[#777]">Renovering · 4 veckor</p>
-            </div>
+          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0">
+            {[
+              { before: baKitchenBefore, after: baKitchenAfter, alt: "Kök", label: "Köksrenovering · Bromma" },
+              { before: baBathBefore, after: baBathAfter, alt: "Badrum", label: "Badrumsrenovering · Nacka" },
+              { before: baFacadeBefore, after: baFacadeAfter, alt: "Fasad", label: "Fasadrenovering · Täby" },
+            ].map((item) => (
+              <div key={item.label} className="snap-start shrink-0 w-[85%] md:w-auto">
+                <BeforeAfter before={item.before} after={item.after} alt={item.alt} />
+                <p className="mt-4 font-medium text-[var(--kol)]">{item.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
-import { useReveal } from "@/hooks/use-reveal";
+import { Reveal } from "@/components/Reveal";
+import { useCountUp, useParallax, useScrollProgress } from "@/hooks/use-reveal";
 
 import heroVideo from "@/assets/hero.mp4";
 import heroMobile from "@/assets/hero-mobile.png";
@@ -74,26 +75,42 @@ function Eyebrow({ children, light = false }: { children: React.ReactNode; light
   );
 }
 
+function Stars({ count = 5 }: { count?: number }) {
+  return (
+    <div className="mb-4 tracking-widest text-[18px]">
+      {Array.from({ length: count }).map((_, i) => (
+        <span key={i} className="star-mask">
+          ★<span style={{ ["--sd" as string]: `${i * 0.12}s` } as React.CSSProperties}>★</span>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const [val, ref] = useCountUp<HTMLSpanElement>(to);
+  return (
+    <span ref={ref}>
+      {val}
+      {suffix}
+    </span>
+  );
+}
+
 function Index() {
-  const r1 = useReveal<HTMLDivElement>();
-  const r2 = useReveal<HTMLDivElement>();
-  const r3 = useReveal<HTMLDivElement>();
-  const r4 = useReveal<HTMLDivElement>();
-  const r5 = useReveal<HTMLDivElement>();
-  const r6 = useReveal<HTMLDivElement>();
-  const r7 = useReveal<HTMLDivElement>();
-  const r8 = useReveal<HTMLDivElement>();
+  const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
+  const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
 
   return (
     <div id="top">
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <img
           src={heroMobile}
           alt="N3 hem"
-          className="md:hidden absolute inset-0 w-full h-full object-cover object-center"
+          className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
         />
         <video
           src={heroVideo}
@@ -101,28 +118,39 @@ function Index() {
           muted
           loop
           playsInline
-          className="hidden md:block absolute inset-0 w-full h-full object-cover"
+          className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
         />
         <div
           className="absolute inset-0"
           style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
         />
-        <div ref={r1} className="reveal in container-x relative z-10 py-32">
+        <div className="container-x relative z-10 py-32">
           <div className="max-w-3xl">
-            <Eyebrow light>Hantverkare sedan 2015</Eyebrow>
-            <h1 className="font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]">
+            <div className="hero-rise" style={{ ["--d" as string]: "0.05s" } as React.CSSProperties}>
+              <Eyebrow light>Hantverkare sedan 2015</Eyebrow>
+            </div>
+            <h1
+              className="hero-rise font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]"
+              style={{ ["--d" as string]: "0.2s" } as React.CSSProperties}
+            >
               Vi skapar hem som<br />håller i generationer
             </h1>
-            <p className="mt-6 text-white/80 font-light text-base md:text-lg max-w-[560px] leading-relaxed">
+            <p
+              className="hero-rise mt-6 text-white/80 font-light text-base md:text-lg max-w-[560px] leading-relaxed"
+              style={{ ["--d" as string]: "0.5s" } as React.CSSProperties}
+            >
               Totalrenoveringar, badrum, kök, tak och fasad — med skandinavisk precision och omtanke för varje detalj.
             </p>
-            <div className="mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
+            <div
+              className="hero-rise mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
+              style={{ ["--d" as string]: "0.8s" } as React.CSSProperties}
+            >
               <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
               <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 animate-scroll-bounce">
+        <div className="absolute bottom-8 left-1/2 text-white/60 animate-scroll-bounce">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -132,61 +160,65 @@ function Index() {
       {/* TRUST BAR */}
       <section className="bg-white py-12">
         <div className="container-x">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-50">
-            {trusts.map((t) => (
-              <div
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-60">
+            {trusts.map((t, i) => (
+              <Reveal
                 key={t}
+                variant="left"
+                delay={i * 0.1}
                 className="h-10 px-4 flex items-center justify-center bg-[var(--krita)] text-[11px] tracking-widest uppercase text-[#555]"
               >
                 {t}
-              </div>
+              </Reveal>
             ))}
           </div>
-          <p className="text-center mt-6 text-[13px] text-[#888]">
+          <Reveal variant="fade" delay={0.6} className="text-center mt-6 text-[13px] text-[#888]">
             <span style={{ color: "var(--tra)" }}>★★★★★</span> 4.9 av 5 baserat på 47 omdömen
-          </p>
+          </Reveal>
         </div>
       </section>
 
       {/* SERVICES */}
       <section id="tjanster" className="bg-[var(--krita)] section-pad">
-        <div ref={r2} className="reveal container-x">
-          <div className="max-w-2xl mb-14">
+        <div className="container-x">
+          <Reveal variant="up" className="max-w-2xl mb-14">
             <Eyebrow>Våra tjänster</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">Allt under ett tak</h2>
             <p className="mt-4 text-[#666] font-light text-base max-w-[480px]">
               Från idé till inflyttning — vi tar hand om hela processen.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s) => (
-              <article key={s.name} className="group cursor-pointer">
-                <div className="overflow-hidden">
-                  <img
-                    src={s.img}
-                    alt={s.name}
-                    width={800}
-                    height={600}
-                    loading="lazy"
-                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="pt-5">
-                  <h3 className="font-sans font-medium text-[16px] text-[var(--kol)]">{s.name}</h3>
-                  <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.desc}</p>
-                  <span className="inline-block mt-3 text-[13px] font-medium text-[var(--skog)]">Läs mer →</span>
-                </div>
-              </article>
+            {services.map((s, i) => (
+              <Reveal key={s.name} variant="up" delay={i * 0.1}>
+                <article className="group cursor-pointer service-card bg-white">
+                  <div className="overflow-hidden">
+                    <img
+                      src={s.img}
+                      alt={s.name}
+                      width={800}
+                      height={600}
+                      loading="lazy"
+                      className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-sans font-medium text-[16px] text-[var(--kol)]">{s.name}</h3>
+                    <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.desc}</p>
+                    <span className="inline-block mt-3 text-[13px] font-medium text-[var(--skog)]">Läs mer →</span>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* FEATURED PROJECT */}
-      <section id="projekt" className="bg-[var(--kol)]">
+      <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
-          <div className="lg:col-span-3">
+          <Reveal variant="left" className="lg:col-span-3">
             <img
               src={featured}
               alt="Villa Sandberg"
@@ -195,8 +227,8 @@ function Index() {
               loading="lazy"
               className="w-full h-full object-cover aspect-[3/4]"
             />
-          </div>
-          <div ref={r3} className="reveal lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
+          </Reveal>
+          <Reveal variant="right" delay={0.2} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
               <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
@@ -204,32 +236,47 @@ function Index() {
               <p className="mt-6 text-white/75 leading-[1.7] text-[15px]">
                 En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.
               </p>
-              <p className="mt-6 text-[13px] font-medium" style={{ color: "var(--tra)" }}>
-                6 veckor &nbsp;·&nbsp; 48 kvm &nbsp;·&nbsp; Altan & Terrass
-              </p>
+              <div className="mt-8 flex gap-8 text-white">
+                <div>
+                  <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
+                    <CountUp to={6} />
+                  </div>
+                  <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Veckor</div>
+                </div>
+                <div>
+                  <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
+                    <CountUp to={48} />
+                  </div>
+                  <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Kvm</div>
+                </div>
+                <div className="flex flex-col justify-center">
+                  <div className="text-[11px] tracking-widest uppercase text-white/60">Altan</div>
+                  <div className="text-[11px] tracking-widest uppercase text-white/60">& Terrass</div>
+                </div>
+              </div>
               <a href="#kontakt" className="btn-outline-light mt-8">Se hela projektet →</a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* BEFORE / AFTER */}
       <section className="bg-white section-pad">
-        <div ref={r4} className="reveal container-x">
-          <div className="mb-12">
+        <div className="container-x">
+          <Reveal variant="up" className="mb-12">
             <Eyebrow>Resultat</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px]">Före & efter</h2>
-          </div>
+          </Reveal>
           <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0">
             {[
               { before: baKitchenBefore, after: baKitchenAfter, alt: "Kök", label: "Köksrenovering · Bromma" },
               { before: baBathBefore, after: baBathAfter, alt: "Badrum", label: "Badrumsrenovering · Nacka" },
               { before: baFacadeBefore, after: baFacadeAfter, alt: "Fasad", label: "Fasadrenovering · Täby" },
-            ].map((item) => (
-              <div key={item.label} className="snap-start shrink-0 w-[85%] md:w-auto">
+            ].map((item, i) => (
+              <Reveal key={item.label} variant="up" delay={i * 0.12} className="snap-start shrink-0 w-[85%] md:w-auto">
                 <BeforeAfter before={item.before} after={item.after} alt={item.alt} />
                 <p className="mt-4 font-medium text-[var(--kol)]">{item.label}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -237,24 +284,43 @@ function Index() {
 
       {/* PROCESS */}
       <section className="bg-[var(--krita)] section-pad">
-        <div ref={r5} className="reveal container-x">
-          <div className="max-w-2xl mb-16">
+        <div className="container-x">
+          <Reveal variant="up" className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">
               Från första samtal<br />till sista penseldrag
             </h2>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-            <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-[var(--sand)]" />
-            {steps.map((s) => (
-              <div key={s.n} className="relative">
-                <div className="font-serif text-[48px] leading-none" style={{ color: "var(--tra)", opacity: 0.35 }}>
+          <div ref={processRef} className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
+            {/* desktop horizontal track */}
+            <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-[var(--sand)]/40" />
+            <div
+              className="hidden md:block absolute top-12 left-[12.5%] h-px bg-[var(--tra)] origin-left"
+              style={{ right: "12.5%", transform: `scaleX(${processProgress})`, transition: "transform .2s ease-out" }}
+            />
+            {/* mobile vertical track */}
+            <div className="md:hidden absolute top-0 bottom-0 left-3 w-px bg-[var(--sand)]/40" />
+            <div
+              className="md:hidden absolute top-0 left-3 w-px bg-[var(--tra)] origin-top"
+              style={{ height: "100%", transform: `scaleY(${processProgress})`, transition: "transform .2s ease-out" }}
+            />
+            {steps.map((s, i) => (
+              <Reveal key={s.n} variant="left" delay={i * 0.12} className="relative md:pl-0 pl-10">
+                <div
+                  className="font-serif text-[48px] leading-none origin-left"
+                  style={{
+                    color: "var(--tra)",
+                    opacity: 0.55,
+                    animation: "hero-rise .6s ease-out forwards",
+                    animationDelay: `${i * 0.12 + 0.1}s`,
+                  }}
+                >
                   {s.n}
                 </div>
                 <h3 className="mt-4 font-sans font-medium text-[16px] text-[var(--kol)]">{s.t}</h3>
                 <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.d}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -262,30 +328,30 @@ function Index() {
 
       {/* TESTIMONIALS */}
       <section className="bg-[var(--kol)] section-pad">
-        <div ref={r6} className="reveal container-x">
-          <div className="mb-14">
+        <div className="container-x">
+          <Reveal variant="up" className="mb-14">
             <Eyebrow light>Kundröster</Eyebrow>
             <h2 className="mt-4 text-white text-[32px] md:text-[36px]">Vad våra kunder säger</h2>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {testimonials.map((t) => (
-              <div key={t.a} className="border-l-2 pl-6" style={{ borderColor: "var(--tra)" }}>
-                <div className="text-[var(--tra)] mb-4 tracking-widest">★★★★★</div>
+            {testimonials.map((t, i) => (
+              <Reveal key={t.a} variant="up" delay={i * 0.15} className="border-l-2 pl-6" style={{ borderColor: "var(--tra)" }}>
+                <Stars />
                 <p className="font-serif italic text-[18px] text-white/90 leading-[1.6]">
                   “{t.q}”
                 </p>
                 <p className="mt-6 text-[13px] text-[#999]">— {t.a}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ABOUT */}
-      <section id="om" className="bg-white section-pad">
-        <div ref={r7} className="reveal container-x">
+      <section id="om" className="bg-white section-pad overflow-hidden">
+        <div className="container-x">
           <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
-            <div>
+            <Reveal variant="right" delay={0.2}>
               <Eyebrow>Om N3</Eyebrow>
               <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
                 Hantverk med<br />modern precision
@@ -298,12 +364,12 @@ function Index() {
                   Vi är ett tight team av snickare, projektledare och designers som brinner för kvalitet. Och ja — vi CO2-kompenserar varje projekt vi genomför. Inte för att det ser bra ut, utan för att det är rätt.
                 </p>
               </div>
-              <div className="mt-8 inline-flex items-center gap-2 text-[12px] text-[#999]">
+              <Reveal variant="scale" delay={0.6} className="mt-8 inline-flex items-center gap-2 text-[12px] text-[#999]">
                 <span className="w-2 h-2 rounded-full" style={{ background: "var(--skog)" }} />
                 CO2 Kompenserad
-              </div>
-            </div>
-            <div className="lg:order-last">
+              </Reveal>
+            </Reveal>
+            <Reveal variant="left" className="lg:order-last">
               <img
                 src={about}
                 alt="Hantverkare i arbete"
@@ -312,24 +378,39 @@ function Index() {
                 loading="lazy"
                 className="w-full aspect-[4/5] object-cover"
               />
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section id="kontakt" className="bg-[var(--skog)] section-pad">
-        <div ref={r8} className="reveal container-x text-center">
-          <h2 className="font-serif text-white text-[32px] md:text-[36px]">
-            Redo att förverkliga ditt projekt?
-          </h2>
-          <p className="mt-4 text-white/80 font-light max-w-xl mx-auto">
-            Boka ett kostnadsfritt hembesök — vi lyssnar, mäter och återkommer med en detaljerad offert.
-          </p>
-          <div className="mt-8">
+      <section ref={ctaRef} id="kontakt" className="relative bg-[var(--skog)] section-pad overflow-hidden">
+        <div
+          className="absolute inset-0 -z-0"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 40%), radial-gradient(circle at 70% 80%, rgba(196,169,125,0.18), transparent 50%)",
+            transform: `translate3d(0, ${ctaOffset}px, 0)`,
+            willChange: "transform",
+          }}
+        />
+        <div className="container-x text-center relative">
+          <Reveal variant="up">
+            <h2 className="font-serif text-white text-[32px] md:text-[36px]">
+              Redo att förverkliga ditt projekt?
+            </h2>
+          </Reveal>
+          <Reveal variant="up" delay={0.15}>
+            <p className="mt-4 text-white/80 font-light max-w-xl mx-auto">
+              Boka ett kostnadsfritt hembesök — vi lyssnar, mäter och återkommer med en detaljerad offert.
+            </p>
+          </Reveal>
+          <Reveal variant="up" delay={0.3} className="mt-8">
             <a href="tel:08-1234567" className="btn-light">Boka möte</a>
-          </div>
-          <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-XXX XX XX</p>
+          </Reveal>
+          <Reveal variant="fade" delay={0.5}>
+            <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-XXX XX XX</p>
+          </Reveal>
         </div>
       </section>
 
@@ -337,34 +418,34 @@ function Index() {
       <footer className="bg-[var(--kol)] text-white pt-20 pb-10">
         <div className="container-x">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            <div>
+            <Reveal variant="up" delay={0}>
               <div className="font-serif text-[28px]">N3</div>
               <p className="mt-3 text-[12px] text-[#666]">SmartKlimat N3prenad AB</p>
               <p className="text-[12px] text-[#555]">Bygger med omtanke</p>
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="up" delay={0.1}>
               <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Tjänster</h4>
               <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
                 {["Totalrenovering", "Badrum", "Kök", "Tak", "Fasad", "Altan"].map((s) => (
                   <li key={s}><a href="#tjanster" className="hover:text-white transition-colors">{s}</a></li>
                 ))}
               </ul>
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="up" delay={0.2}>
               <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Kontakt</h4>
               <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
                 <li>Telefon: 08-XXX XX XX</li>
                 <li>E-post: info@smartklimatn3.se</li>
                 <li>Adress: Stockholm</li>
               </ul>
-            </div>
-            <div>
+            </Reveal>
+            <Reveal variant="up" delay={0.3}>
               <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Följ oss</h4>
               <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
                 <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
               </ul>
-            </div>
+            </Reveal>
           </div>
 
           <div className="mt-16 pt-6 border-t border-[#333] flex flex-col md:flex-row gap-4 justify-between items-center text-[12px] text-[#666]">

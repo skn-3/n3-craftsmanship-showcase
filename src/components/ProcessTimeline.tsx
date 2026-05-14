@@ -1,155 +1,228 @@
 import { useEffect, useRef, useState } from "react";
-import { Clipboard, PencilRuler, Hammer, Key } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import team from "@/assets/team.png";
+import sKitchen from "@/assets/s-kitchen.png";
+import sTotal from "@/assets/s-total.png";
+import sTerrace from "@/assets/s-terrace.png";
 
 type Step = { n: string; t: string; d: string };
 
-const ICONS = [Clipboard, PencilRuler, Hammer, Key];
+const STEP_IMAGES = [team, sKitchen, sTotal, sTerrace];
 
 export function ProcessTimeline({ steps }: { steps: Step[] }) {
   const isMobile = useIsMobile();
-  return isMobile ? (
-    <MobileCarousel steps={steps} />
-  ) : (
-    <DesktopShowcase steps={steps} />
-  );
+  return isMobile ? <Mobile steps={steps} /> : <Desktop steps={steps} />;
 }
 
-/* ---------------- Desktop: simple scroll-fade cards ---------------- */
-function DesktopShowcase({ steps }: { steps: Step[] }) {
+/* ---------- Desktop: sticky image left, scrolling steps right ---------- */
+function Desktop({ steps }: { steps: Step[] }) {
+  const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const vhCenter = window.innerHeight / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const c = r.top + r.height / 2;
+        const d = Math.abs(c - vhCenter);
+        if (d < bestDist) {
+          bestDist = d;
+          bestIdx = i;
+        }
+      });
+      setActive(bestIdx);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [steps.length]);
+
   return (
-    <div className="grid grid-cols-2 gap-8 max-w-5xl mx-auto">
-      {steps.map((s, i) => {
-        const Icon = ICONS[i] ?? Clipboard;
-        return <FadeCard key={s.n} step={s} Icon={Icon} />;
-      })}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      {/* LEFT — sticky image */}
+      <div className="lg:sticky lg:top-[120px] self-start">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: "4 / 3", borderRadius: 12 }}
+        >
+          {STEP_IMAGES.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={steps[i]?.t ?? ""}
+              loading={i === 0 ? "eager" : "lazy"}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                opacity: active === i ? 1 : 0,
+                transition: "opacity .5s ease",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT — steps */}
+      <div>
+        {steps.map((s, i) => (
+          <StepBlock
+            key={s.n}
+            step={s}
+            i={i}
+            active={active === i}
+            isLast={i === steps.length - 1}
+            registerRef={(el) => (stepRefs.current[i] = el)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-function FadeCard({ step, Icon }: { step: Step; Icon: React.ElementType }) {
+function StepBlock({
+  step,
+  i,
+  active,
+  isLast,
+  registerRef,
+}: {
+  step: Step;
+  i: number;
+  active: boolean;
+  isLast: boolean;
+  registerRef: (el: HTMLDivElement | null) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    registerRef(el);
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [registerRef]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        paddingTop: i === 0 ? 0 : 80,
+        paddingBottom: 80,
+        borderBottom: isLast ? "none" : "1px solid #E8E3DA",
+        opacity: visible ? (active ? 1 : 0.3) : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity .5s ease, transform .8s ease",
+      }}
+    >
+      <div
+        className="font-serif leading-none"
+        style={{ fontSize: 64, color: "#C4A97D" }}
+      >
+        {step.n}
+      </div>
+      <h3
+        className="font-sans"
+        style={{
+          fontWeight: 500,
+          fontSize: 24,
+          color: "#1A1F1E",
+          marginTop: 12,
+        }}
+      >
+        {step.t}
+      </h3>
+      <p
+        className="font-sans"
+        style={{
+          fontWeight: 400,
+          fontSize: 16,
+          color: "#666",
+          marginTop: 8,
+          maxWidth: 400,
+          lineHeight: 1.6,
+        }}
+      >
+        {step.d}
+      </p>
+    </div>
+  );
+}
+
+/* ---------- Mobile: image on top of each step card ---------- */
+function Mobile({ steps }: { steps: Step[] }) {
+  return (
+    <div className="space-y-6">
+      {steps.map((s, i) => (
+        <MobileCard key={s.n} step={s} i={i} />
+      ))}
+    </div>
+  );
+}
+
+function MobileCard({ step, i }: { step: Step; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([e]) => e.isIntersecting && setVisible(true),
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 },
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
+  const img = STEP_IMAGES[i];
   return (
     <div
       ref={ref}
-      className="relative bg-white overflow-hidden"
+      className="bg-white overflow-hidden"
       style={{
         borderLeft: "3px solid #C4A97D",
         borderRadius: 12,
-        padding: 32,
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: "opacity .8s ease-out, transform .8s ease-out",
-        minHeight: 240,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity .7s ease ${i * 0.05}s, transform .7s ease ${i * 0.05}s`,
       }}
     >
-      <span
-        aria-hidden
-        className="absolute -top-4 right-3 font-serif select-none pointer-events-none leading-none"
-        style={{ fontSize: 120, color: "rgba(196,169,125,0.10)" }}
-      >
-        {step.n}
-      </span>
-      <div className="relative">
-        <Icon size={28} strokeWidth={1.2} style={{ color: "var(--tra)" }} />
-        <h3 className="mt-5 font-sans font-medium text-[18px] text-[var(--kol)]">
+      {img && (
+        <img
+          src={img}
+          alt={step.t}
+          loading="lazy"
+          className="w-full object-cover"
+          style={{ height: 200 }}
+        />
+      )}
+      <div style={{ padding: "24px 20px" }}>
+        <div className="font-serif leading-none" style={{ fontSize: 48, color: "#C4A97D" }}>
+          {step.n}
+        </div>
+        <h3 className="font-sans" style={{ fontWeight: 500, fontSize: 20, color: "#1A1F1E", marginTop: 8 }}>
           {step.t}
         </h3>
-        <p className="mt-3 text-[14px] text-[#666] leading-relaxed max-w-md">
-          {step.d}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- Mobile: scroll-snap card carousel ---------------- */
-function MobileCarousel({ steps }: { steps: Step[] }) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const w = el.clientWidth;
-        setActive(Math.round(el.scrollLeft / Math.max(1, w)));
-        raf = 0;
-      });
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    <div>
-      <div
-        ref={scrollerRef}
-        className="flex overflow-x-auto -mx-5 px-5 gap-4 pb-2"
-        style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" }}
-      >
-        {steps.map((s, i) => {
-          const Icon = ICONS[i] ?? Clipboard;
-          return (
-            <div
-              key={s.n}
-              className="relative shrink-0 w-full bg-white overflow-hidden"
-              style={{
-                scrollSnapAlign: "center",
-                minHeight: 300,
-                borderLeft: "3px solid #C4A97D",
-                borderRadius: 12,
-                padding: "32px 24px",
-              }}
-            >
-              <span
-                aria-hidden
-                className="absolute -top-4 right-2 font-serif select-none pointer-events-none leading-none"
-                style={{ fontSize: 140, color: "rgba(196,169,125,0.10)" }}
-              >
-                {s.n}
-              </span>
-              <div className="relative">
-                <Icon size={28} strokeWidth={1.25} style={{ color: "var(--tra)" }} />
-                <h3 className="mt-5 font-sans font-medium text-[18px] text-[var(--kol)]">
-                  {s.t}
-                </h3>
-                <p className="mt-3 text-[14px] text-[#666] leading-relaxed">{s.d}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex justify-center gap-2 mt-6">
-        {steps.map((_, i) => (
-          <span
-            key={i}
-            className="rounded-full transition-all"
-            style={{
-              width: 8,
-              height: 8,
-              background: i === active ? "#C4A97D" : "transparent",
-              border: `1px solid ${i === active ? "#C4A97D" : "#D4C5A9"}`,
-            }}
-          />
-        ))}
+        <p style={{ fontSize: 15, color: "#666", marginTop: 8, lineHeight: 1.6 }}>{step.d}</p>
       </div>
     </div>
   );

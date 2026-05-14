@@ -256,7 +256,7 @@ function Index() {
       {/* FEATURED PROJECT */}
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
-          <div ref={featuredImgRef} className="lg:col-span-3 curtain">
+          <Reveal variant="left" className="lg:col-span-3">
             <ParallaxImage
               src={featured}
               alt="Villa Sandberg"
@@ -265,7 +265,7 @@ function Index() {
               height={1600}
               className="w-full h-full aspect-[3/4]"
             />
-          </div>
+          </Reveal>
           <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>

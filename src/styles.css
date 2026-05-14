@@ -244,3 +244,33 @@
   50% { transform: scale(1.01); }
 }
 .breathe { animation: breathe 4s ease-in-out infinite; transform-origin: center; }
+
+/* Custom cursor — hide native on desktop only */
+@media (pointer: fine) {
+  html.cursor-hidden,
+  html.cursor-hidden * { cursor: none !important; }
+}
+
+/* Boka möte gentle pulse every ~5s */
+@keyframes nav-pulse {
+  0%, 92%, 100% { box-shadow: 0 0 0 0 rgba(45,90,61,0); }
+  94% { box-shadow: 0 0 0 6px rgba(45,90,61,0.35); }
+  98% { box-shadow: 0 0 0 14px rgba(45,90,61,0); }
+}
+.btn-pulse { animation: nav-pulse 5s ease-out infinite; }
+
+/* Service card image overlay (Ken Burns supplement) */
+.service-card .overflow-hidden { position: relative; }
+.service-card .overflow-hidden::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(26,31,30,0);
+  transition: background .6s ease;
+  pointer-events: none;
+}
+.service-card:hover .overflow-hidden::after { background: rgba(26,31,30,0.1); }
+
+/* Reduced-motion safety */
+@media (prefers-reduced-motion: reduce) {
+  .breathe, .btn-pulse, .hero-zoom, .animate-scroll-bounce { animation: none !important; }
+}

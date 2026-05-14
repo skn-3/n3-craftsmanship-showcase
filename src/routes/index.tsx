@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal } from "@/components/Reveal";
@@ -100,6 +101,7 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 function Index() {
   const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
+  const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
 
   return (
     <div id="top">
@@ -462,6 +464,34 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      {policy && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
+          onClick={() => setPolicy(null)}
+        >
+          <div
+            className="bg-white text-[var(--kol)] max-w-md w-full p-8 rounded-sm shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="font-serif text-[24px] mb-3">
+              {policy === "integritet" ? "Integritetspolicy" : "Cookie-policy"}
+            </h3>
+            <p className="text-sm text-[#555] leading-relaxed">
+              {policy === "integritet"
+                ? "Integritetspolicy kommer snart."
+                : "Cookie-policy kommer snart."}
+            </p>
+            <button
+              type="button"
+              onClick={() => setPolicy(null)}
+              className="mt-6 text-[12px] tracking-widest uppercase text-[var(--kol)] hover:opacity-60 transition-opacity"
+            >
+              Stäng
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

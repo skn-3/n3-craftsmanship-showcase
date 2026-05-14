@@ -326,22 +326,14 @@ function Index() {
 
       {/* TESTIMONIALS */}
       <section className="bg-[var(--kol)] section-pad">
+        <div className="container-x mb-14">
+          <Eyebrow light>Kundröster</Eyebrow>
+          <LineReveal as="h2" className="mt-4 text-white text-[32px] md:text-[36px]">
+            {["Vad våra kunder säger"]}
+          </LineReveal>
+        </div>
         <div className="container-x">
-          <Reveal variant="up" className="mb-14">
-            <Eyebrow light>Kundröster</Eyebrow>
-            <h2 className="mt-4 text-white text-[32px] md:text-[36px]">Vad våra kunder säger</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.a} variant="up" delay={i * 0.15} className="border-l-2 pl-6" style={{ borderColor: "var(--tra)" }}>
-                <Stars />
-                <p className="font-serif italic text-[18px] text-white/90 leading-[1.6]">
-                  “{t.q}”
-                </p>
-                <p className="mt-6 text-[13px] text-[#999]">— {t.a}</p>
-              </Reveal>
-            ))}
-          </div>
+          <TestimonialsStack items={testimonials} />
         </div>
       </section>
 

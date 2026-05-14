@@ -218,21 +218,22 @@ function Index() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="bg-white py-12">
+      <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 20 }}>
         <div className="container-x">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-60">
-            {trusts.map((t, i) => (
-              <Reveal
-                key={t}
-                variant="left"
-                delay={i * 0.1}
-                className="h-10 px-4 flex items-center justify-center bg-[var(--krita)] text-[11px] tracking-widest uppercase text-[#555]"
-              >
-                {t}
-              </Reveal>
-            ))}
-          </div>
-          <Reveal variant="fade" delay={0.6} className="text-center mt-6 text-[13px] text-[#888]">
+          <Reveal variant="fade" className="flex flex-wrap items-center justify-center text-center" >
+            <div
+              className="text-[#999] uppercase"
+              style={{ fontSize: 12, letterSpacing: "2px" }}
+            >
+              {trusts.map((t, i) => (
+                <span key={t}>
+                  {t}
+                  {i < trusts.length - 1 && <span className="mx-3 text-[#ccc]">|</span>}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal variant="fade" delay={0.2} className="text-center mt-3 text-[13px] text-[#888]">
             <span style={{ color: "var(--tra)" }}>★★★★★</span> 4.9 av 5 baserat på 47 omdömen
           </Reveal>
         </div>

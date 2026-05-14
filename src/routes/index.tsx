@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal } from "@/components/Reveal";
@@ -28,13 +29,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "N3 SmartKlimat – Hantverk med skandinavisk precision" },
+      { title: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       {
         name: "description",
         content:
           "N3 bygger hem som håller i generationer. Totalrenoveringar, badrum, kök, tak och fasad i Stockholm.",
       },
-      { property: "og:title", content: "N3 SmartKlimat – Hantverk med skandinavisk precision" },
+      { property: "og:title", content: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       { property: "og:description", content: "Totalrenoveringar, badrum, kök, tak och fasad – byggt med omtanke." },
     ],
   }),
@@ -100,6 +101,7 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 function Index() {
   const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
+  const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
 
   return (
     <div id="top">
@@ -239,13 +241,13 @@ function Index() {
               <div className="mt-8 flex gap-8 text-white">
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    <CountUp to={6} />
+                    6
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Veckor</div>
                 </div>
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    <CountUp to={48} />
+                    48
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Kvm</div>
                 </div>
@@ -406,10 +408,10 @@ function Index() {
             </p>
           </Reveal>
           <Reveal variant="up" delay={0.3} className="mt-8">
-            <a href="tel:08-1234567" className="btn-light">Boka möte</a>
+            <a href="tel:+4681234567" className="btn-light">Boka möte</a>
           </Reveal>
           <Reveal variant="fade" delay={0.5}>
-            <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-XXX XX XX</p>
+            <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-123 45 67</p>
           </Reveal>
         </div>
       </section>
@@ -434,7 +436,7 @@ function Index() {
             <Reveal variant="up" delay={0.2}>
               <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Kontakt</h4>
               <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li>Telefon: 08-XXX XX XX</li>
+                <li>Telefon: 08-123 45 67</li>
                 <li>E-post: info@smartklimatn3.se</li>
                 <li>Adress: Stockholm</li>
               </ul>
@@ -442,8 +444,8 @@ function Index() {
             <Reveal variant="up" delay={0.3}>
               <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Följ oss</h4>
               <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
+                <li><a href="https://instagram.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
+                <li><a href="https://facebook.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Facebook</a></li>
               </ul>
             </Reveal>
           </div>
@@ -451,9 +453,9 @@ function Index() {
           <div className="mt-16 pt-6 border-t border-[#333] flex flex-col md:flex-row gap-4 justify-between items-center text-[12px] text-[#666]">
             <p>© 2026 SmartKlimat N3prenad AB</p>
             <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-white transition-colors">Integritetspolicy</a>
+              <button type="button" onClick={() => setPolicy("integritet")} className="hover:text-white transition-colors">Integritetspolicy</button>
               <span>|</span>
-              <a href="#" className="hover:text-white transition-colors">Cookies</a>
+              <button type="button" onClick={() => setPolicy("cookies")} className="hover:text-white transition-colors">Cookies</button>
             </div>
             <div className="inline-flex items-center gap-2 opacity-60">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--skog)" }} />
@@ -462,6 +464,34 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      {policy && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
+          onClick={() => setPolicy(null)}
+        >
+          <div
+            className="bg-white text-[var(--kol)] max-w-md w-full p-8 rounded-sm shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="font-serif text-[24px] mb-3">
+              {policy === "integritet" ? "Integritetspolicy" : "Cookie-policy"}
+            </h3>
+            <p className="text-sm text-[#555] leading-relaxed">
+              {policy === "integritet"
+                ? "Integritetspolicy kommer snart."
+                : "Cookie-policy kommer snart."}
+            </p>
+            <button
+              type="button"
+              onClick={() => setPolicy(null)}
+              className="mt-6 text-[12px] tracking-widest uppercase text-[var(--kol)] hover:opacity-60 transition-opacity"
+            >
+              Stäng
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

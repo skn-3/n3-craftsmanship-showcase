@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
+import { MobileCTABar } from "@/components/MobileCTABar";
 
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
@@ -158,6 +159,7 @@ function Index() {
       <SmoothScroll />
       <IntroOverlay />
       <Nav />
+      <MobileCTABar />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden">

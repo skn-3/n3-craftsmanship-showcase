@@ -32,7 +32,7 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
-            <a href="#kontakt" className="btn-primary">Boka möte</a>
+            <a href="#kontakt" className="btn-primary btn-pulse">Boka möte</a>
           </nav>
 
           <button

@@ -395,7 +395,7 @@ function Index() {
         />
         <div className="container-x text-center relative">
           <Reveal variant="up">
-            <h2 className="font-serif text-white text-[32px] md:text-[36px]">
+            <h2 className="font-serif text-white text-[32px] md:text-[36px] breathe">
               Redo att förverkliga ditt projekt?
             </h2>
           </Reveal>

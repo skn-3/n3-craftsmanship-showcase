@@ -89,12 +89,13 @@ function Index() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center">
-        <img
-          src={hero}
-          alt="Modernt skandinaviskt hem"
+        <video
+          src={heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          width={1920}
-          height={1280}
         />
         <div
           className="absolute inset-0"

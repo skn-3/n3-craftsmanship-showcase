@@ -28,13 +28,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "N3 SmartKlimat – Hantverk med skandinavisk precision" },
+      { title: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       {
         name: "description",
         content:
           "N3 bygger hem som håller i generationer. Totalrenoveringar, badrum, kök, tak och fasad i Stockholm.",
       },
-      { property: "og:title", content: "N3 SmartKlimat – Hantverk med skandinavisk precision" },
+      { property: "og:title", content: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       { property: "og:description", content: "Totalrenoveringar, badrum, kök, tak och fasad – byggt med omtanke." },
     ],
   }),
@@ -239,13 +239,13 @@ function Index() {
               <div className="mt-8 flex gap-8 text-white">
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    <CountUp to={6} />
+                    6
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Veckor</div>
                 </div>
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    <CountUp to={48} />
+                    48
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Kvm</div>
                 </div>

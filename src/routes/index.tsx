@@ -305,18 +305,13 @@ function Index() {
             <Eyebrow>Resultat</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px]">Före & efter</h2>
           </Reveal>
-          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0">
-            {[
+          <BeforeAfterRow
+            items={[
               { before: baKitchenBefore, after: baKitchenAfter, alt: "Kök", label: "Köksrenovering · Bromma" },
               { before: baBathBefore, after: baBathAfter, alt: "Badrum", label: "Badrumsrenovering · Nacka" },
               { before: baFacadeBefore, after: baFacadeAfter, alt: "Fasad", label: "Fasadrenovering · Täby" },
-            ].map((item, i) => (
-              <Reveal key={item.label} variant="up" delay={i * 0.12} className="snap-start shrink-0 w-[85%] md:w-auto">
-                <BeforeAfter before={item.before} after={item.after} alt={item.alt} />
-                <p className="mt-4 font-medium text-[var(--kol)]">{item.label}</p>
-              </Reveal>
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
 

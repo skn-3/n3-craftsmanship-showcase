@@ -392,16 +392,26 @@ function Index() {
                 CO2 Kompenserad
               </Reveal>
             </Reveal>
-            <Reveal variant="left" className="lg:order-last">
-              <img
-                src={about}
-                alt="Hantverkare i arbete"
-                width={1200}
-                height={1500}
-                loading="lazy"
-                className="w-full aspect-[4/5] object-cover"
-              />
-            </Reveal>
+            <div ref={aboutImgWrap} className="lg:order-last lg:-ml-[60px] relative">
+              <Reveal
+                variant="left"
+                className="tra-border"
+                style={{
+                  transform: `rotate(${aboutRot}deg)`,
+                  transition: "transform .3s ease-out",
+                  willChange: "transform",
+                }}
+              >
+                <img
+                  src={about}
+                  alt="Hantverkare i arbete"
+                  width={1200}
+                  height={1500}
+                  loading="lazy"
+                  className="w-full aspect-[4/5] object-cover"
+                />
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>

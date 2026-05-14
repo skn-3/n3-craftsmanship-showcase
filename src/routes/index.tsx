@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal } from "@/components/Reveal";
+import { IntroOverlay } from "@/components/IntroOverlay";
+import { ServicesScroll } from "@/components/ServicesScroll";
 import { useCountUp, useParallax, useScrollProgress } from "@/hooks/use-reveal";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import heroVideo from "@/assets/hero.mp4";
 import heroMobile from "@/assets/hero-mobile.png";
@@ -102,57 +105,107 @@ function Index() {
   const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
   const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
+  const isMobile = useIsMobile();
+
+  // Featured project curtain reveal
+  const featuredImgRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = featuredImgRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.classList.add("in");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // About image rotation parallax
+  const aboutImgWrap = useRef<HTMLDivElement>(null);
+  const [aboutRot, setAboutRot] = useState(-2);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = aboutImgWrap.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const center = r.top + r.height / 2;
+      const p = Math.max(0, Math.min(1, 1 - center / vh));
+      setAboutRot(-2 + p * 2);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Hero heading words
+  const headingWords = ["Vi", "skapar", "hem", "som", "håller", "i", "generationer"];
+  // Stagger base — wait for intro morph on desktop
+  const heroBase = isMobile ? 0.6 : 1.6;
 
   return (
     <div id="top">
+      <IntroOverlay />
       <Nav />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <img
-          src={heroMobile}
-          alt="N3 hem"
-          className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
-        />
-        <video
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
-        />
+        <div className="absolute inset-0 hero-clip">
+          <img
+            src={heroMobile}
+            alt="N3 hem"
+            className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
+          />
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
+          />
+        </div>
         <div className="container-x relative z-10 py-32">
           <div className="max-w-3xl">
-            <div className="hero-rise" style={{ ["--d" as string]: "0.05s" } as React.CSSProperties}>
+            <div className="hero-rise" style={{ ["--d" as string]: `${heroBase}s` } as React.CSSProperties}>
               <Eyebrow light>Hantverkare sedan 2015</Eyebrow>
             </div>
             <h1
-              className="hero-rise font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]"
-              style={{ ["--d" as string]: "0.2s" } as React.CSSProperties}
+              className="word-rise font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]"
+              style={{ ["--base" as string]: `${heroBase + 0.1}s` } as React.CSSProperties}
             >
-              Vi skapar hem som<br />håller i generationer
+              {headingWords.map((w, i) => (
+                <span key={i} style={{ ["--i" as string]: i } as React.CSSProperties}>
+                  {w}
+                  {i < headingWords.length - 1 ? "\u00A0" : ""}
+                </span>
+              ))}
             </h1>
             <p
               className="hero-rise mt-6 text-white/80 font-light text-base md:text-lg max-w-[560px] leading-relaxed"
-              style={{ ["--d" as string]: "0.5s" } as React.CSSProperties}
+              style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.5}s` } as React.CSSProperties}
             >
               Totalrenoveringar, badrum, kök, tak och fasad — med skandinavisk precision och omtanke för varje detalj.
             </p>
             <div
               className="hero-rise mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
-              style={{ ["--d" as string]: "0.8s" } as React.CSSProperties}
+              style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.8}s` } as React.CSSProperties}
             >
               <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
               <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 text-white/60 animate-scroll-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 animate-scroll-bounce">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -181,46 +234,14 @@ function Index() {
       </section>
 
       {/* SERVICES */}
-      <section id="tjanster" className="bg-[var(--krita)] section-pad">
-        <div className="container-x">
-          <Reveal variant="up" className="max-w-2xl mb-14">
-            <Eyebrow>Våra tjänster</Eyebrow>
-            <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">Allt under ett tak</h2>
-            <p className="mt-4 text-[#666] font-light text-base max-w-[480px]">
-              Från idé till inflyttning — vi tar hand om hela processen.
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <Reveal key={s.name} variant="up" delay={i * 0.1}>
-                <article className="group cursor-pointer service-card bg-white">
-                  <div className="overflow-hidden">
-                    <img
-                      src={s.img}
-                      alt={s.name}
-                      width={800}
-                      height={600}
-                      loading="lazy"
-                      className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-sans font-medium text-[16px] text-[var(--kol)]">{s.name}</h3>
-                    <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.desc}</p>
-                    <span className="inline-block mt-3 text-[13px] font-medium text-[var(--skog)]">Läs mer →</span>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+      <section id="tjanster" className="bg-[var(--krita)] py-20 md:py-0">
+        <ServicesScroll items={services} />
       </section>
 
       {/* FEATURED PROJECT */}
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
-          <Reveal variant="left" className="lg:col-span-3">
+          <div ref={featuredImgRef} className="lg:col-span-3 curtain">
             <img
               src={featured}
               alt="Villa Sandberg"
@@ -229,8 +250,8 @@ function Index() {
               loading="lazy"
               className="w-full h-full object-cover aspect-[3/4]"
             />
-          </Reveal>
-          <Reveal variant="right" delay={0.2} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
+          </div>
+          <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
               <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
@@ -241,13 +262,13 @@ function Index() {
               <div className="mt-8 flex gap-8 text-white">
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    6
+                    <CountUp to={6} />
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Veckor</div>
                 </div>
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    48
+                    <CountUp to={48} />
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Kvm</div>
                 </div>
@@ -371,15 +392,25 @@ function Index() {
                 CO2 Kompenserad
               </Reveal>
             </Reveal>
-            <Reveal variant="left" className="lg:order-last">
-              <img
-                src={about}
-                alt="Hantverkare i arbete"
-                width={1200}
-                height={1500}
-                loading="lazy"
-                className="w-full aspect-[4/5] object-cover"
-              />
+            <Reveal variant="fade" className="lg:order-last lg:-ml-[60px] relative">
+              <div
+                ref={aboutImgWrap}
+                className="tra-border in"
+                style={{
+                  transform: `rotate(${aboutRot}deg)`,
+                  transition: "transform .3s ease-out",
+                  willChange: "transform",
+                }}
+              >
+                <img
+                  src={about}
+                  alt="Hantverkare i arbete"
+                  width={1200}
+                  height={1500}
+                  loading="lazy"
+                  className="w-full aspect-[4/5] object-cover"
+                />
+              </div>
             </Reveal>
           </div>
         </div>

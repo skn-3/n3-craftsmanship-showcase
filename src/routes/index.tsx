@@ -105,9 +105,52 @@ function Index() {
   const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
   const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
+  const isMobile = useIsMobile();
+
+  // Featured project curtain reveal
+  const featuredImgRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = featuredImgRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.classList.add("in");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // About image rotation parallax
+  const aboutImgWrap = useRef<HTMLDivElement>(null);
+  const [aboutRot, setAboutRot] = useState(-2);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = aboutImgWrap.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const center = r.top + r.height / 2;
+      const p = Math.max(0, Math.min(1, 1 - center / vh));
+      setAboutRot(-2 + p * 2);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Hero heading words
+  const headingWords = ["Vi", "skapar", "hem", "som", "håller", "i", "generationer"];
+  // Stagger base — wait for intro morph on desktop
+  const heroBase = isMobile ? 0.6 : 1.6;
 
   return (
     <div id="top">
+      <IntroOverlay />
       <Nav />
 
       {/* HERO */}

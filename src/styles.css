@@ -279,3 +279,23 @@
 @media (prefers-reduced-motion: reduce) {
   .breathe, .btn-pulse, .hero-zoom, .animate-scroll-bounce { animation: none !important; }
 }
+
+/* Before/After mobile carousel: scroll-snap, 85vw cards with peek */
+.ba-snap { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.ba-snap::-webkit-scrollbar { display: none; }
+@media (max-width: 767px) {
+  .ba-snap > .ba-card {
+    flex: 0 0 85vw;
+    scroll-snap-align: center;
+  }
+}
+
+/* Trust badges fit on mobile */
+@media (max-width: 767px) {
+  .trust-badges {
+    font-size: 10px !important;
+    letter-spacing: 1.5px !important;
+    line-height: 1.8;
+  }
+  .trust-badges > span { display: inline-block; }
+}

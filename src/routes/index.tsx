@@ -214,17 +214,17 @@ function Index() {
             <Eyebrow>Resultat</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px]">Före & efter</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <BeforeAfter before={before1} after={after1} alt="Badrum" />
-              <p className="mt-4 font-medium text-[var(--kol)]">Badrum, Östermalm</p>
-              <p className="text-sm text-[#777]">Renovering · 6 veckor</p>
-            </div>
-            <div>
-              <BeforeAfter before={before2} after={after2} alt="Kök" />
-              <p className="mt-4 font-medium text-[var(--kol)]">Kök, Bromma</p>
-              <p className="text-sm text-[#777]">Renovering · 4 veckor</p>
-            </div>
+          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0">
+            {[
+              { before: baKitchenBefore, after: baKitchenAfter, alt: "Kök", label: "Köksrenovering · Bromma" },
+              { before: baBathBefore, after: baBathAfter, alt: "Badrum", label: "Badrumsrenovering · Nacka" },
+              { before: baFacadeBefore, after: baFacadeAfter, alt: "Fasad", label: "Fasadrenovering · Täby" },
+            ].map((item) => (
+              <div key={item.label} className="snap-start shrink-0 w-[85%] md:w-auto">
+                <BeforeAfter before={item.before} after={item.after} alt={item.alt} />
+                <p className="mt-4 font-medium text-[var(--kol)]">{item.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

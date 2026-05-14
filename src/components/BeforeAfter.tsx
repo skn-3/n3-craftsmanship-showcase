@@ -8,6 +8,7 @@ interface Props {
 
 export function BeforeAfter({ before, after, alt }: Props) {
   const [pos, setPos] = useState(50);
+  const [interacted, setInteracted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
 

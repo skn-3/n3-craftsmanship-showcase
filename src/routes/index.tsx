@@ -183,7 +183,7 @@ function Index() {
           <div className="lg:col-span-3">
             <img
               src={featured}
-              alt="Villa Lindström"
+              alt="Villa Sandberg"
               width={1200}
               height={1600}
               loading="lazy"
@@ -193,13 +193,13 @@ function Index() {
           <div ref={r3} className="reveal lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
-              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Lindström</h2>
-              <p className="mt-2 text-[#999] font-light text-sm">Totalrenovering · Bromma</p>
+              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
+              <p className="mt-2 text-[#999] font-light text-sm">Altan & Terrass · Saltsjöbaden</p>
               <p className="mt-6 text-white/75 leading-[1.7] text-[15px]">
-                En komplett förvandling av en 70-tals villa till ett modernt familjehem. Nytt kök med marmorbänk, tre badrum i natursten, och en tillbyggnad med panoramafönster mot trädgården.
+                En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.
               </p>
               <p className="mt-6 text-[13px] font-medium" style={{ color: "var(--tra)" }}>
-                12 veckor &nbsp;·&nbsp; 145 kvm &nbsp;·&nbsp; Totalrenovering
+                6 veckor &nbsp;·&nbsp; 48 kvm &nbsp;·&nbsp; Altan & Terrass
               </p>
               <a href="#kontakt" className="btn-outline-light mt-8">Se hela projektet →</a>
             </div>

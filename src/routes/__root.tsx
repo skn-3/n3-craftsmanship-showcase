@@ -9,6 +9,10 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { CustomCursor } from "@/components/CustomCursor";
+import { MagneticButtons } from "@/components/MagneticButtons";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 function NotFoundComponent() {
   return (
@@ -114,6 +118,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <LoadingScreen />
+      <ScrollProgress />
+      <CustomCursor />
+      <MagneticButtons />
       <Outlet />
     </QueryClientProvider>
   );

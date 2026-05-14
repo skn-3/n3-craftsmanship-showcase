@@ -382,8 +382,10 @@ function Index() {
         </div>
       </section>
 
+      {/* CTA + FOOTER stacking reveal */}
+      <div className="relative">
       {/* CTA */}
-      <section ref={ctaRef} id="kontakt" className="relative bg-[var(--skog)] section-pad overflow-hidden">
+      <section ref={ctaRef} id="kontakt" className="relative bg-[var(--skog)] section-pad overflow-hidden lg:sticky lg:top-0 lg:z-[1]">
         <div
           className="absolute inset-0 -z-0"
           style={{
@@ -414,7 +416,7 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[var(--kol)] text-white pt-20 pb-10">
+      <footer className="bg-[var(--kol)] text-white pt-20 pb-10 relative z-[2]">
         <div className="container-x">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <Reveal variant="up" delay={0}>
@@ -461,6 +463,7 @@ function Index() {
           </div>
         </div>
       </footer>
+      </div>
 
       {policy && (
         <div

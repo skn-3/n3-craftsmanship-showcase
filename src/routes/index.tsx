@@ -256,7 +256,7 @@ function Index() {
       {/* FEATURED PROJECT */}
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
-          <div ref={featuredImgRef} className="lg:col-span-3 curtain">
+          <Reveal variant="left" className="lg:col-span-3">
             <ParallaxImage
               src={featured}
               alt="Villa Sandberg"

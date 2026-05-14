@@ -43,10 +43,12 @@ export function BeforeAfter({ before, after, alt }: Props) {
       style={{ aspectRatio: "4/3" }}
       onMouseDown={(e) => {
         dragging.current = true;
+        setInteracted(true);
         move(e.clientX);
       }}
       onTouchStart={(e) => {
         dragging.current = true;
+        setInteracted(true);
         move(e.touches[0].clientX);
       }}
     >
@@ -67,7 +69,7 @@ export function BeforeAfter({ before, after, alt }: Props) {
         className="absolute top-0 bottom-0 w-px bg-white pointer-events-none"
         style={{ left: `${pos}%` }}
       >
-        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center">
+        <div className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center ${interacted ? "" : "handle-pulse"}`}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1F1E" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
             <polyline points="9 18 15 12 9 6" transform="translate(6 0)" />

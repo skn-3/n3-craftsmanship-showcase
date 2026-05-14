@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal } from "@/components/Reveal";
+import { IntroOverlay } from "@/components/IntroOverlay";
+import { ServicesScroll } from "@/components/ServicesScroll";
 import { useCountUp, useParallax, useScrollProgress } from "@/hooks/use-reveal";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import heroVideo from "@/assets/hero.mp4";
 import heroMobile from "@/assets/hero-mobile.png";

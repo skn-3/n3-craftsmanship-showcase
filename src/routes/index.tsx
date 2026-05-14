@@ -247,7 +247,7 @@ function Index() {
       </section>
 
       {/* SERVICES */}
-      <section id="tjanster" className="bg-[var(--krita)] py-20 md:py-0">
+      <section id="tjanster" className="bg-[var(--krita)] py-20 md:py-24">
         <ServicesScroll items={services} />
       </section>
 

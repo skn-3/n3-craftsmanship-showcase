@@ -123,7 +123,7 @@ function Index() {
           io.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0, rootMargin: "500px" }
     );
     io.observe(el);
     return () => io.disconnect();

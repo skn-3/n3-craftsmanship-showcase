@@ -416,7 +416,7 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[var(--kol)] text-white pt-20 pb-10">
+      <footer className="bg-[var(--kol)] text-white pt-20 pb-10 relative z-[2]">
         <div className="container-x">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <Reveal variant="up" delay={0}>

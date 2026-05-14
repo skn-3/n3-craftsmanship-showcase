@@ -392,10 +392,10 @@ function Index() {
                 CO2 Kompenserad
               </Reveal>
             </Reveal>
-            <div ref={aboutImgWrap} className="lg:order-last lg:-ml-[60px] relative">
-              <Reveal
-                variant="left"
-                className="tra-border"
+            <Reveal variant="fade" className="lg:order-last lg:-ml-[60px] relative">
+              <div
+                ref={aboutImgWrap}
+                className="tra-border in"
                 style={{
                   transform: `rotate(${aboutRot}deg)`,
                   transition: "transform .3s ease-out",
@@ -410,8 +410,8 @@ function Index() {
                   loading="lazy"
                   className="w-full aspect-[4/5] object-cover"
                 />
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

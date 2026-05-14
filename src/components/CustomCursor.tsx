@@ -14,6 +14,8 @@ export function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
   useEffect(() => {
     if (isMobile) return;
+    if (typeof window === "undefined") return;
+    if ("ontouchstart" in window) return;
     const fine = window.matchMedia("(pointer: fine)").matches;
     setEnabled(fine);
   }, [isMobile]);

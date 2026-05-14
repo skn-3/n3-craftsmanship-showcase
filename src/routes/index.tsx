@@ -257,6 +257,7 @@ function Index() {
             <ParallaxImage
               src={featured}
               alt="Villa Sandberg"
+              loading="eager"
               width={1200}
               height={1600}
               className="w-full h-full aspect-[3/4]"

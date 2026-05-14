@@ -10,6 +10,7 @@ import { ParallaxImage } from "@/components/ParallaxImage";
 import { LineReveal } from "@/components/LineReveal";
 import { TestimonialsStack } from "@/components/TestimonialsStack";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { BeforeAfterRow } from "@/components/BeforeAfterRow";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 

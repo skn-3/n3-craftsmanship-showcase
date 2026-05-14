@@ -463,6 +463,7 @@ function Index() {
           </div>
         </div>
       </footer>
+      </div>
 
       {policy && (
         <div

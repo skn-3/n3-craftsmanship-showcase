@@ -316,7 +316,10 @@ function Index() {
       </section>
 
       {/* PROCESS */}
-      <section className="bg-[var(--krita)] section-pad">
+      <section
+        className="section-pad"
+        style={{ background: "linear-gradient(to bottom, #F5F2ED, #FFFFFF)" }}
+      >
         <div className="container-x">
           <div className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>

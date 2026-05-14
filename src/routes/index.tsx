@@ -154,6 +154,7 @@ function Index() {
 
   return (
     <div id="top">
+      <SmoothScroll />
       <IntroOverlay />
       <Nav />
 

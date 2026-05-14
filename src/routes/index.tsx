@@ -107,7 +107,7 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 function Index() {
-  const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
+  const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.1);
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
   const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
   const isMobile = useIsMobile();

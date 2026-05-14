@@ -213,3 +213,34 @@
     min-height: 48px;
   }
 }
+
+/* Line reveal headings — each line wrapped in mask, slides up from below */
+.line-reveal { display: block; }
+.line-reveal .line-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1.05;
+  padding-bottom: 0.05em;
+}
+.line-reveal .line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.line-reveal.in .line-inner { transform: translateY(0); }
+
+/* Eyebrow that animates with a sibling LineReveal */
+.eyebrow-rise {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+.eyebrow-rise.in { opacity: 1; transform: none; }
+
+/* Breathing scale for CTA heading */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
+}
+.breathe { animation: breathe 4s ease-in-out infinite; transform-origin: center; }

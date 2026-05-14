@@ -4,6 +4,7 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { useReveal } from "@/hooks/use-reveal";
 
 import heroVideo from "@/assets/hero.mp4";
+import heroMobile from "@/assets/hero-mobile.png";
 import featured from "@/assets/villa-saltsjobad-n3.png";
 import about from "@/assets/team.png";
 import sTotal from "@/assets/s-total.png";

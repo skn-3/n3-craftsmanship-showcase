@@ -343,9 +343,9 @@ function Index() {
           <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
             <Reveal variant="right" delay={0.2}>
               <Eyebrow>Om N3</Eyebrow>
-              <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
-                Hantverk med<br />modern precision
-              </h2>
+              <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
+                {["Hantverk med", "modern precision"]}
+              </LineReveal>
               <div className="mt-6 space-y-5 text-[#555] leading-[1.7] text-[15px]">
                 <p>
                   N3 grundades med en enkel idé: att bygga som om det vore vårt eget hem. Vi kombinerar traditionellt hantverk med moderna material och metoder. Varje projekt börjar med att lyssna — och slutar med att överträffa förväntningar.

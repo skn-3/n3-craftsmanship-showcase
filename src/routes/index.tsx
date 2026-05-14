@@ -3,22 +3,24 @@ import { Nav } from "@/components/Nav";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useReveal } from "@/hooks/use-reveal";
 
-import hero from "@/assets/hero.jpg";
-import featured from "@/assets/featured.jpg";
-import about from "@/assets/about.jpg";
-import sTotal from "@/assets/s-total.jpg";
-import sBath from "@/assets/s-bath.jpg";
-import sKitchen from "@/assets/s-kitchen.jpg";
-import sRoof from "@/assets/s-roof.jpg";
-import sFacade from "@/assets/s-facade.jpg";
-import sTerrace from "@/assets/s-terrace.jpg";
-import sExtension from "@/assets/s-extension.jpg";
-import sWindows from "@/assets/s-windows.jpg";
+import heroVideo from "@/assets/hero.mp4";
+import featured from "@/assets/villa-saltsjobad-n3.png";
+import about from "@/assets/team.png";
+import sTotal from "@/assets/s-total.png";
+import sBath from "@/assets/s-bath.png";
+import sKitchen from "@/assets/s-kitchen.png";
+import sRoof from "@/assets/s-roof.png";
+import sFacade from "@/assets/s-facade.png";
+import sTerrace from "@/assets/s-terrace.png";
+import sExtension from "@/assets/s-extension.png";
+import sPainting from "@/assets/s-painting.png";
 import sInterior from "@/assets/s-interior.jpg";
-import before1 from "@/assets/before1.jpg";
-import after1 from "@/assets/after1.jpg";
-import before2 from "@/assets/before2.jpg";
-import after2 from "@/assets/after2.jpg";
+import baKitchenBefore from "@/assets/ba-kitchen-before.png";
+import baKitchenAfter from "@/assets/ba-kitchen-after.png";
+import baBathBefore from "@/assets/ba-bath-before.png";
+import baBathAfter from "@/assets/ba-bath-after.png";
+import baFacadeBefore from "@/assets/ba-facade-before.png";
+import baFacadeAfter from "@/assets/ba-facade-after.png";
 
 export const Route = createFileRoute("/")({
   component: Index,

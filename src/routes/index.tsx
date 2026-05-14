@@ -389,10 +389,10 @@ function Index() {
         </div>
       </section>
 
-      {/* CTA + FOOTER stacking reveal */}
+      {/* CTA + FOOTER */}
       <div className="relative">
       {/* CTA */}
-      <section ref={ctaRef} id="kontakt" className="relative bg-[var(--skog)] section-pad overflow-hidden lg:sticky lg:top-0 lg:z-[1]">
+      <section ref={ctaRef} id="kontakt" className="relative bg-[var(--skog)] section-pad overflow-hidden">
         <div
           className="absolute inset-0 -z-0"
           style={{

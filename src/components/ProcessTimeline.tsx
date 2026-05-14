@@ -18,7 +18,7 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
 /* ---------------- Desktop: simple scroll-fade cards ---------------- */
 function DesktopShowcase({ steps }: { steps: Step[] }) {
   return (
-    <div className="grid grid-cols-2 gap-x-12 gap-y-20 max-w-5xl mx-auto">
+    <div className="grid grid-cols-2 gap-8 max-w-5xl mx-auto">
       {steps.map((s, i) => {
         const Icon = ICONS[i] ?? Clipboard;
         return <FadeCard key={s.n} step={s} Icon={Icon} />;
@@ -43,29 +43,30 @@ function FadeCard({ step, Icon }: { step: Step; Icon: React.ElementType }) {
   return (
     <div
       ref={ref}
-      className="relative bg-white p-10 overflow-hidden"
+      className="relative bg-white overflow-hidden"
       style={{
         borderLeft: "3px solid #C4A97D",
         borderRadius: 12,
+        padding: 32,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
         transition: "opacity .8s ease-out, transform .8s ease-out",
-        minHeight: 280,
+        minHeight: 240,
       }}
     >
       <span
         aria-hidden
-        className="absolute -top-6 right-4 font-serif select-none pointer-events-none leading-none"
-        style={{ fontSize: 180, color: "rgba(196,169,125,0.10)" }}
+        className="absolute -top-4 right-3 font-serif select-none pointer-events-none leading-none"
+        style={{ fontSize: 120, color: "rgba(196,169,125,0.10)" }}
       >
         {step.n}
       </span>
       <div className="relative">
-        <Icon size={36} strokeWidth={1.1} style={{ color: "var(--tra)" }} />
-        <h3 className="mt-6 font-sans font-medium text-[22px] text-[var(--kol)]">
+        <Icon size={28} strokeWidth={1.2} style={{ color: "var(--tra)" }} />
+        <h3 className="mt-5 font-sans font-medium text-[18px] text-[var(--kol)]">
           {step.t}
         </h3>
-        <p className="mt-4 text-[15px] text-[#666] leading-relaxed max-w-md">
+        <p className="mt-3 text-[14px] text-[#666] leading-relaxed max-w-md">
           {step.d}
         </p>
       </div>

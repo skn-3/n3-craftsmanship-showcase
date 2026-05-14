@@ -164,6 +164,11 @@ function Index() {
           <img
             src={heroMobile}
             alt="N3 hem"
+            loading="eager"
+            // @ts-expect-error fetchpriority is valid
+            fetchpriority="high"
+            width={1080}
+            height={1920}
             className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
           />
           <video
@@ -172,6 +177,7 @@ function Index() {
             muted
             loop
             playsInline
+            preload="auto"
             className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
           />
           <div

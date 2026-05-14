@@ -118,13 +118,13 @@ export function ServicesScroll({ items }: { items: Service[] }) {
           ))}
         </div>
         <span className="text-[11px] tracking-widest uppercase text-[#999] tabular-nums md:order-1">
-          {active + 1} / {items.length}
+          {active + 1}/{items.length}
         </span>
         <button
           onClick={skip}
           className="min-h-[44px] text-[11px] tracking-widest uppercase text-[#999] hover:text-[var(--kol)] transition-colors md:order-3"
         >
-          Hoppa till nästa sektion ↓
+          HOPPA TILL NÄSTA SEKTION
         </button>
       </div>
     </div>

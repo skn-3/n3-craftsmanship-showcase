@@ -46,7 +46,7 @@ const services = [
   { img: sFacade, name: "Fasad", desc: "Fasadrenovering som ger ditt hem nytt liv." },
   { img: sTerrace, name: "Altan & Terrass", desc: "Uterum och altaner byggda för skandinaviskt klimat." },
   { img: sExtension, name: "Tillbyggnad", desc: "Mer utrymme, smart planerat och sömlöst integrerat." },
-  { img: sWindows, name: "Fönster & Dörrar", desc: "Energieffektiva fönster och dörrar med stil." },
+  { img: sPainting, name: "Målning & Tapetsering", desc: "Professionell målning och tapetsering som ger rummet ny karaktär." },
   { img: sInterior, name: "Inredning", desc: "Inredningshjälp som sätter pricken över i." },
 ];
 

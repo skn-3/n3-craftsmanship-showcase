@@ -123,7 +123,7 @@ function Index() {
           io.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0, rootMargin: "500px" }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -164,6 +164,11 @@ function Index() {
           <img
             src={heroMobile}
             alt="N3 hem"
+            loading="eager"
+            // @ts-expect-error fetchpriority is valid
+            fetchpriority="high"
+            width={1080}
+            height={1920}
             className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
           />
           <video
@@ -172,6 +177,7 @@ function Index() {
             muted
             loop
             playsInline
+            preload="auto"
             className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
           />
           <div
@@ -218,21 +224,22 @@ function Index() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="bg-white py-12">
+      <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 20 }}>
         <div className="container-x">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-60">
-            {trusts.map((t, i) => (
-              <Reveal
-                key={t}
-                variant="left"
-                delay={i * 0.1}
-                className="h-10 px-4 flex items-center justify-center bg-[var(--krita)] text-[11px] tracking-widest uppercase text-[#555]"
-              >
-                {t}
-              </Reveal>
-            ))}
-          </div>
-          <Reveal variant="fade" delay={0.6} className="text-center mt-6 text-[13px] text-[#888]">
+          <Reveal variant="fade" className="flex flex-wrap items-center justify-center text-center" >
+            <div
+              className="text-[#999] uppercase"
+              style={{ fontSize: 12, letterSpacing: "2px" }}
+            >
+              {trusts.map((t, i) => (
+                <span key={t}>
+                  {t}
+                  {i < trusts.length - 1 && <span className="mx-3 text-[#ccc]">|</span>}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal variant="fade" delay={0.2} className="text-center mt-3 text-[13px] text-[#888]">
             <span style={{ color: "var(--tra)" }}>★★★★★</span> 4.9 av 5 baserat på 47 omdömen
           </Reveal>
         </div>
@@ -250,6 +257,7 @@ function Index() {
             <ParallaxImage
               src={featured}
               alt="Villa Sandberg"
+              loading="eager"
               width={1200}
               height={1600}
               className="w-full h-full aspect-[3/4]"
@@ -340,8 +348,8 @@ function Index() {
       {/* ABOUT */}
       <section id="om" className="bg-white section-pad overflow-hidden">
         <div className="container-x">
-          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
-            <Reveal variant="right" delay={0.2}>
+          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center relative">
+            <Reveal variant="right" delay={0.2} className="relative z-[2] bg-white lg:pr-[60px]">
               <Eyebrow>Om N3</Eyebrow>
               <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
                 {["Hantverk med", "modern precision"]}
@@ -359,7 +367,7 @@ function Index() {
                 CO2 Kompenserad
               </Reveal>
             </Reveal>
-            <Reveal variant="fade" className="lg:order-last lg:-ml-[60px] relative">
+            <Reveal variant="fade" className="lg:order-last lg:-ml-[30px] relative z-[1]">
               <div
                 ref={aboutImgWrap}
                 className="tra-border in"

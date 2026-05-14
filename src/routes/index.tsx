@@ -247,19 +247,20 @@ function Index() {
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
           <div ref={featuredImgRef} className="lg:col-span-3 curtain">
-            <img
+            <ParallaxImage
               src={featured}
               alt="Villa Sandberg"
               width={1200}
               height={1600}
-              loading="lazy"
-              className="w-full h-full object-cover aspect-[3/4]"
+              className="w-full h-full aspect-[3/4]"
             />
           </div>
           <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
-              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
+              <LineReveal as="h2" className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">
+                {["Villa Sandberg"]}
+              </LineReveal>
               <p className="mt-2 text-[#999] font-light text-sm">Altan & Terrass · Saltsjöbaden</p>
               <p className="mt-6 text-white/75 leading-[1.7] text-[15px]">
                 En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.

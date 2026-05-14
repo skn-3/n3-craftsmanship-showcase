@@ -155,50 +155,57 @@ function Index() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <img
-          src={heroMobile}
-          alt="N3 hem"
-          className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
-        />
-        <video
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
-        />
+        <div className="absolute inset-0 hero-clip">
+          <img
+            src={heroMobile}
+            alt="N3 hem"
+            className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
+          />
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
+          />
+        </div>
         <div className="container-x relative z-10 py-32">
           <div className="max-w-3xl">
-            <div className="hero-rise" style={{ ["--d" as string]: "0.05s" } as React.CSSProperties}>
+            <div className="hero-rise" style={{ ["--d" as string]: `${heroBase}s` } as React.CSSProperties}>
               <Eyebrow light>Hantverkare sedan 2015</Eyebrow>
             </div>
             <h1
-              className="hero-rise font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]"
-              style={{ ["--d" as string]: "0.2s" } as React.CSSProperties}
+              className="word-rise font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]"
+              style={{ ["--base" as string]: `${heroBase + 0.1}s` } as React.CSSProperties}
             >
-              Vi skapar hem som<br />håller i generationer
+              {headingWords.map((w, i) => (
+                <span key={i} style={{ ["--i" as string]: i } as React.CSSProperties}>
+                  {w}
+                  {i < headingWords.length - 1 ? "\u00A0" : ""}
+                </span>
+              ))}
             </h1>
             <p
               className="hero-rise mt-6 text-white/80 font-light text-base md:text-lg max-w-[560px] leading-relaxed"
-              style={{ ["--d" as string]: "0.5s" } as React.CSSProperties}
+              style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.5}s` } as React.CSSProperties}
             >
               Totalrenoveringar, badrum, kök, tak och fasad — med skandinavisk precision och omtanke för varje detalj.
             </p>
             <div
               className="hero-rise mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
-              style={{ ["--d" as string]: "0.8s" } as React.CSSProperties}
+              style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.8}s` } as React.CSSProperties}
             >
               <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
               <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 text-white/60 animate-scroll-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 animate-scroll-bounce">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <polyline points="6 9 12 15 18 9" />
           </svg>

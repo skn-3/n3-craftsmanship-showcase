@@ -347,8 +347,8 @@ function Index() {
       {/* ABOUT */}
       <section id="om" className="bg-white section-pad overflow-hidden">
         <div className="container-x">
-          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
-            <Reveal variant="right" delay={0.2}>
+          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center relative">
+            <Reveal variant="right" delay={0.2} className="relative z-[2] bg-white lg:pr-[60px]">
               <Eyebrow>Om N3</Eyebrow>
               <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
                 {["Hantverk med", "modern precision"]}
@@ -366,7 +366,7 @@ function Index() {
                 CO2 Kompenserad
               </Reveal>
             </Reveal>
-            <Reveal variant="fade" className="lg:order-last lg:-ml-[60px] relative">
+            <Reveal variant="fade" className="lg:order-last lg:-ml-[30px] relative z-[1]">
               <div
                 ref={aboutImgWrap}
                 className="tra-border in"

@@ -159,6 +159,7 @@ function Index() {
       <SmoothScroll />
       <IntroOverlay />
       <Nav />
+      <MobileCTABar />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden">

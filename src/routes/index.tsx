@@ -265,7 +265,7 @@ function Index() {
               height={1600}
               className="w-full h-full aspect-[3/4]"
             />
-          </div>
+          </Reveal>
           <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>

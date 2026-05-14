@@ -313,44 +313,13 @@ function Index() {
       {/* PROCESS */}
       <section className="bg-[var(--krita)] section-pad">
         <div className="container-x">
-          <Reveal variant="up" className="max-w-2xl mb-16">
+          <div className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>
-            <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">
-              Från första samtal<br />till sista penseldrag
-            </h2>
-          </Reveal>
-
-          <div ref={processRef} className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-            {/* desktop horizontal track */}
-            <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-[var(--sand)]/40" />
-            <div
-              className="hidden md:block absolute top-12 left-[12.5%] h-px bg-[var(--tra)] origin-left"
-              style={{ right: "12.5%", transform: `scaleX(${processProgress})`, transition: "transform .2s ease-out" }}
-            />
-            {/* mobile vertical track */}
-            <div className="md:hidden absolute top-0 bottom-0 left-3 w-px bg-[var(--sand)]/40" />
-            <div
-              className="md:hidden absolute top-0 left-3 w-px bg-[var(--tra)] origin-top"
-              style={{ height: "100%", transform: `scaleY(${processProgress})`, transition: "transform .2s ease-out" }}
-            />
-            {steps.map((s, i) => (
-              <Reveal key={s.n} variant="left" delay={i * 0.12} className="relative md:pl-0 pl-10">
-                <div
-                  className="font-serif text-[48px] leading-none origin-left"
-                  style={{
-                    color: "var(--tra)",
-                    opacity: 0.55,
-                    animation: "hero-rise .6s ease-out forwards",
-                    animationDelay: `${i * 0.12 + 0.1}s`,
-                  }}
-                >
-                  {s.n}
-                </div>
-                <h3 className="mt-4 font-sans font-medium text-[16px] text-[var(--kol)]">{s.t}</h3>
-                <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.d}</p>
-              </Reveal>
-            ))}
+            <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">
+              {["Från första samtal", "till sista penseldrag"]}
+            </LineReveal>
           </div>
+          <ProcessTimeline steps={steps} />
         </div>
       </section>
 

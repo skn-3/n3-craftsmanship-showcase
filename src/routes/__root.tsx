@@ -118,6 +118,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <LoadingScreen />
+      <ScrollProgress />
+      <CustomCursor />
+      <MagneticButtons />
       <Outlet />
     </QueryClientProvider>
   );

@@ -4,6 +4,7 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { useReveal } from "@/hooks/use-reveal";
 
 import heroVideo from "@/assets/hero.mp4";
+import heroMobile from "@/assets/hero-mobile.png";
 import featured from "@/assets/villa-saltsjobad-n3.png";
 import about from "@/assets/team.png";
 import sTotal from "@/assets/s-total.png";
@@ -89,13 +90,18 @@ function Index() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center">
+        <img
+          src={heroMobile}
+          alt="N3 hem"
+          className="md:hidden absolute inset-0 w-full h-full object-cover object-center"
+        />
         <video
           src={heroVideo}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="hidden md:block absolute inset-0 w-full h-full object-cover"
         />
         <div
           className="absolute inset-0"
@@ -104,15 +110,15 @@ function Index() {
         <div ref={r1} className="reveal in container-x relative z-10 py-32">
           <div className="max-w-3xl">
             <Eyebrow light>Hantverkare sedan 2015</Eyebrow>
-            <h1 className="font-serif text-white mt-6 leading-[1.05] text-[36px] md:text-[56px] lg:text-[64px]">
+            <h1 className="font-serif text-white mt-6 leading-[1.05] text-[32px] md:text-[56px] lg:text-[64px]">
               Vi skapar hem som<br />håller i generationer
             </h1>
             <p className="mt-6 text-white/80 font-light text-base md:text-lg max-w-[560px] leading-relaxed">
               Totalrenoveringar, badrum, kök, tak och fasad — med skandinavisk precision och omtanke för varje detalj.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#projekt" className="btn-primary">Se våra projekt</a>
-              <a href="#kontakt" className="btn-outline-light">Boka kostnadsfritt möte</a>
+            <div className="mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
+              <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
+              <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
             </div>
           </div>
         </div>

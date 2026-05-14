@@ -234,46 +234,14 @@ function Index() {
       </section>
 
       {/* SERVICES */}
-      <section id="tjanster" className="bg-[var(--krita)] section-pad">
-        <div className="container-x">
-          <Reveal variant="up" className="max-w-2xl mb-14">
-            <Eyebrow>Våra tjänster</Eyebrow>
-            <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">Allt under ett tak</h2>
-            <p className="mt-4 text-[#666] font-light text-base max-w-[480px]">
-              Från idé till inflyttning — vi tar hand om hela processen.
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <Reveal key={s.name} variant="up" delay={i * 0.1}>
-                <article className="group cursor-pointer service-card bg-white">
-                  <div className="overflow-hidden">
-                    <img
-                      src={s.img}
-                      alt={s.name}
-                      width={800}
-                      height={600}
-                      loading="lazy"
-                      className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-sans font-medium text-[16px] text-[var(--kol)]">{s.name}</h3>
-                    <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.desc}</p>
-                    <span className="inline-block mt-3 text-[13px] font-medium text-[var(--skog)]">Läs mer →</span>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+      <section id="tjanster" className="bg-[var(--krita)] py-20 md:py-0">
+        <ServicesScroll items={services} />
       </section>
 
       {/* FEATURED PROJECT */}
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
-          <Reveal variant="left" className="lg:col-span-3">
+          <div ref={featuredImgRef} className="lg:col-span-3 curtain">
             <img
               src={featured}
               alt="Villa Sandberg"
@@ -282,8 +250,8 @@ function Index() {
               loading="lazy"
               className="w-full h-full object-cover aspect-[3/4]"
             />
-          </Reveal>
-          <Reveal variant="right" delay={0.2} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
+          </div>
+          <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
               <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
@@ -294,13 +262,13 @@ function Index() {
               <div className="mt-8 flex gap-8 text-white">
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    6
+                    <CountUp to={6} />
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Veckor</div>
                 </div>
                 <div>
                   <div className="font-serif text-[36px] leading-none" style={{ color: "var(--tra)" }}>
-                    48
+                    <CountUp to={48} />
                   </div>
                   <div className="text-[11px] tracking-widest uppercase text-white/60 mt-1">Kvm</div>
                 </div>

@@ -64,6 +64,7 @@ export function BeforeAfter({ before, after, alt }: Props) {
   return (
     <div
       ref={ref}
+      data-cursor="slider"
       className="relative w-full overflow-hidden select-none md:cursor-col-resize"
       style={{ aspectRatio: "4/3", touchAction: "pan-y" }}
       onMouseDown={(e) => {

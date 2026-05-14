@@ -80,11 +80,13 @@ export function CustomCursor() {
       <div
         ref={ring}
         aria-hidden
-        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-[#1A1F1E] flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full flex items-center justify-center"
         style={{
           width: ringSize,
           height: ringSize,
           background: ringBg,
+          border: "0.5px solid #1A1F1E",
+          opacity: 0.5,
           transition: "width .25s cubic-bezier(.2,.7,.2,1), height .25s cubic-bezier(.2,.7,.2,1), background .25s ease",
           willChange: "transform, width, height",
           mixBlendMode: mode === "image" ? "difference" : "normal",

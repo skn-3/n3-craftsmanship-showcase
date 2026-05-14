@@ -5,7 +5,12 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
 import { ServicesScroll } from "@/components/ServicesScroll";
-import { useCountUp, useParallax, useScrollProgress } from "@/hooks/use-reveal";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { ParallaxImage } from "@/components/ParallaxImage";
+import { LineReveal } from "@/components/LineReveal";
+import { TestimonialsStack } from "@/components/TestimonialsStack";
+import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import heroVideo from "@/assets/hero.mp4";
@@ -102,8 +107,7 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 function Index() {
-  const [processProgress, processRef] = useScrollProgress<HTMLDivElement>();
-  const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.5);
+  const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.1);
   const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
   const isMobile = useIsMobile();
 
@@ -150,6 +154,7 @@ function Index() {
 
   return (
     <div id="top">
+      <SmoothScroll />
       <IntroOverlay />
       <Nav />
 
@@ -242,19 +247,20 @@ function Index() {
       <section id="projekt" className="bg-[var(--kol)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
           <div ref={featuredImgRef} className="lg:col-span-3 curtain">
-            <img
+            <ParallaxImage
               src={featured}
               alt="Villa Sandberg"
               width={1200}
               height={1600}
-              loading="lazy"
-              className="w-full h-full object-cover aspect-[3/4]"
+              className="w-full h-full aspect-[3/4]"
             />
           </div>
           <Reveal variant="right" delay={0.3} className="lg:col-span-2 flex items-center px-6 md:px-12 py-16 lg:py-0">
             <div>
               <Eyebrow light>Utvalt projekt</Eyebrow>
-              <h2 className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">Villa Sandberg</h2>
+              <LineReveal as="h2" className="mt-4 text-white text-[32px] md:text-[36px] leading-tight">
+                {["Villa Sandberg"]}
+              </LineReveal>
               <p className="mt-2 text-[#999] font-light text-sm">Altan & Terrass · Saltsjöbaden</p>
               <p className="mt-6 text-white/75 leading-[1.7] text-[15px]">
                 En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.
@@ -308,65 +314,26 @@ function Index() {
       {/* PROCESS */}
       <section className="bg-[var(--krita)] section-pad">
         <div className="container-x">
-          <Reveal variant="up" className="max-w-2xl mb-16">
+          <div className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>
-            <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">
-              Från första samtal<br />till sista penseldrag
-            </h2>
-          </Reveal>
-
-          <div ref={processRef} className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-            {/* desktop horizontal track */}
-            <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-[var(--sand)]/40" />
-            <div
-              className="hidden md:block absolute top-12 left-[12.5%] h-px bg-[var(--tra)] origin-left"
-              style={{ right: "12.5%", transform: `scaleX(${processProgress})`, transition: "transform .2s ease-out" }}
-            />
-            {/* mobile vertical track */}
-            <div className="md:hidden absolute top-0 bottom-0 left-3 w-px bg-[var(--sand)]/40" />
-            <div
-              className="md:hidden absolute top-0 left-3 w-px bg-[var(--tra)] origin-top"
-              style={{ height: "100%", transform: `scaleY(${processProgress})`, transition: "transform .2s ease-out" }}
-            />
-            {steps.map((s, i) => (
-              <Reveal key={s.n} variant="left" delay={i * 0.12} className="relative md:pl-0 pl-10">
-                <div
-                  className="font-serif text-[48px] leading-none origin-left"
-                  style={{
-                    color: "var(--tra)",
-                    opacity: 0.55,
-                    animation: "hero-rise .6s ease-out forwards",
-                    animationDelay: `${i * 0.12 + 0.1}s`,
-                  }}
-                >
-                  {s.n}
-                </div>
-                <h3 className="mt-4 font-sans font-medium text-[16px] text-[var(--kol)]">{s.t}</h3>
-                <p className="mt-2 text-[14px] text-[#777] leading-relaxed">{s.d}</p>
-              </Reveal>
-            ))}
+            <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">
+              {["Från första samtal", "till sista penseldrag"]}
+            </LineReveal>
           </div>
+          <ProcessTimeline steps={steps} />
         </div>
       </section>
 
       {/* TESTIMONIALS */}
       <section className="bg-[var(--kol)] section-pad">
+        <div className="container-x mb-14">
+          <Eyebrow light>Kundröster</Eyebrow>
+          <LineReveal as="h2" className="mt-4 text-white text-[32px] md:text-[36px]">
+            {["Vad våra kunder säger"]}
+          </LineReveal>
+        </div>
         <div className="container-x">
-          <Reveal variant="up" className="mb-14">
-            <Eyebrow light>Kundröster</Eyebrow>
-            <h2 className="mt-4 text-white text-[32px] md:text-[36px]">Vad våra kunder säger</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.a} variant="up" delay={i * 0.15} className="border-l-2 pl-6" style={{ borderColor: "var(--tra)" }}>
-                <Stars />
-                <p className="font-serif italic text-[18px] text-white/90 leading-[1.6]">
-                  “{t.q}”
-                </p>
-                <p className="mt-6 text-[13px] text-[#999]">— {t.a}</p>
-              </Reveal>
-            ))}
-          </div>
+          <TestimonialsStack items={testimonials} />
         </div>
       </section>
 
@@ -376,9 +343,9 @@ function Index() {
           <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
             <Reveal variant="right" delay={0.2}>
               <Eyebrow>Om N3</Eyebrow>
-              <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
-                Hantverk med<br />modern precision
-              </h2>
+              <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[36px] leading-tight">
+                {["Hantverk med", "modern precision"]}
+              </LineReveal>
               <div className="mt-6 space-y-5 text-[#555] leading-[1.7] text-[15px]">
                 <p>
                   N3 grundades med en enkel idé: att bygga som om det vore vårt eget hem. Vi kombinerar traditionellt hantverk med moderna material och metoder. Varje projekt börjar med att lyssna — och slutar med att överträffa förväntningar.
@@ -402,13 +369,12 @@ function Index() {
                   willChange: "transform",
                 }}
               >
-                <img
+                <ParallaxImage
                   src={about}
                   alt="Hantverkare i arbete"
                   width={1200}
                   height={1500}
-                  loading="lazy"
-                  className="w-full aspect-[4/5] object-cover"
+                  className="w-full aspect-[4/5]"
                 />
               </div>
             </Reveal>
@@ -429,7 +395,7 @@ function Index() {
         />
         <div className="container-x text-center relative">
           <Reveal variant="up">
-            <h2 className="font-serif text-white text-[32px] md:text-[36px]">
+            <h2 className="font-serif text-white text-[32px] md:text-[36px] breathe">
               Redo att förverkliga ditt projekt?
             </h2>
           </Reveal>

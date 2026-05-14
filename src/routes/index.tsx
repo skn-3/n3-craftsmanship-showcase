@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
-import { BeforeAfter } from "@/components/BeforeAfter";
+
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
 import { ServicesScroll } from "@/components/ServicesScroll";
@@ -10,6 +10,7 @@ import { ParallaxImage } from "@/components/ParallaxImage";
 import { LineReveal } from "@/components/LineReveal";
 import { TestimonialsStack } from "@/components/TestimonialsStack";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { BeforeAfterRow } from "@/components/BeforeAfterRow";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -228,7 +229,7 @@ function Index() {
         <div className="container-x">
           <Reveal variant="fade" className="flex flex-wrap items-center justify-center text-center" >
             <div
-              className="text-[#999] uppercase"
+              className="trust-badges text-[#999] uppercase"
               style={{ fontSize: 12, letterSpacing: "2px" }}
             >
               {trusts.map((t, i) => (
@@ -304,23 +305,21 @@ function Index() {
             <Eyebrow>Resultat</Eyebrow>
             <h2 className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px]">Före & efter</h2>
           </Reveal>
-          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0">
-            {[
+          <BeforeAfterRow
+            items={[
               { before: baKitchenBefore, after: baKitchenAfter, alt: "Kök", label: "Köksrenovering · Bromma" },
               { before: baBathBefore, after: baBathAfter, alt: "Badrum", label: "Badrumsrenovering · Nacka" },
               { before: baFacadeBefore, after: baFacadeAfter, alt: "Fasad", label: "Fasadrenovering · Täby" },
-            ].map((item, i) => (
-              <Reveal key={item.label} variant="up" delay={i * 0.12} className="snap-start shrink-0 w-[85%] md:w-auto">
-                <BeforeAfter before={item.before} after={item.after} alt={item.alt} />
-                <p className="mt-4 font-medium text-[var(--kol)]">{item.label}</p>
-              </Reveal>
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
 
       {/* PROCESS */}
-      <section className="bg-[var(--krita)] section-pad">
+      <section
+        className="section-pad"
+        style={{ background: "linear-gradient(to bottom, #F5F2ED, #FFFFFF)" }}
+      >
         <div className="container-x">
           <div className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>

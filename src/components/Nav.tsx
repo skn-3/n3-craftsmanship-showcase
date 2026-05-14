@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useScrolled } from "@/hooks/use-reveal";
+import { useNavScroll } from "@/hooks/use-reveal";
 
 const links = [
   { href: "#tjanster", label: "Tjänster" },
@@ -9,15 +9,15 @@ const links = [
 ];
 
 export function Nav() {
-  const scrolled = useScrolled(40);
+  const { scrolled, hidden } = useNavScroll();
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || open ? "bg-[var(--kol)]/95 backdrop-blur" : "bg-transparent"
-        }`}
+          scrolled || open ? "bg-[#1A1F1E]/95 backdrop-blur-md" : "bg-transparent"
+        } ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}
       >
         <div className="container-x flex items-center justify-between h-16 md:h-20">
           <a href="#top" className="font-serif text-white text-[28px] leading-none">N3</a>

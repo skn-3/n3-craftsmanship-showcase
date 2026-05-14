@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Clipboard, PencilRuler, Hammer, Key } from "lucide-react";
 
 type Step = { n: string; t: string; d: string };
+
+const ICONS = [Clipboard, PencilRuler, Hammer, Key];
 
 export function ProcessTimeline({ steps }: { steps: Step[] }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -13,9 +16,8 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
     const update = () => {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // start at top entering 80% vh, end at bottom leaving 20% vh
-      const start = vh * 0.8;
-      const end = -r.height + vh * 0.2;
+      const start = vh * 0.85;
+      const end = -r.height + vh * 0.25;
       const range = start - end;
       const passed = start - r.top;
       setProgress(Math.max(0, Math.min(1, passed / range)));
@@ -35,88 +37,67 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
     };
   }, []);
 
-  const n = steps.length;
-
   return (
-    <div ref={wrap} className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-      {/* desktop horizontal track */}
-      <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-[var(--sand)]/40" />
-      <div
-        className="hidden md:block absolute top-12 left-[12.5%] h-px bg-[var(--tra)] origin-left"
-        style={{
-          right: "12.5%",
-          transform: `scaleX(${progress})`,
-          transition: "transform .15s linear",
-          willChange: "transform",
-        }}
-      />
-      {/* mobile vertical track */}
-      <div className="md:hidden absolute top-0 bottom-0 left-3 w-px bg-[var(--sand)]/40" />
-      <div
-        className="md:hidden absolute top-0 left-3 w-px bg-[var(--tra)] origin-top"
-        style={{
-          height: "100%",
-          transform: `scaleY(${progress})`,
-          transition: "transform .15s linear",
-          willChange: "transform",
-        }}
-      />
-      {steps.map((s, i) => {
-        // Each step activates when progress passes its threshold
-        const threshold = (i + 0.3) / n;
-        const active = progress >= threshold;
-        return (
-          <div key={s.n} className="relative md:pl-0 pl-10">
+    <div ref={wrap} className="relative">
+      {/* desktop progress bar */}
+      <div className="hidden md:block relative mb-12 h-px bg-[var(--sand)]/40">
+        <div
+          className="absolute left-0 top-0 h-px bg-[var(--tra)] origin-left"
+          style={{
+            width: "100%",
+            transform: `scaleX(${progress})`,
+            transition: "transform .15s linear",
+            willChange: "transform",
+          }}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {steps.map((s, i) => {
+          const Icon = ICONS[i] ?? Clipboard;
+          const cardBg = i % 2 === 0 ? "#FFFFFF" : "#F5F2ED";
+          // Per-card fill for mobile left border
+          const segStart = i / steps.length;
+          const segEnd = (i + 1) / steps.length;
+          const localProg = Math.max(0, Math.min(1, (progress - segStart) / (segEnd - segStart)));
+          return (
             <div
-              className="md:hidden absolute left-0 top-2 w-6 h-6 rounded-full"
-              style={{
-                background: active ? "var(--tra)" : "var(--sand)",
-                transform: `scale(${active ? 1 : 0.6})`,
-                transition: "transform .4s cubic-bezier(.2,.7,.2,1), background-color .4s ease",
-              }}
-            />
-            <div
-              className="hidden md:block absolute top-9 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full"
-              style={{
-                background: active ? "var(--tra)" : "var(--sand)",
-                transform: `translateX(-50%) scale(${active ? 1 : 0.4})`,
-                transition: "transform .4s cubic-bezier(.2,.7,.2,1), background-color .4s ease",
-              }}
-            />
-            <div
-              className="font-serif text-[48px] leading-none origin-left mt-12 md:mt-20"
-              style={{
-                color: "var(--tra)",
-                opacity: active ? 0.55 : 0.15,
-                transform: active ? "translateX(0)" : "translateX(-20px)",
-                transition: "opacity .5s ease-out, transform .6s cubic-bezier(.2,.7,.2,1)",
-              }}
+              key={s.n}
+              className="relative overflow-hidden p-8 md:p-10"
+              style={{ background: cardBg, minHeight: 280 }}
             >
-              {s.n}
+              {/* mobile left border fill */}
+              <div className="md:hidden absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--sand)]/30" />
+              <div
+                className="md:hidden absolute left-0 top-0 w-[3px] bg-[var(--tra)] origin-top"
+                style={{
+                  height: "100%",
+                  transform: `scaleY(${localProg})`,
+                  transition: "transform .2s linear",
+                }}
+              />
+              {/* big background number */}
+              <span
+                aria-hidden
+                className="absolute -top-4 right-2 font-serif select-none pointer-events-none leading-none"
+                style={{
+                  fontSize: 120,
+                  color: "rgba(196,169,125,0.10)",
+                }}
+              >
+                {s.n}
+              </span>
+              <div className="relative">
+                <Icon size={28} strokeWidth={1.25} style={{ color: "var(--tra)" }} />
+                <h3 className="mt-5 font-sans font-medium text-[17px] text-[var(--kol)]">
+                  {s.t}
+                </h3>
+                <p className="mt-3 text-[14px] text-[#777] leading-relaxed">{s.d}</p>
+              </div>
             </div>
-            <h3
-              className="mt-4 font-sans font-medium text-[16px] text-[var(--kol)]"
-              style={{
-                opacity: active ? 1 : 0,
-                transform: active ? "translateX(0)" : "translateX(-20px)",
-                transition: "opacity .6s ease-out .1s, transform .6s cubic-bezier(.2,.7,.2,1) .1s",
-              }}
-            >
-              {s.t}
-            </h3>
-            <p
-              className="mt-2 text-[14px] text-[#777] leading-relaxed"
-              style={{
-                opacity: active ? 1 : 0,
-                transform: active ? "translateX(0)" : "translateX(-20px)",
-                transition: "opacity .6s ease-out .2s, transform .6s cubic-bezier(.2,.7,.2,1) .2s",
-              }}
-            >
-              {s.d}
-            </p>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

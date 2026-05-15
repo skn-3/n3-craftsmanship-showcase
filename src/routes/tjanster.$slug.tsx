@@ -120,7 +120,7 @@ function ServicePage() {
               <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Vad ingår</h2>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mt-14">
-              {service.scope.map((item, i) => {
+              {service.scope.map((item: { title: string; desc: string }, i: number) => {
                 const Icon = SCOPE_ICONS[i % SCOPE_ICONS.length];
                 return (
                   <Reveal key={item.title} variant="up" delay={i * 0.05}>

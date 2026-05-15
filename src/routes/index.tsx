@@ -319,10 +319,10 @@ function Index() {
 
       {/* PROCESS */}
       <section
-        className="section-pad"
-        style={{ background: "linear-gradient(to bottom, #F5F2ED, #FFFFFF)" }}
+        className="process-section section-pad"
+        style={{ background: "linear-gradient(to bottom, #F5F2ED, #FFFFFF)", overflow: "visible" }}
       >
-        <div className="container-x">
+        <div className="container-x" style={{ overflow: "visible" }}>
           <div className="max-w-2xl mb-16">
             <Eyebrow>Så jobbar vi</Eyebrow>
             <LineReveal as="h2" className="mt-4 text-[var(--kol)] text-[32px] md:text-[40px] leading-tight">

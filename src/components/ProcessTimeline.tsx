@@ -58,22 +58,10 @@ function Desktop({ steps }: { steps: Step[] }) {
   return (
     <div
       ref={sectionRef}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 64,
-        alignItems: "start",
-      }}
+      className="process-grid"
     >
       {/* LEFT — sticky image */}
-      <div
-        style={{
-          position: "sticky",
-          top: 100,
-          alignSelf: "start",
-          height: "fit-content",
-        }}
-      >
+      <div className="process-image-column">
         <div
           className="relative w-full overflow-hidden"
           style={{ aspectRatio: "3 / 4", borderRadius: 12 }}
@@ -96,7 +84,7 @@ function Desktop({ steps }: { steps: Step[] }) {
       </div>
 
       {/* RIGHT — steps with vertical progress line */}
-      <div className="relative" style={{ paddingLeft: 24 }}>
+      <div className="process-steps-column relative" style={{ paddingLeft: 24 }}>
         {/* track */}
         <div
           aria-hidden
@@ -169,6 +157,7 @@ function StepBlock({
   return (
     <div
       ref={ref}
+      className="process-step"
       style={{
         position: "relative",
         padding: "40px 0",

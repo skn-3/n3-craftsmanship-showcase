@@ -1,4 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { findProject, projects } from "@/lib/site-data";
 

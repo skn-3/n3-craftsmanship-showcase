@@ -134,6 +134,27 @@
 
   .section-pad { padding-top: 80px; padding-bottom: 80px; }
   @media (min-width: 768px) { .section-pad { padding-top: 120px; padding-bottom: 120px; } }
+
+  .process-section,
+  .process-section .container-x,
+  .process-grid,
+  .process-steps-column {
+    overflow: visible;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .process-image-column {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    align-self: start;
+  }
 }
 
 @keyframes scroll-bounce {

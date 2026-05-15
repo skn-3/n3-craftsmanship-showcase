@@ -59,24 +59,9 @@ function Desktop({ steps }: { steps: Step[] }) {
     <div
       ref={sectionRef}
       className="process-grid"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 48,
-        alignItems: "start",
-        overflow: "visible",
-      }}
     >
       {/* LEFT — sticky image */}
-      <div
-        className="process-image-column"
-        style={{
-          position: "sticky",
-          top: 100,
-          height: "fit-content",
-          alignSelf: "start",
-        }}
-      >
+      <div className="process-image-column">
         <div
           className="relative w-full overflow-hidden"
           style={{ aspectRatio: "3 / 4", borderRadius: 12 }}

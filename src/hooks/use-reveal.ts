@@ -71,9 +71,22 @@ export function useCountUp<T extends HTMLElement = HTMLSpanElement>(target: numb
           io.disconnect();
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
     );
     io.observe(el);
+    // Fallback: if already in view on mount, ensure animation kicks off
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      const start = performance.now();
+      const tick = (t: number) => {
+        const p = Math.min(1, (t - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setVal(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      io.disconnect();
+    }
     return () => io.disconnect();
   }, [target, duration]);
   return [val, ref] as const;

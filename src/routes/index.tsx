@@ -10,6 +10,7 @@ import { LineReveal } from "@/components/LineReveal";
 import { TestimonialsStack } from "@/components/TestimonialsStack";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { BeforeAfterRow } from "@/components/BeforeAfterRow";
+import { SeasonalBanner } from "@/components/SeasonalBanner";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { services } from "@/lib/site-data";
@@ -190,8 +191,17 @@ function Index() {
               className="hero-rise mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
               style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.8}s` } as React.CSSProperties}
             >
-              <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
-              <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
+              <Link to="/projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</Link>
+              <Link to="/kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</Link>
+            </div>
+            <div
+              className="hero-rise mt-5 text-[13px]"
+              style={{
+                color: "rgba(255,255,255,0.7)",
+                ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 1.0}s`,
+              } as React.CSSProperties}
+            >
+              <span style={{ color: "var(--tra)" }}>★★★★★</span> Betrodd av 120+ familjer i Stockholm
             </div>
           </div>
         </div>
@@ -201,6 +211,8 @@ function Index() {
           </svg>
         </div>
       </section>
+
+      <SeasonalBanner />
 
       {/* TRUST BAR */}
       <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 20 }}>
@@ -390,12 +402,17 @@ function Index() {
             <p className="mt-4 text-white/80 font-light max-w-xl mx-auto">
               Boka ett kostnadsfritt hembesök — vi lyssnar, mäter och återkommer med en detaljerad offert.
             </p>
+            <p className="mt-2 text-white/60 max-w-xl mx-auto" style={{ fontSize: 14 }}>
+              Över 120 genomförda projekt · 4.9 av 5 i kundbetyg
+            </p>
           </Reveal>
           <Reveal variant="up" delay={0.3} className="mt-8">
-            <a href="tel:+4681234567" className="btn-light">Boka möte</a>
+            <Link to="/kontakt" className="btn-light">Boka möte</Link>
           </Reveal>
           <Reveal variant="fade" delay={0.5}>
-            <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-123 45 67</p>
+            <p className="mt-6 text-white/60 text-sm">
+              Eller ring oss: <a href="tel:+4681234567" className="underline hover:text-white">08-123 45 67</a>
+            </p>
           </Reveal>
         </div>
       </section>

@@ -16,6 +16,7 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { MobileCTABar } from "@/components/MobileCTABar";
+import { ExitIntentCTA } from "@/components/ExitIntentCTA";
 import { PageTransition } from "@/components/PageTransition";
 
 function NotFoundComponent() {
@@ -128,6 +129,7 @@ function RootComponent() {
       <MagneticButtons />
       <Nav />
       <MobileCTABar />
+      <ExitIntentCTA />
       <PageTransition>
         <Outlet />
       </PageTransition>

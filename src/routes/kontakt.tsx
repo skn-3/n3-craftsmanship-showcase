@@ -152,6 +152,9 @@ function ContactPage() {
                   >
                     Skicka förfrågan
                   </button>
+                  <p className="text-center text-[13px] text-[#666] -mt-2">
+                    ⚡ Svar inom 24 timmar · Kostnadsfritt &amp; utan förpliktelser
+                  </p>
                 </form>
               </>
             )}

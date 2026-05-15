@@ -129,6 +129,7 @@ function RootComponent() {
       <MagneticButtons />
       <Nav />
       <MobileCTABar />
+      <ExitIntentCTA />
       <PageTransition>
         <Outlet />
       </PageTransition>

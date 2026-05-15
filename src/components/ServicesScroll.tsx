@@ -27,6 +27,7 @@ export function ServicesScroll({ items }: { items: Service[] }) {
   const list = order.length === 9 ? order : items.map((s, i) => ({ ...s, idx: i }));
 
   const [r1a, r1b, r2a, r2b, r2c, feat, r4a, r4b, r4c] = list;
+  const isMobile = useIsMobile();
 
   let n = 0;
   const next = () => n++;

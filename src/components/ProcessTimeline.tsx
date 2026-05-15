@@ -14,10 +14,12 @@ export function ProcessTimeline({ steps }: { steps: Step[] }) {
   return isMobile ? <Mobile steps={steps} /> : <Desktop steps={steps} />;
 }
 
-/* ---------- Desktop: sticky image left, scrolling steps right ---------- */
+/* ---------- Desktop: sticky image left, steps right ---------- */
 function Desktop({ steps }: { steps: Step[] }) {
   const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,6 +37,14 @@ function Desktop({ steps }: { steps: Step[] }) {
         }
       });
       setActive(bestIdx);
+
+      const sec = sectionRef.current;
+      if (sec) {
+        const r = sec.getBoundingClientRect();
+        const total = r.height - window.innerHeight;
+        const passed = Math.min(Math.max(-r.top, 0), Math.max(total, 1));
+        setProgress(total > 0 ? passed / total : 0);
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -46,7 +56,7 @@ function Desktop({ steps }: { steps: Step[] }) {
   }, [steps.length]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
       {/* LEFT — sticky image */}
       <div className="lg:sticky lg:top-[120px] self-start">
         <div
@@ -62,22 +72,47 @@ function Desktop({ steps }: { steps: Step[] }) {
               className="absolute inset-0 w-full h-full object-cover"
               style={{
                 opacity: active === i ? 1 : 0,
-                transition: "opacity .5s ease",
+                transform: active === i ? "scale(1)" : "scale(1.03)",
+                transition: "opacity .6s ease-out, transform .6s ease-out",
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* RIGHT — steps */}
-      <div>
+      {/* RIGHT — steps with vertical progress line */}
+      <div className="relative" style={{ paddingLeft: 24 }}>
+        {/* track */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 2,
+            background: "#E8E3DA",
+          }}
+        />
+        {/* fill */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: 2,
+            height: `${Math.round(progress * 100)}%`,
+            background: "#C4A97D",
+            transition: "height .15s linear",
+          }}
+        />
         {steps.map((s, i) => (
           <StepBlock
             key={s.n}
             step={s}
             i={i}
             active={active === i}
-            isLast={i === steps.length - 1}
             registerRef={(el) => (stepRefs.current[i] = el)}
           />
         ))}
@@ -90,13 +125,11 @@ function StepBlock({
   step,
   i,
   active,
-  isLast,
   registerRef,
 }: {
   step: Step;
   i: number;
   active: boolean;
-  isLast: boolean;
   registerRef: (el: HTMLDivElement | null) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -122,49 +155,72 @@ function StepBlock({
     <div
       ref={ref}
       style={{
-        paddingTop: i === 0 ? 0 : 80,
-        paddingBottom: 80,
-        borderBottom: isLast ? "none" : "1px solid #E8E3DA",
-        opacity: visible ? (active ? 1 : 0.3) : 0,
-        transform: visible ? "translateY(0)" : "translateY(20px)",
+        position: "relative",
+        padding: "40px 0",
+        opacity: visible ? (active ? 1 : 0.25) : 0,
         transition: "opacity .5s ease, transform .8s ease",
+        transform: visible ? "translateY(0)" : "translateY(20px)",
       }}
     >
+      {/* active accent bar */}
       <div
-        className="font-serif leading-none"
-        style={{ fontSize: 64, color: "#C4A97D" }}
+        aria-hidden
+        style={{
+          position: "absolute",
+          left: -24,
+          top: 40,
+          width: 3,
+          height: active ? "calc(100% - 80px)" : 0,
+          background: "#C4A97D",
+          transition: "height .5s ease",
+        }}
+      />
+      <div
+        style={{
+          transform: active ? "translateX(-8px)" : "translateX(0)",
+          transition: "transform .5s ease",
+        }}
       >
-        {step.n}
+        <div
+          className="font-serif leading-none"
+          style={{
+            fontSize: 64,
+            color: active ? "rgba(196,169,125,1)" : "rgba(196,169,125,0.3)",
+            transition: "color .5s ease",
+          }}
+        >
+          {step.n}
+        </div>
+        <h3
+          className="font-sans"
+          style={{
+            fontWeight: 500,
+            fontSize: 24,
+            color: "#1A1F1E",
+            marginTop: 12,
+          }}
+        >
+          {step.t}
+        </h3>
+        <p
+          className="font-sans"
+          style={{
+            fontWeight: 400,
+            fontSize: 16,
+            color: "#666",
+            marginTop: 8,
+            maxWidth: 400,
+            lineHeight: 1.6,
+          }}
+        >
+          {step.d}
+        </p>
       </div>
-      <h3
-        className="font-sans"
-        style={{
-          fontWeight: 500,
-          fontSize: 24,
-          color: "#1A1F1E",
-          marginTop: 12,
-        }}
-      >
-        {step.t}
-      </h3>
-      <p
-        className="font-sans"
-        style={{
-          fontWeight: 400,
-          fontSize: 16,
-          color: "#666",
-          marginTop: 8,
-          maxWidth: 400,
-          lineHeight: 1.6,
-        }}
-      >
-        {step.d}
-      </p>
     </div>
   );
 }
 
-/* ---------- Mobile: image on top of each step card ---------- */
+/* ---------- Mobile ---------- */
 function Mobile({ steps }: { steps: Step[] }) {
   return (
     <div className="space-y-6">

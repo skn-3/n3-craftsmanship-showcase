@@ -112,7 +112,7 @@ function ContactPage() {
                     <textarea
                       name="meddelande"
                       rows={4}
-                      className="w-full bg-transparent text-[15px] text-[var(--kol)] resize-none outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors"
+                      className="w-full bg-transparent text-[15px] text-[var(--kol)] resize-none outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors"
                       style={{ borderBottomWidth: 1, borderColor: "#d4cdbf" }}
                     />
                   </div>
@@ -256,7 +256,7 @@ function UnderlineField({
         type={type}
         name={name}
         required={required}
-        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors"
+        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors"
         style={{ borderBottomWidth: 1, borderColor: "#d4cdbf" }}
       />
     </div>
@@ -284,7 +284,7 @@ function UnderlineSelect({
         name={name}
         required={required}
         defaultValue=""
-        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors appearance-none cursor-pointer"
+        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors appearance-none cursor-pointer"
         style={{
           borderBottomWidth: 1,
           borderColor: "#d4cdbf",

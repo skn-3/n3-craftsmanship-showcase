@@ -9,38 +9,206 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TjansterRouteImport } from './routes/tjanster'
+import { Route as ProjektRouteImport } from './routes/projekt'
+import { Route as OmOssRouteImport } from './routes/om-oss'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TjansterSlugRouteImport } from './routes/tjanster.$slug'
+import { Route as ProjektSlugRouteImport } from './routes/projekt.$slug'
 
+const TjansterRoute = TjansterRouteImport.update({
+  id: '/tjanster',
+  path: '/tjanster',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjektRoute = ProjektRouteImport.update({
+  id: '/projekt',
+  path: '/projekt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OmOssRoute = OmOssRouteImport.update({
+  id: '/om-oss',
+  path: '/om-oss',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
+  id: '/integritetspolicy',
+  path: '/integritetspolicy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TjansterSlugRoute = TjansterSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TjansterRoute,
+} as any)
+const ProjektSlugRoute = ProjektSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProjektRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
+  '/projekt': typeof ProjektRouteWithChildren
+  '/tjanster': typeof TjansterRouteWithChildren
+  '/projekt/$slug': typeof ProjektSlugRoute
+  '/tjanster/$slug': typeof TjansterSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
+  '/projekt': typeof ProjektRouteWithChildren
+  '/tjanster': typeof TjansterRouteWithChildren
+  '/projekt/$slug': typeof ProjektSlugRoute
+  '/tjanster/$slug': typeof TjansterSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
+  '/projekt': typeof ProjektRouteWithChildren
+  '/tjanster': typeof TjansterRouteWithChildren
+  '/projekt/$slug': typeof ProjektSlugRoute
+  '/tjanster/$slug': typeof TjansterSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cookies'
+    | '/faq'
+    | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
+    | '/projekt'
+    | '/tjanster'
+    | '/projekt/$slug'
+    | '/tjanster/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cookies'
+    | '/faq'
+    | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
+    | '/projekt'
+    | '/tjanster'
+    | '/projekt/$slug'
+    | '/tjanster/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/cookies'
+    | '/faq'
+    | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
+    | '/projekt'
+    | '/tjanster'
+    | '/projekt/$slug'
+    | '/tjanster/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CookiesRoute: typeof CookiesRoute
+  FaqRoute: typeof FaqRoute
+  IntegritetspolicyRoute: typeof IntegritetspolicyRoute
+  KontaktRoute: typeof KontaktRoute
+  OmOssRoute: typeof OmOssRoute
+  ProjektRoute: typeof ProjektRouteWithChildren
+  TjansterRoute: typeof TjansterRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tjanster': {
+      id: '/tjanster'
+      path: '/tjanster'
+      fullPath: '/tjanster'
+      preLoaderRoute: typeof TjansterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projekt': {
+      id: '/projekt'
+      path: '/projekt'
+      fullPath: '/projekt'
+      preLoaderRoute: typeof ProjektRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/om-oss': {
+      id: '/om-oss'
+      path: '/om-oss'
+      fullPath: '/om-oss'
+      preLoaderRoute: typeof OmOssRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integritetspolicy': {
+      id: '/integritetspolicy'
+      path: '/integritetspolicy'
+      fullPath: '/integritetspolicy'
+      preLoaderRoute: typeof IntegritetspolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +216,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tjanster/$slug': {
+      id: '/tjanster/$slug'
+      path: '/$slug'
+      fullPath: '/tjanster/$slug'
+      preLoaderRoute: typeof TjansterSlugRouteImport
+      parentRoute: typeof TjansterRoute
+    }
+    '/projekt/$slug': {
+      id: '/projekt/$slug'
+      path: '/$slug'
+      fullPath: '/projekt/$slug'
+      preLoaderRoute: typeof ProjektSlugRouteImport
+      parentRoute: typeof ProjektRoute
+    }
   }
 }
 
+interface ProjektRouteChildren {
+  ProjektSlugRoute: typeof ProjektSlugRoute
+}
+
+const ProjektRouteChildren: ProjektRouteChildren = {
+  ProjektSlugRoute: ProjektSlugRoute,
+}
+
+const ProjektRouteWithChildren =
+  ProjektRoute._addFileChildren(ProjektRouteChildren)
+
+interface TjansterRouteChildren {
+  TjansterSlugRoute: typeof TjansterSlugRoute
+}
+
+const TjansterRouteChildren: TjansterRouteChildren = {
+  TjansterSlugRoute: TjansterSlugRoute,
+}
+
+const TjansterRouteWithChildren = TjansterRoute._addFileChildren(
+  TjansterRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CookiesRoute: CookiesRoute,
+  FaqRoute: FaqRoute,
+  IntegritetspolicyRoute: IntegritetspolicyRoute,
+  KontaktRoute: KontaktRoute,
+  OmOssRoute: OmOssRoute,
+  ProjektRoute: ProjektRouteWithChildren,
+  TjansterRoute: TjansterRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -71,7 +71,7 @@ function ServicePage() {
               <div className="bg-[var(--krita)] p-8">
                 <span className="label-eyebrow" style={{ color: "#999" }}>Det här ingår</span>
                 <ul className="mt-4 space-y-3 text-[15px] text-[var(--kol)]">
-                  {service.highlights.map((h) => (
+                  {service.highlights.map((h: string) => (
                     <li key={h} className="flex gap-3">
                       <span className="text-[var(--tra)]">✓</span>
                       <span>{h}</span>

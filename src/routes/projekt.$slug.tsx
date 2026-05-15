@@ -67,7 +67,7 @@ function ProjectPage() {
             <div className="bg-[var(--krita)] p-8">
               <span className="label-eyebrow" style={{ color: "#999" }}>Omfattning</span>
               <ul className="mt-4 space-y-3 text-[15px] text-[var(--kol)]">
-                {project.scope.map((h) => (
+                {project.scope.map((h: string) => (
                   <li key={h} className="flex gap-3">
                     <span className="text-[var(--tra)]">·</span>
                     <span>{h}</span>

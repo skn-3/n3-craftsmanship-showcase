@@ -156,6 +156,7 @@ export const projects: Project[] = [
     summary:
       "Komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning och glasräcke mot sjöutsikten.",
     scope: ["Markarbete & dränering", "IPE-däck 48 kvm", "Inbyggd LED-belysning", "Glasräcke", "Pergola med segelduk"],
+    gallery: [pSandberg2, pSandberg3],
   },
   {
     slug: "kok-bromma",
@@ -166,6 +167,7 @@ export const projects: Project[] = [
     img: baKitchenAfter,
     summary: "Ett 70-talskök förvandlat till ett ljust, platsbyggt kök i ek med stenbänkskiva.",
     scope: ["Platsbyggda luckor", "Stenbänkskiva", "Integrerad belysning", "Ny el och VVS"],
+    gallery: [pBromma2],
   },
   {
     slug: "badrum-nacka",
@@ -176,6 +178,7 @@ export const projects: Project[] = [
     img: baBathAfter,
     summary: "Ett spa-likt badrum i marmor och borstad mässing — våtrumssäkrat enligt BKR.",
     scope: ["Tätskikt enligt BKR", "Marmorplattor", "Mässingsdetaljer", "Golvvärme"],
+    gallery: [pNacka2],
   },
   {
     slug: "fasad-taby",
@@ -186,6 +189,7 @@ export const projects: Project[] = [
     img: baFacadeAfter,
     summary: "Putsad fasad med tilläggsisolering, ny färgsättning och nya fönsterbleck.",
     scope: ["Tilläggsisolering 100 mm", "KC-puts", "Färgsättning", "Nya bleck"],
+    gallery: [pTaby2],
   },
   {
     slug: "tillbyggnad-djursholm",
@@ -196,6 +200,7 @@ export const projects: Project[] = [
     img: sExtension,
     summary: "30 kvm tillbyggnad i två plan med kök, sällskapsrum och stora fönsterpartier mot trädgården.",
     scope: ["Bygglovshantering", "Grund & stomme", "Tak & fasad", "Kök & ytskikt"],
+    gallery: [pDjursholm2],
   },
   {
     slug: "totalrenovering-sodermalm",
@@ -206,6 +211,7 @@ export const projects: Project[] = [
     img: sTotal,
     summary: "Sekelskifteslägenhet på 110 kvm — nytt kök, två badrum, omdragen el och slipade golv.",
     scope: ["Rivning & stomarbete", "El & VVS", "Kök & badrum", "Slipade trägolv"],
+    gallery: [pSodermalm2],
   },
 ];
 

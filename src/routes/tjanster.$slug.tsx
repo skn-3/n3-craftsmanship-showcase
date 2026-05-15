@@ -120,37 +120,30 @@ function ServicePage() {
               <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Galleri</h2>
             </Reveal>
             <div
-              className="mt-12 gap-4 [column-fill:_balance]"
-              style={{
-                columnCount: 1,
-                columnGap: "1rem",
-              }}
+              className={`mt-12 columns-1 gap-4 ${
+                service.gallery.length === 1
+                  ? ""
+                  : service.gallery.length === 2
+                  ? "md:columns-2"
+                  : "md:columns-2 lg:columns-3"
+              }`}
             >
-              <div
-                className="hidden"
-                aria-hidden
-              />
-              <div
-                className="md:[column-count:2] lg:[column-count:3]"
-                style={{ columnGap: "1rem" }}
-              >
-                {service.gallery.map((src: string, i: number) => (
-                  <Reveal key={src + i} variant="fade" delay={i * 0.06}>
-                    <button
-                      type="button"
-                      onClick={() => setLightbox(src)}
-                      className="group mb-4 block w-full overflow-hidden rounded-[8px] shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all duration-[500ms] hover:shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
-                      style={{ breakInside: "avoid" }}
-                    >
-                      <img
-                        src={src}
-                        alt={`${service.name} projekt ${i + 1}`}
-                        className="block w-full h-auto object-cover transition-transform duration-[700ms] group-hover:scale-[1.03]"
-                      />
-                    </button>
-                  </Reveal>
-                ))}
-              </div>
+              {service.gallery.map((src: string, i: number) => (
+                <Reveal key={src + i} variant="fade" delay={i * 0.06}>
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(src)}
+                    className="group mb-4 block w-full overflow-hidden rounded-[8px] shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all duration-[500ms] hover:shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+                    style={{ breakInside: "avoid" }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${service.name} projekt ${i + 1}`}
+                      className="block w-full h-auto object-cover transition-transform duration-[700ms] group-hover:scale-[1.03]"
+                    />
+                  </button>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>

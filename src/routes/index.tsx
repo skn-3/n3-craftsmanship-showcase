@@ -402,12 +402,17 @@ function Index() {
             <p className="mt-4 text-white/80 font-light max-w-xl mx-auto">
               Boka ett kostnadsfritt hembesök — vi lyssnar, mäter och återkommer med en detaljerad offert.
             </p>
+            <p className="mt-2 text-white/60 max-w-xl mx-auto" style={{ fontSize: 14 }}>
+              Över 120 genomförda projekt · 4.9 av 5 i kundbetyg
+            </p>
           </Reveal>
           <Reveal variant="up" delay={0.3} className="mt-8">
-            <a href="tel:+4681234567" className="btn-light">Boka möte</a>
+            <Link to="/kontakt" className="btn-light">Boka möte</Link>
           </Reveal>
           <Reveal variant="fade" delay={0.5}>
-            <p className="mt-6 text-white/60 text-sm">Eller ring oss: 08-123 45 67</p>
+            <p className="mt-6 text-white/60 text-sm">
+              Eller ring oss: <a href="tel:+4681234567" className="underline hover:text-white">08-123 45 67</a>
+            </p>
           </Reveal>
         </div>
       </section>

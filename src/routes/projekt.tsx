@@ -64,7 +64,7 @@ function ProjectsPage() {
                   key={f}
                   type="button"
                   onClick={() => setActive(f)}
-                  className="px-4 py-2 text-[13px] tracking-[0.1em] uppercase rounded-full transition-all duration-300"
+                  className="shrink-0 px-4 py-2 text-[13px] tracking-[0.1em] uppercase rounded-full transition-all duration-300"
                   style={{
                     background: isActive ? "#2D5A3D" : "transparent",
                     color: isActive ? "#fff" : "var(--kol)",

@@ -31,10 +31,7 @@ function ServicesPage() {
                 <Link
                   to="/tjanster/$slug"
                   params={{ slug: s.slug }}
-                  className="group block bg-white overflow-hidden"
-                  style={{ transition: "box-shadow .35s ease" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 18px 40px -20px rgba(0,0,0,0.25)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+                  className="service-card group block bg-white overflow-hidden"
                 >
                   <div className="overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
                     <img

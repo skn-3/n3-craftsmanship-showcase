@@ -71,8 +71,9 @@ function ContactPage() {
       </section>
 
       {/* CONTENT */}
-      <section className="bg-white section-pad">
-        <div className="container-x grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 lg:gap-20">
+      <section className="section-pad relative overflow-hidden" style={{ background: "linear-gradient(to right, #ffffff 0%, #ffffff 55%, var(--krita) 55%, var(--krita) 100%)" }}>
+        <div className="lg:hidden absolute inset-0" style={{ background: "#ffffff" }} />
+        <div className="container-x grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 lg:gap-20 relative">
           {/* LEFT: FORM */}
           <Reveal variant="up">
             {submitted ? (

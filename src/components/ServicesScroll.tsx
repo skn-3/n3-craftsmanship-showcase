@@ -76,6 +76,8 @@ export function ServicesScroll({ items }: { items: Service[] }) {
         <Card s={r4b} i={next()} ratio="4 / 3" />
         <Card s={r4c} i={next()} ratio="4 / 3" />
       </div>
+        </>
+      )}
     </div>
   );
 }

@@ -56,7 +56,7 @@ function ProjectsPage() {
       {/* FILTER BAR */}
       <section className="bg-white border-b" style={{ borderColor: "#eee" }}>
         <div className="container-x py-6">
-          <div className="flex flex-wrap gap-2 md:gap-3">
+          <div className="flex md:flex-wrap gap-2 md:gap-3 overflow-x-auto whitespace-nowrap no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
             {FILTERS.map((f) => {
               const isActive = f === active;
               return (

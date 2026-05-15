@@ -157,6 +157,7 @@ function StepBlock({
   return (
     <div
       ref={ref}
+      className="process-step"
       style={{
         position: "relative",
         padding: "40px 0",

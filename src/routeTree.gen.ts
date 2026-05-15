@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TjansterRouteImport } from './routes/tjanster'
 import { Route as ProjektRouteImport } from './routes/projekt'
 import { Route as OmOssRouteImport } from './routes/om-oss'
 import { Route as KontaktRouteImport } from './routes/kontakt'
@@ -17,14 +16,10 @@ import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolic
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TjansterIndexRouteImport } from './routes/tjanster.index'
 import { Route as TjansterSlugRouteImport } from './routes/tjanster.$slug'
 import { Route as ProjektSlugRouteImport } from './routes/projekt.$slug'
 
-const TjansterRoute = TjansterRouteImport.update({
-  id: '/tjanster',
-  path: '/tjanster',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProjektRoute = ProjektRouteImport.update({
   id: '/projekt',
   path: '/projekt',
@@ -60,10 +55,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TjansterIndexRoute = TjansterIndexRouteImport.update({
+  id: '/tjanster/',
+  path: '/tjanster/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TjansterSlugRoute = TjansterSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => TjansterRoute,
+  id: '/tjanster/$slug',
+  path: '/tjanster/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProjektSlugRoute = ProjektSlugRouteImport.update({
   id: '/$slug',
@@ -79,9 +79,9 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/projekt': typeof ProjektRouteWithChildren
-  '/tjanster': typeof TjansterRouteWithChildren
   '/projekt/$slug': typeof ProjektSlugRoute
   '/tjanster/$slug': typeof TjansterSlugRoute
+  '/tjanster/': typeof TjansterIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,9 +91,9 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/projekt': typeof ProjektRouteWithChildren
-  '/tjanster': typeof TjansterRouteWithChildren
   '/projekt/$slug': typeof ProjektSlugRoute
   '/tjanster/$slug': typeof TjansterSlugRoute
+  '/tjanster': typeof TjansterIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,9 +104,9 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/projekt': typeof ProjektRouteWithChildren
-  '/tjanster': typeof TjansterRouteWithChildren
   '/projekt/$slug': typeof ProjektSlugRoute
   '/tjanster/$slug': typeof TjansterSlugRoute
+  '/tjanster/': typeof TjansterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,9 +118,9 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/projekt'
-    | '/tjanster'
     | '/projekt/$slug'
     | '/tjanster/$slug'
+    | '/tjanster/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,9 +130,9 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/projekt'
-    | '/tjanster'
     | '/projekt/$slug'
     | '/tjanster/$slug'
+    | '/tjanster'
   id:
     | '__root__'
     | '/'
@@ -142,9 +142,9 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/projekt'
-    | '/tjanster'
     | '/projekt/$slug'
     | '/tjanster/$slug'
+    | '/tjanster/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -155,18 +155,12 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   OmOssRoute: typeof OmOssRoute
   ProjektRoute: typeof ProjektRouteWithChildren
-  TjansterRoute: typeof TjansterRouteWithChildren
+  TjansterSlugRoute: typeof TjansterSlugRoute
+  TjansterIndexRoute: typeof TjansterIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tjanster': {
-      id: '/tjanster'
-      path: '/tjanster'
-      fullPath: '/tjanster'
-      preLoaderRoute: typeof TjansterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/projekt': {
       id: '/projekt'
       path: '/projekt'
@@ -216,12 +210,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tjanster/': {
+      id: '/tjanster/'
+      path: '/tjanster'
+      fullPath: '/tjanster/'
+      preLoaderRoute: typeof TjansterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tjanster/$slug': {
       id: '/tjanster/$slug'
-      path: '/$slug'
+      path: '/tjanster/$slug'
       fullPath: '/tjanster/$slug'
       preLoaderRoute: typeof TjansterSlugRouteImport
-      parentRoute: typeof TjansterRoute
+      parentRoute: typeof rootRouteImport
     }
     '/projekt/$slug': {
       id: '/projekt/$slug'
@@ -244,18 +245,6 @@ const ProjektRouteChildren: ProjektRouteChildren = {
 const ProjektRouteWithChildren =
   ProjektRoute._addFileChildren(ProjektRouteChildren)
 
-interface TjansterRouteChildren {
-  TjansterSlugRoute: typeof TjansterSlugRoute
-}
-
-const TjansterRouteChildren: TjansterRouteChildren = {
-  TjansterSlugRoute: TjansterSlugRoute,
-}
-
-const TjansterRouteWithChildren = TjansterRoute._addFileChildren(
-  TjansterRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CookiesRoute: CookiesRoute,
@@ -264,8 +253,19 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   OmOssRoute: OmOssRoute,
   ProjektRoute: ProjektRouteWithChildren,
-  TjansterRoute: TjansterRouteWithChildren,
+  TjansterSlugRoute: TjansterSlugRoute,
+  TjansterIndexRoute: TjansterIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

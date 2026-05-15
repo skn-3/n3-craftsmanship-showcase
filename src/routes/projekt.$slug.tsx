@@ -88,7 +88,7 @@ function ProjectPage() {
         <div className="container-x grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16">
           <Reveal variant="up">
             <div className="space-y-5 text-[#444] text-[18px] leading-[1.75]">
-              {descriptionParas.map((p, i) => (
+              {descriptionParas.map((p: string, i: number) => (
                 <p key={i}>{p}</p>
               ))}
             </div>

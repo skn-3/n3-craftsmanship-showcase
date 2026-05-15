@@ -56,7 +56,7 @@ function ProjectsPage() {
       {/* FILTER BAR */}
       <section className="bg-white border-b" style={{ borderColor: "#eee" }}>
         <div className="container-x py-6">
-          <div className="flex flex-wrap gap-2 md:gap-3">
+          <div className="flex md:flex-wrap gap-2 md:gap-3 overflow-x-auto whitespace-nowrap no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
             {FILTERS.map((f) => {
               const isActive = f === active;
               return (
@@ -64,7 +64,7 @@ function ProjectsPage() {
                   key={f}
                   type="button"
                   onClick={() => setActive(f)}
-                  className="px-4 py-2 text-[13px] tracking-[0.1em] uppercase rounded-full transition-all duration-300"
+                  className="shrink-0 px-4 py-2 text-[13px] tracking-[0.1em] uppercase rounded-full transition-all duration-300"
                   style={{
                     background: isActive ? "#2D5A3D" : "transparent",
                     color: isActive ? "#fff" : "var(--kol)",
@@ -96,7 +96,7 @@ function ProjectsPage() {
                 >
                   <div
                     className="relative overflow-hidden rounded-[6px]"
-                    style={{ aspectRatio: i % 5 === 0 ? "4 / 5" : "4 / 3" }}
+                    style={{ aspectRatio: "3 / 4" }}
                   >
                     <img
                       src={p.img}
@@ -143,7 +143,11 @@ function ProjectsPage() {
         </div>
       </section>
 
-      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+      `}</style>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { ParallaxImage } from "@/components/ParallaxImage";
+import { CountUp } from "@/components/CountUp";
 import team from "@/assets/team.png";
 import { Award, Eye, Leaf, ShieldCheck } from "lucide-react";
 
@@ -100,14 +101,22 @@ function AboutPage() {
             <span className="label-eyebrow" style={{ color: "#999" }}>Vad vi står för</span>
             <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Våra principer</h2>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14 mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-14">
             {VALUES.map((v, i) => (
               <Reveal key={v.title} variant="up" delay={i * 0.08}>
-                <v.icon size={32} strokeWidth={1.25} className="text-[var(--tra)]" />
-                <h3 className="mt-6 font-serif text-[24px] text-[var(--kol)] leading-tight">{v.title}</h3>
-                <p className="mt-4 text-[15px] leading-[1.7]" style={{ color: "#666" }}>
-                  {v.desc}
-                </p>
+                <div
+                  className="h-full p-8 lg:p-10 rounded-[8px] transition-shadow duration-300 hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.18)]"
+                  style={{
+                    background: i % 2 === 1 ? "var(--krita)" : "transparent",
+                    border: i % 2 === 1 ? "1px solid transparent" : "1px solid #ECE7DD",
+                  }}
+                >
+                  <v.icon size={32} strokeWidth={1.25} className="text-[var(--tra)]" />
+                  <h3 className="mt-6 font-serif text-[24px] text-[var(--kol)] leading-tight">{v.title}</h3>
+                  <p className="mt-4 text-[15px] leading-[1.7]" style={{ color: "#666" }}>
+                    {v.desc}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -192,7 +201,7 @@ function AboutPage() {
 function Stat({ n, l }: { n: string; l: string }) {
   return (
     <div>
-      <div className="font-serif text-[36px] leading-none text-[var(--tra)]">{n}</div>
+      <CountUp value={n} className="font-serif text-[36px] leading-none text-[var(--tra)] block" />
       <div className="text-[12px] tracking-widest uppercase text-[#888] mt-2">{l}</div>
     </div>
   );

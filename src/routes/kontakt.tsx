@@ -71,8 +71,9 @@ function ContactPage() {
       </section>
 
       {/* CONTENT */}
-      <section className="bg-white section-pad">
-        <div className="container-x grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 lg:gap-20">
+      <section className="section-pad relative overflow-hidden" style={{ background: "linear-gradient(to right, #ffffff 0%, #ffffff 55%, var(--krita) 55%, var(--krita) 100%)" }}>
+        <div className="lg:hidden absolute inset-0" style={{ background: "#ffffff" }} />
+        <div className="container-x grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 lg:gap-20 relative">
           {/* LEFT: FORM */}
           <Reveal variant="up">
             {submitted ? (
@@ -111,7 +112,7 @@ function ContactPage() {
                     <textarea
                       name="meddelande"
                       rows={4}
-                      className="w-full bg-transparent text-[15px] text-[var(--kol)] resize-none outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors"
+                      className="w-full bg-transparent text-[15px] text-[var(--kol)] resize-none outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors"
                       style={{ borderBottomWidth: 1, borderColor: "#d4cdbf" }}
                     />
                   </div>
@@ -199,7 +200,7 @@ function ContactPage() {
               </div>
 
               {/* Map */}
-              <div className="overflow-hidden rounded-[8px]" style={{ aspectRatio: "4 / 3" }}>
+              <div className="overflow-hidden shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)]" style={{ borderRadius: 12, aspectRatio: "4 / 3" }}>
                 <iframe
                   title="N3 SmartKlimat — Stockholm"
                   src="https://www.google.com/maps?q=Stockholm,Sweden&output=embed"
@@ -255,7 +256,7 @@ function UnderlineField({
         type={type}
         name={name}
         required={required}
-        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors"
+        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors"
         style={{ borderBottomWidth: 1, borderColor: "#d4cdbf" }}
       />
     </div>
@@ -283,7 +284,7 @@ function UnderlineSelect({
         name={name}
         required={required}
         defaultValue=""
-        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[var(--tra)] transition-colors appearance-none cursor-pointer"
+        className="w-full bg-transparent text-[15px] text-[var(--kol)] outline-none border-0 border-b py-2 focus:border-[#2D5A3D] transition-colors appearance-none cursor-pointer"
         style={{
           borderBottomWidth: 1,
           borderColor: "#d4cdbf",

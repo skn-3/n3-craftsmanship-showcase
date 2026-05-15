@@ -49,7 +49,7 @@ export function MobileCTABar() {
     >
       <div className="flex gap-2" style={{ height: 64, padding: "10px 16px" }}>
         <a
-          href="#kontakt"
+          href="/kontakt"
           className="flex items-center justify-center text-white uppercase"
           style={{
             width: "60%",

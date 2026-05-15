@@ -212,6 +212,8 @@ function Index() {
         </div>
       </section>
 
+      <SeasonalBanner />
+
       {/* TRUST BAR */}
       <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 20 }}>
         <div className="container-x">

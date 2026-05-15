@@ -133,6 +133,8 @@ export const services: Service[] = [
   },
 ];
 
+export type ProjectStats = { duration: string; area: string; type: string };
+
 export type Project = {
   slug: string;
   title: string;
@@ -141,6 +143,8 @@ export type Project = {
   year: string;
   img: string;
   summary: string;
+  description: string;
+  stats: ProjectStats;
   scope: string[];
   gallery?: string[];
 };
@@ -155,40 +159,52 @@ export const projects: Project[] = [
     img: villa,
     summary:
       "Komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning och glasräcke mot sjöutsikten.",
+    description:
+      "En komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning i trappstegen och glasräcke mot sjöutsikten. Projektet inkluderade markarbete, dränering och en pergola med segelduk för sommardagarna.",
+    stats: { duration: "6 veckor", area: "48 kvm", type: "Altan & Terrass" },
     scope: ["Markarbete & dränering", "IPE-däck 48 kvm", "Inbyggd LED-belysning", "Glasräcke", "Pergola med segelduk"],
     gallery: [pSandberg2, pSandberg3],
   },
   {
     slug: "kok-bromma",
-    title: "Kök i Bromma",
+    title: "Köksrenovering Bromma",
     category: "Kök",
     location: "Bromma",
     year: "2024",
     img: baKitchenAfter,
     summary: "Ett 70-talskök förvandlat till ett ljust, platsbyggt kök i ek med stenbänkskiva.",
+    description:
+      "Totalrenovering av ett 80-talskök i Bromma. Nya skåpluckor i greige, marmor-look komposit bänkskiva, mässingsblandare och fiskbensparkett i ek. Köket öppnades upp mot vardagsrummet för en luftigare planlösning.",
+    stats: { duration: "5 veckor", area: "22 kvm", type: "Kök" },
     scope: ["Platsbyggda luckor", "Stenbänkskiva", "Integrerad belysning", "Ny el och VVS"],
     gallery: [pBromma2],
   },
   {
     slug: "badrum-nacka",
-    title: "Badrum i Nacka",
+    title: "Badrumsrenovering Nacka",
     category: "Badrum",
     location: "Nacka",
     year: "2024",
     img: baBathAfter,
     summary: "Ett spa-likt badrum i marmor och borstad mässing — våtrumssäkrat enligt BKR.",
-    scope: ["Tätskikt enligt BKR", "Marmorplattor", "Mässingsdetaljer", "Golvvärme"],
+    description:
+      "Komplett badrumsrenovering i en villa i Nacka. Storformat gråbeige klinker, floating ek-kommod med stenbänkskiva, walk-in dusch med takdusch i mässing, och handdukstork. Nya tätskikt enligt branschstandard.",
+    stats: { duration: "4 veckor", area: "9 kvm", type: "Badrum" },
+    scope: ["Tätskikt enligt BKR", "Storformat klinker", "Walk-in dusch", "Golvvärme"],
     gallery: [pNacka2],
   },
   {
     slug: "fasad-taby",
-    title: "Fasadrenovering i Täby",
+    title: "Fasadrenovering Täby",
     category: "Fasad",
     location: "Täby",
     year: "2024",
     img: baFacadeAfter,
     summary: "Putsad fasad med tilläggsisolering, ny färgsättning och nya fönsterbleck.",
-    scope: ["Tilläggsisolering 100 mm", "KC-puts", "Färgsättning", "Nya bleck"],
+    description:
+      "Total fasadförvandling av en 70-tals tegelvilla i Täby. Ny vertikal träpanel i mörkbetsad ceder på övervåningen, putsad och vitmålad sockel, nya svartlackerade fönster och nyanlagd trädgård med grusvägar.",
+    stats: { duration: "8 veckor", area: "160 kvm fasad", type: "Fasad" },
+    scope: ["Vertikal cederpanel", "Putsad sockel", "Nya fönster", "Trädgårdsanläggning"],
     gallery: [pTaby2],
   },
   {
@@ -198,8 +214,11 @@ export const projects: Project[] = [
     location: "Djursholm",
     year: "2024",
     img: sExtension,
-    summary: "30 kvm tillbyggnad i två plan med kök, sällskapsrum och stora fönsterpartier mot trädgården.",
-    scope: ["Bygglovshantering", "Grund & stomme", "Tak & fasad", "Kök & ytskikt"],
+    summary: "Modern glasvolym till klassisk träpanelvilla — matsal och vardagsrum med trädgårdsutblick.",
+    description:
+      "Modern tillbyggnad på en klassisk vit träpanelvilla i Djursholm. Ny glasvolym med grönt tak, takfönster och golvvärme. Används som matsal och vardagsrum med direkt utblick mot trädgården.",
+    stats: { duration: "12 veckor", area: "35 kvm", type: "Tillbyggnad" },
+    scope: ["Bygglovshantering", "Grund & stomme", "Glasparti & takfönster", "Golvvärme"],
     gallery: [pDjursholm2],
   },
   {
@@ -209,9 +228,27 @@ export const projects: Project[] = [
     location: "Södermalm",
     year: "2025",
     img: sTotal,
-    summary: "Sekelskifteslägenhet på 110 kvm — nytt kök, två badrum, omdragen el och slipade golv.",
-    scope: ["Rivning & stomarbete", "El & VVS", "Kök & badrum", "Slipade trägolv"],
+    summary: "Sekelskifteslägenhet — bevarad karaktär kombinerad med nytt kök, badrum och slipade ekgolv.",
+    description:
+      "Totalrenovering av en trerumslägenhet på Södermalm. Bevarad karaktär med originalbjälklag och tegelvägg kombinerat med nytt kök, badrum och slipade ekgolv. Öppen planlösning mellan kök och vardagsrum.",
+    stats: { duration: "10 veckor", area: "78 kvm", type: "Totalrenovering" },
+    scope: ["Rivning & stomarbete", "El & VVS", "Kök & badrum", "Slipade ekgolv"],
     gallery: [pSodermalm2],
+  },
+  {
+    slug: "takbyte-lidingo",
+    title: "Takbyte Lidingö",
+    category: "Tak",
+    location: "Lidingö",
+    year: "2025",
+    img: nTak3,
+    summary:
+      "Komplett takbyte på 70-talsvilla med nytt plåttak i mörkgrå stående falsad plåt, nya hängrännor och stuprör.",
+    description:
+      "Komplett takbyte på en 70-talsvilla i Lidingö. Nytt stående falsad plåttak i antracitgrå, nya hängrännor och stuprör i matchande kulör. Inkluderade ny underlagspapp, ventilationshuvar och isolering av vindsutrymme.",
+    stats: { duration: "3 veckor", area: "140 kvm takyta", type: "Tak" },
+    scope: ["Ny underlagspapp", "Stående falsad plåt", "Hängrännor & stuprör", "Vindsisolering"],
+    gallery: [nTak1, nTak2],
   },
 ];
 

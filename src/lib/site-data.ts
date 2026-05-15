@@ -142,6 +142,7 @@ export type Project = {
   img: string;
   summary: string;
   scope: string[];
+  gallery?: string[];
 };
 
 export const projects: Project[] = [

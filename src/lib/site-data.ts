@@ -157,6 +157,26 @@ export const projects: Project[] = [
     summary: "Putsad fasad med tilläggsisolering, ny färgsättning och nya fönsterbleck.",
     scope: ["Tilläggsisolering 100 mm", "KC-puts", "Färgsättning", "Nya bleck"],
   },
+  {
+    slug: "tillbyggnad-djursholm",
+    title: "Tillbyggnad Djursholm",
+    category: "Tillbyggnad",
+    location: "Djursholm",
+    year: "2024",
+    img: sExtension,
+    summary: "30 kvm tillbyggnad i två plan med kök, sällskapsrum och stora fönsterpartier mot trädgården.",
+    scope: ["Bygglovshantering", "Grund & stomme", "Tak & fasad", "Kök & ytskikt"],
+  },
+  {
+    slug: "totalrenovering-sodermalm",
+    title: "Totalrenovering Södermalm",
+    category: "Totalrenovering",
+    location: "Södermalm",
+    year: "2025",
+    img: sTotal,
+    summary: "Sekelskifteslägenhet på 110 kvm — nytt kök, två badrum, omdragen el och slipade golv.",
+    scope: ["Rivning & stomarbete", "El & VVS", "Kök & badrum", "Slipade trägolv"],
+  },
 ];
 
 type ServiceContent = Pick<Service, "intro" | "scope" | "process" | "gallery" | "price">;

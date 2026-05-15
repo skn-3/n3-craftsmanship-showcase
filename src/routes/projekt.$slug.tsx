@@ -147,6 +147,29 @@ function ProjectPage() {
           </div>
         </section>
       )}
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-6"
+          style={{ background: "rgba(15,18,17,0.92)" }}
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-6 right-6 text-white/80 hover:text-white"
+            aria-label="Stäng"
+          >
+            <X size={32} strokeWidth={1.25} />
+          </button>
+          <img
+            src={lightbox}
+            alt=""
+            className="max-w-full max-h-full object-contain rounded-[8px]"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </main>
   );
 }

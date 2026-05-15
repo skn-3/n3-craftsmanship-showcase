@@ -401,83 +401,8 @@ function Index() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[var(--kol)] text-white pt-20 pb-10 relative z-[2]">
-        <div className="container-x">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            <Reveal variant="up" delay={0}>
-              <div className="font-serif text-[28px]">N3</div>
-              <p className="mt-3 text-[12px] text-[#666]">SmartKlimat N3prenad AB</p>
-              <p className="text-[12px] text-[#555]">Bygger med omtanke</p>
-            </Reveal>
-            <Reveal variant="up" delay={0.1}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Tjänster</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                {["Totalrenovering", "Badrum", "Kök", "Tak", "Fasad", "Altan"].map((s) => (
-                  <li key={s}><a href="#tjanster" className="hover:text-white transition-colors">{s}</a></li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal variant="up" delay={0.2}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Kontakt</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li>Telefon: 08-123 45 67</li>
-                <li>E-post: info@smartklimatn3.se</li>
-                <li>Adress: Stockholm</li>
-              </ul>
-            </Reveal>
-            <Reveal variant="up" delay={0.3}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Följ oss</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li><a href="https://instagram.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
-                <li><a href="https://facebook.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Facebook</a></li>
-              </ul>
-            </Reveal>
-          </div>
-
-          <div className="mt-16 pt-6 border-t border-[#333] flex flex-col md:flex-row gap-4 justify-between items-center text-[12px] text-[#666]">
-            <p>© 2026 SmartKlimat N3prenad AB</p>
-            <div className="flex items-center gap-4">
-              <button type="button" onClick={() => setPolicy("integritet")} className="hover:text-white transition-colors">Integritetspolicy</button>
-              <span>|</span>
-              <button type="button" onClick={() => setPolicy("cookies")} className="hover:text-white transition-colors">Cookies</button>
-            </div>
-            <div className="inline-flex items-center gap-2 opacity-60">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--skog)" }} />
-              CO2 Kompenserad
-            </div>
-          </div>
-        </div>
-      </footer>
       </div>
 
-      {policy && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
-          onClick={() => setPolicy(null)}
-        >
-          <div
-            className="bg-white text-[var(--kol)] max-w-md w-full p-8 rounded-sm shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="font-serif text-[24px] mb-3">
-              {policy === "integritet" ? "Integritetspolicy" : "Cookie-policy"}
-            </h3>
-            <p className="text-sm text-[#555] leading-relaxed">
-              {policy === "integritet"
-                ? "Integritetspolicy kommer snart."
-                : "Cookie-policy kommer snart."}
-            </p>
-            <button
-              type="button"
-              onClick={() => setPolicy(null)}
-              className="mt-6 text-[12px] tracking-widest uppercase text-[var(--kol)] hover:opacity-60 transition-opacity"
-            >
-              Stäng
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

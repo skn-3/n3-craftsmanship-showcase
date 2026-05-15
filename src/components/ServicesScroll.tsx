@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Service = { img: string; name: string; desc: string };
 

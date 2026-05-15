@@ -12,6 +12,9 @@ import baKitchenAfter from "@/assets/ba-kitchen-after.png";
 import baBathAfter from "@/assets/ba-bath-after.png";
 import baFacadeAfter from "@/assets/ba-facade-after.png";
 
+export type ServiceScopeItem = { title: string; desc: string };
+export type ServiceProcessStep = { title: string; desc: string };
+
 export type Service = {
   slug: string;
   name: string;
@@ -19,6 +22,11 @@ export type Service = {
   img: string;
   long?: string;
   highlights?: string[];
+  intro?: string;
+  scope?: ServiceScopeItem[];
+  process?: ServiceProcessStep[];
+  gallery?: string[];
+  price?: string;
 };
 
 export const services: Service[] = [

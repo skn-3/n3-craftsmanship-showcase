@@ -200,7 +200,7 @@ function ContactPage() {
               </div>
 
               {/* Map */}
-              <div className="overflow-hidden rounded-[8px]" style={{ aspectRatio: "4 / 3" }}>
+              <div className="overflow-hidden shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)]" style={{ borderRadius: 12, aspectRatio: "4 / 3" }}>
                 <iframe
                   title="N3 SmartKlimat — Stockholm"
                   src="https://www.google.com/maps?q=Stockholm,Sweden&output=embed"

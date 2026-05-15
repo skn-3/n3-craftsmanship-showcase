@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Link } from "@tanstack/react-router";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-type Service = { img: string; name: string; desc: string };
+type Service = { img: string; name: string; desc: string; slug: string };
 
 export function ServicesScroll({ items }: { items: Service[] }) {
   const byName = (n: string) => {
@@ -119,9 +120,11 @@ function Card({
     transition: `opacity .7s ease-out ${i * 0.08}s, transform .7s ease-out ${i * 0.08}s, box-shadow .35s ease`,
   };
   return (
-    <article
-      ref={ref}
-      className="group bg-white overflow-hidden cursor-pointer"
+    <Link
+      to="/tjanster/$slug"
+      params={{ slug: s.slug }}
+      ref={ref as React.Ref<HTMLAnchorElement>}
+      className="group bg-white overflow-hidden cursor-pointer block"
       style={style}
       onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 18px 40px -20px rgba(0,0,0,0.25)")}
       onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
@@ -142,8 +145,11 @@ function Card({
           <h3 className="font-sans font-medium text-[18px] text-[var(--kol)]">{s.name}</h3>
         </div>
         <p className="mt-2 text-[14px] text-[#666] leading-relaxed">{s.desc}</p>
+        <span className="mt-4 inline-block text-[13px] tracking-wide text-[var(--tra)] group-hover:translate-x-1 transition-transform">
+          Läs mer →
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 

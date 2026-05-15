@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import team from "@/assets/team.png";
-import sKitchen from "@/assets/s-kitchen.png";
-import sTotal from "@/assets/s-total.png";
-import sTerrace from "@/assets/s-terrace.png";
+import mote from "@/assets/n3-mote.png";
+import planering from "@/assets/n3-planering.png";
+import montage from "@/assets/n3-montage.png";
+import resultat from "@/assets/n3-resultat.png";
 
 type Step = { n: string; t: string; d: string };
 
-const STEP_IMAGES = [team, sKitchen, sTotal, sTerrace];
+const STEP_IMAGES = [mote, planering, montage, resultat];
 
 export function ProcessTimeline({ steps }: { steps: Step[] }) {
   const isMobile = useIsMobile();

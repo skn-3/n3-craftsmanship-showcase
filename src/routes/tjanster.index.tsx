@@ -3,7 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { services } from "@/lib/site-data";
 
-export const Route = createFileRoute("/tjanster")({
+export const Route = createFileRoute("/tjanster/")({
   component: ServicesPage,
   head: () => ({
     meta: [

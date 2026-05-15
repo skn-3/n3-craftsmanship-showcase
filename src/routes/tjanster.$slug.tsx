@@ -146,7 +146,7 @@ function ServicePage() {
               <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Så här går det till</h2>
             </Reveal>
             <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
-              {service.process.map((step, i) => (
+              {service.process.map((step: { title: string; desc: string }, i: number) => (
                 <Reveal key={step.title} variant="up" delay={i * 0.08}>
                   <div className="border-t-2 pt-5" style={{ borderColor: "var(--tra)" }}>
                     <span className="font-serif text-[var(--tra)] text-[28px] leading-none">

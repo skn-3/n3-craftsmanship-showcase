@@ -49,9 +49,24 @@ function ServicesPage() {
                       <h3 className="font-sans font-medium text-[20px] text-[var(--kol)]">{s.name}</h3>
                     </div>
                     <p className="mt-2 text-[14px] text-[#666] leading-relaxed">{s.desc}</p>
-                    <span className="mt-4 inline-block text-[13px] text-[var(--tra)] group-hover:translate-x-1 transition-transform">
+                    <span className="service-card-cta mt-4 inline-block text-[13px] transition-all group-hover:translate-x-1" style={{ color: "#2D5A3D" }}>
                       Läs mer →
                     </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+      <style>{`
+        .service-card { transition: transform .35s ease, box-shadow .35s ease; }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(0,0,0,0.25); }
+        .service-card:hover .service-card-cta { color: #C4A97D !important; }
+      `}</style>
+    </main>
+  );
+}
                   </div>
                 </Link>
               </Reveal>

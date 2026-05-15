@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { projects } from "@/lib/site-data";
 
-export const Route = createFileRoute("/projekt")({
+export const Route = createFileRoute("/projekt/")({
   component: ProjectsPage,
   head: () => ({
     meta: [

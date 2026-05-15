@@ -191,8 +191,17 @@ function Index() {
               className="hero-rise mt-10 flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
               style={{ ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 0.8}s` } as React.CSSProperties}
             >
-              <a href="#projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</a>
-              <a href="#kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</a>
+              <Link to="/projekt" className="btn-primary w-full md:w-auto text-center">Se våra projekt</Link>
+              <Link to="/kontakt" className="btn-outline-light w-full md:w-auto text-center">Boka kostnadsfritt möte</Link>
+            </div>
+            <div
+              className="hero-rise mt-5 text-[13px]"
+              style={{
+                color: "rgba(255,255,255,0.7)",
+                ["--d" as string]: `${heroBase + 0.1 + headingWords.length * 0.08 + 1.0}s`,
+              } as React.CSSProperties}
+            >
+              <span style={{ color: "var(--tra)" }}>★★★★★</span> Betrodd av 120+ familjer i Stockholm
             </div>
           </div>
         </div>

@@ -1,7 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Nav } from "@/components/Nav";
-import { MobileCTABar } from "@/components/MobileCTABar";
 
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
@@ -14,20 +12,12 @@ import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { BeforeAfterRow } from "@/components/BeforeAfterRow";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { services } from "@/lib/site-data";
 
 import heroVideo from "@/assets/hero.mp4";
 import heroMobile from "@/assets/hero-mobile.png";
 import featured from "@/assets/villa-saltsjobad-n3.png";
 import about from "@/assets/team.png";
-import sTotal from "@/assets/s-total.png";
-import sBath from "@/assets/s-bath.png";
-import sKitchen from "@/assets/s-kitchen.png";
-import sRoof from "@/assets/s-roof.png";
-import sFacade from "@/assets/s-facade.png";
-import sTerrace from "@/assets/s-terrace.png";
-import sExtension from "@/assets/s-extension.png";
-import sPainting from "@/assets/s-painting.png";
-import sInterior from "@/assets/s-interior.jpg";
 import baKitchenBefore from "@/assets/ba-kitchen-before.png";
 import baKitchenAfter from "@/assets/ba-kitchen-after.png";
 import baBathBefore from "@/assets/ba-bath-before.png";

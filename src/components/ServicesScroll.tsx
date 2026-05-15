@@ -183,3 +183,92 @@ function FeatureCard({ s, i }: { s: Service & { idx: number }; i: number }) {
     </article>
   );
 }
+
+function MobileCarousel({ list }: { list: (Service & { idx: number })[] }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [hintVisible, setHintVisible] = useState(true);
+
+  const onScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    if (hintVisible) setHintVisible(false);
+    const cardW = el.clientWidth * 0.8 + 16;
+    const i = Math.round(el.scrollLeft / cardW);
+    setActive(Math.max(0, Math.min(list.length - 1, i)));
+  };
+
+  return (
+    <div>
+      <div
+        ref={scrollerRef}
+        onScroll={onScroll}
+        className="services-mobile-scroller"
+        style={{
+          display: "flex",
+          overflowX: "auto",
+          overflowY: "hidden",
+          scrollSnapType: "x mandatory",
+          gap: 16,
+          padding: "0 20px",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
+        }}
+      >
+        {list.map((s) => (
+          <article
+            key={s.name}
+            className="bg-white overflow-hidden"
+            style={{
+              flex: "0 0 80vw",
+              scrollSnapAlign: "start",
+            }}
+          >
+            <div className="overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+              <img src={s.img} alt={s.name} loading="lazy" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-5">
+              <div className="flex items-baseline gap-3">
+                <span className="font-serif text-[var(--tra)] text-[14px]">
+                  {String(s.idx + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-sans font-medium text-[18px] text-[var(--kol)]">{s.name}</h3>
+              </div>
+              <p className="mt-2 text-[14px] text-[#666] leading-relaxed">{s.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <div className="flex justify-center gap-2 mt-6">
+        {list.map((_, i) => (
+          <span
+            key={i}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: i === active ? "#C4A97D" : "transparent",
+              border: `1px solid ${i === active ? "#C4A97D" : "#D4C5A9"}`,
+              transition: "background .2s ease",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Swipe hint */}
+      <div
+        className="text-center mt-3 text-[13px] text-[#999]"
+        style={{
+          opacity: hintVisible ? 1 : 0,
+          transition: "opacity .4s ease",
+          pointerEvents: "none",
+        }}
+      >
+        Svep →
+      </div>
+    </div>
+  );
+}
+

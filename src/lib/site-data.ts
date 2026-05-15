@@ -11,6 +11,35 @@ import villa from "@/assets/villa-saltsjobad-n3.png";
 import baKitchenAfter from "@/assets/ba-kitchen-after.png";
 import baBathAfter from "@/assets/ba-bath-after.png";
 import baFacadeAfter from "@/assets/ba-facade-after.png";
+import nTotal1 from "@/assets/n3-total-renovering1.png";
+import nTotal2 from "@/assets/n3-total-renovering2.png";
+import nTotal3 from "@/assets/n3-total-renovering3.png";
+import nBadDusch1 from "@/assets/n3-badrum-dusch-1.png";
+import nBadDusch2 from "@/assets/n3-badrum-dusch-2.png";
+import nBad3 from "@/assets/n3-badrum-3.png";
+import nBad4 from "@/assets/n3-badrum-4.png";
+import nKok1 from "@/assets/n3-kok-1.png";
+import nTak1 from "@/assets/n3-tak-1.png";
+import nTak2 from "@/assets/n3-tak-2.png";
+import nTak3 from "@/assets/n3-tak-3.png";
+import nFasad1 from "@/assets/n3-fasad-1.png";
+import nAltan1 from "@/assets/n3-altan-1.png";
+import nAltan2 from "@/assets/n3-altan-2.png";
+import nAltan3 from "@/assets/n3-altan-3.png";
+import nUtbyggnad1 from "@/assets/n3-utbyggnad-1.png";
+import nMalning1 from "@/assets/n3-malning-1.png";
+import nMalning2 from "@/assets/n3-malning-2.png";
+import nMalning3 from "@/assets/n3-malning-3.png";
+import nInredning1 from "@/assets/n3-inredning-1.png";
+import nInredning2 from "@/assets/n3-inredning-2.png";
+import nInredning3 from "@/assets/n3-inredning-3.png";
+import pSandberg2 from "@/assets/projekt-sandberg-2.png";
+import pSandberg3 from "@/assets/projekt-sandberg-3.png";
+import pBromma2 from "@/assets/projekt-bromma-2.png";
+import pNacka2 from "@/assets/projekt-nacka-2.png";
+import pTaby2 from "@/assets/projekt-taby-2.png";
+import pDjursholm2 from "@/assets/projekt-djursholm-2.png";
+import pSodermalm2 from "@/assets/projekt-sodermalm-2.png";
 
 export type ServiceScopeItem = { title: string; desc: string };
 export type ServiceProcessStep = { title: string; desc: string };
@@ -113,6 +142,7 @@ export type Project = {
   img: string;
   summary: string;
   scope: string[];
+  gallery?: string[];
 };
 
 export const projects: Project[] = [
@@ -126,6 +156,7 @@ export const projects: Project[] = [
     summary:
       "Komplett terrasslösning i IPE-trä med inbyggda sittbänkar, integrerad LED-belysning och glasräcke mot sjöutsikten.",
     scope: ["Markarbete & dränering", "IPE-däck 48 kvm", "Inbyggd LED-belysning", "Glasräcke", "Pergola med segelduk"],
+    gallery: [pSandberg2, pSandberg3],
   },
   {
     slug: "kok-bromma",
@@ -136,6 +167,7 @@ export const projects: Project[] = [
     img: baKitchenAfter,
     summary: "Ett 70-talskök förvandlat till ett ljust, platsbyggt kök i ek med stenbänkskiva.",
     scope: ["Platsbyggda luckor", "Stenbänkskiva", "Integrerad belysning", "Ny el och VVS"],
+    gallery: [pBromma2],
   },
   {
     slug: "badrum-nacka",
@@ -146,6 +178,7 @@ export const projects: Project[] = [
     img: baBathAfter,
     summary: "Ett spa-likt badrum i marmor och borstad mässing — våtrumssäkrat enligt BKR.",
     scope: ["Tätskikt enligt BKR", "Marmorplattor", "Mässingsdetaljer", "Golvvärme"],
+    gallery: [pNacka2],
   },
   {
     slug: "fasad-taby",
@@ -156,6 +189,7 @@ export const projects: Project[] = [
     img: baFacadeAfter,
     summary: "Putsad fasad med tilläggsisolering, ny färgsättning och nya fönsterbleck.",
     scope: ["Tilläggsisolering 100 mm", "KC-puts", "Färgsättning", "Nya bleck"],
+    gallery: [pTaby2],
   },
   {
     slug: "tillbyggnad-djursholm",
@@ -166,6 +200,7 @@ export const projects: Project[] = [
     img: sExtension,
     summary: "30 kvm tillbyggnad i två plan med kök, sällskapsrum och stora fönsterpartier mot trädgården.",
     scope: ["Bygglovshantering", "Grund & stomme", "Tak & fasad", "Kök & ytskikt"],
+    gallery: [pDjursholm2],
   },
   {
     slug: "totalrenovering-sodermalm",
@@ -176,6 +211,7 @@ export const projects: Project[] = [
     img: sTotal,
     summary: "Sekelskifteslägenhet på 110 kvm — nytt kök, två badrum, omdragen el och slipade golv.",
     scope: ["Rivning & stomarbete", "El & VVS", "Kök & badrum", "Slipade trägolv"],
+    gallery: [pSodermalm2],
   },
 ];
 
@@ -199,7 +235,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Byggnation", desc: "Vårt team genomför arbetet med dagliga avstämningar." },
       { title: "Slutbesiktning & överlämning", desc: "Vi går igenom allt tillsammans innan nyckelöverlämning." },
     ],
-    gallery: [baKitchenAfter, baBathAfter, baFacadeAfter],
+    gallery: [nTotal1, nTotal2, nTotal3],
     price: "Totalrenovering av lägenhet från 8 000 kr/kvm. Villa från 12 000 kr/kvm.",
   },
   badrum: {
@@ -219,7 +255,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Plattsättning & installation", desc: "Kakel, VVS, el och inredning monteras." },
       { title: "Våtrumsintyg & överlämning", desc: "Ni får full dokumentation och garantier." },
     ],
-    gallery: [baBathAfter, sBath, baKitchenAfter],
+    gallery: [nBadDusch1, nBadDusch2, nBad3, nBad4],
     price: "Badrumsrenovering från 120 000 kr (litet badrum) till 250 000 kr+ (stort badrum med badkar).",
   },
   kok: {
@@ -239,7 +275,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Rivning & installation", desc: "Det gamla rivs, det nya monteras på plats." },
       { title: "Justering & överlämning", desc: "Slutkontroll, justering av luckor och genomgång." },
     ],
-    gallery: [baKitchenAfter, sKitchen, sTotal],
+    gallery: [nKok1],
     price: "Köksrenovering från 80 000 kr (byte av luckor & bänkskiva) till 350 000 kr+ (komplett nytt kök).",
   },
   tak: {
@@ -259,7 +295,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Takarbete", desc: "Rivning, ny papp och nytt takmaterial monteras." },
       { title: "Slutbesiktning", desc: "Vi går igenom allt och lämnar fullständiga garantier." },
     ],
-    gallery: [sRoof, villa, baFacadeAfter],
+    gallery: [nTak1, nTak2, nTak3],
     price: "Takbyte villa från 1 500 kr/kvm takyta.",
   },
   fasad: {
@@ -279,7 +315,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Ny beklädnad", desc: "Puts, panel eller tegel monteras fackmannamässigt." },
       { title: "Målning & avetablering", desc: "Slutfärg och bortforsling av ställning." },
     ],
-    gallery: [baFacadeAfter, sFacade, villa],
+    gallery: [nFasad1],
     price: "Fasadrenovering från 2 000 kr/kvm fasadyta.",
   },
   "altan-terrass": {
@@ -299,7 +335,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Bygge", desc: "Mark, stomme, däck och räcken monteras." },
       { title: "Belysning & slutkoll", desc: "LED kopplas in och allt finjusteras." },
     ],
-    gallery: [villa, sTerrace, baFacadeAfter],
+    gallery: [nAltan1, nAltan2, nAltan3],
     price: "Altan från 3 500 kr/kvm. Inglasad altan från 8 000 kr/kvm.",
   },
   tillbyggnad: {
@@ -319,7 +355,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Bygge", desc: "Grund, stomme, tak, fasad och installationer." },
       { title: "Slutbesiktning", desc: "Komplett genomgång och överlämning." },
     ],
-    gallery: [sExtension, villa, sTotal],
+    gallery: [nUtbyggnad1],
     price: "Tillbyggnad från 25 000 kr/kvm.",
   },
   "malning-tapetsering": {
@@ -339,7 +375,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Målning & tapetsering", desc: "Arbetet utförs i lugn och ordning." },
       { title: "Slutkontroll", desc: "Vi städar och går igenom resultatet med er." },
     ],
-    gallery: [sPainting, sInterior, sTotal],
+    gallery: [nMalning1, nMalning2, nMalning3],
     price: "Ommålning av lägenhet (3 rok) från 25 000 kr.",
   },
   inredning: {
@@ -359,7 +395,7 @@ const serviceContent: Record<string, ServiceContent> = {
       { title: "Inköp & beställning", desc: "Vi sköter beställningar och leveranser." },
       { title: "Styling & överlämning", desc: "Möbler placeras och allt arrangeras." },
     ],
-    gallery: [sInterior, baKitchenAfter, sTotal],
+    gallery: [nInredning1, nInredning2, nInredning3],
     price: "Inredningskonsultation från 2 500 kr/tillfälle.",
   },
 };

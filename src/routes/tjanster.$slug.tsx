@@ -111,7 +111,46 @@ function ServicePage() {
         </div>
       </section>
 
+      {/* GALLERY */}
+      {service.gallery && service.gallery.length > 0 && (
+        <section className="bg-white section-pad">
+          <div className="container-x">
+            <Reveal variant="up">
+              <span className="label-eyebrow" style={{ color: "#999" }}>Tidigare projekt</span>
+              <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Galleri</h2>
+            </Reveal>
+            <div
+              className={`mt-12 columns-1 gap-4 ${
+                service.gallery.length === 1
+                  ? ""
+                  : service.gallery.length === 2
+                  ? "md:columns-2"
+                  : "md:columns-2 lg:columns-3"
+              }`}
+            >
+              {service.gallery.map((src: string, i: number) => (
+                <Reveal key={src + i} variant="fade" delay={i * 0.06}>
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(src)}
+                    className="group mb-4 block w-full overflow-hidden rounded-[8px] shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all duration-[500ms] hover:shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+                    style={{ breakInside: "avoid" }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${service.name} projekt ${i + 1}`}
+                      className="block w-full h-auto object-cover transition-transform duration-[700ms] group-hover:scale-[1.03]"
+                    />
+                  </button>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* WHAT WE DO */}
+
       {service.scope && (
         <section className="bg-white section-pad">
           <div className="container-x">
@@ -160,36 +199,6 @@ function ServicePage() {
                 </Reveal>
               ))}
             </ol>
-          </div>
-        </section>
-      )}
-
-      {/* GALLERY */}
-      {service.gallery && service.gallery.length > 0 && (
-        <section className="bg-white section-pad">
-          <div className="container-x">
-            <Reveal variant="up">
-              <span className="label-eyebrow" style={{ color: "#999" }}>Tidigare projekt</span>
-              <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Galleri</h2>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-              {service.gallery.map((src: string, i: number) => (
-                <Reveal key={src + i} variant="fade" delay={i * 0.08}>
-                  <button
-                    type="button"
-                    onClick={() => setLightbox(src)}
-                    className="group block w-full overflow-hidden rounded-[6px]"
-                    style={{ aspectRatio: i === 0 ? "4 / 5" : "1 / 1" }}
-                  >
-                    <img
-                      src={src}
-                      alt={`${service.name} projekt ${i + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-[700ms] group-hover:scale-[1.04]"
-                    />
-                  </button>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
       )}

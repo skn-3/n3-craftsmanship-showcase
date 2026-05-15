@@ -96,7 +96,7 @@ function ProjectsPage() {
                 >
                   <div
                     className="relative overflow-hidden rounded-[6px]"
-                    style={{ aspectRatio: i % 5 === 0 ? "4 / 5" : "4 / 3" }}
+                    style={{ aspectRatio: "3 / 4" }}
                   >
                     <img
                       src={p.img}

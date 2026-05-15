@@ -35,6 +35,14 @@ export const Route = createFileRoute("/projekt/$slug")({
 function ProjectPage() {
   const { project } = Route.useLoaderData();
   const others = projects.filter((p) => p.slug !== project.slug);
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLightbox(null);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightbox]);
 
   return (
     <main>

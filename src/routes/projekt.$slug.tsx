@@ -90,6 +90,43 @@ function ProjectPage() {
         </div>
       </section>
 
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="bg-white pb-24 md:pb-32">
+          <div className="container-x">
+            <Reveal variant="up">
+              <span className="label-eyebrow" style={{ color: "#999" }}>Galleri</span>
+              <h2 className="font-serif text-[var(--kol)] mt-3 text-[28px] md:text-[36px]">Fler bilder</h2>
+            </Reveal>
+            <div
+              className={`mt-10 columns-1 gap-4 ${
+                project.gallery.length === 1
+                  ? ""
+                  : project.gallery.length === 2
+                  ? "md:columns-2"
+                  : "md:columns-2 lg:columns-3"
+              }`}
+            >
+              {project.gallery.map((src, i) => (
+                <Reveal key={src + i} variant="fade" delay={i * 0.06}>
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(src)}
+                    className="group mb-4 block w-full overflow-hidden rounded-[8px] shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all duration-[500ms] hover:shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+                    style={{ breakInside: "avoid" }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${project.title} bild ${i + 1}`}
+                      className="block w-full h-auto object-cover transition-transform duration-[700ms] group-hover:scale-[1.03]"
+                    />
+                  </button>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {others.length > 0 && (
         <section className="bg-[var(--krita)] section-pad">
           <div className="container-x">

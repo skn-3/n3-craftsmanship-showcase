@@ -106,7 +106,7 @@ function ProjectPage() {
                   : "md:columns-2 lg:columns-3"
               }`}
             >
-              {project.gallery.map((src, i) => (
+              {project.gallery.map((src: string, i: number) => (
                 <Reveal key={src + i} variant="fade" delay={i * 0.06}>
                   <button
                     type="button"

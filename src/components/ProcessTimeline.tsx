@@ -56,12 +56,27 @@ function Desktop({ steps }: { steps: Step[] }) {
   }, [steps.length]);
 
   return (
-    <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <div
+      ref={sectionRef}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 64,
+        alignItems: "start",
+      }}
+    >
       {/* LEFT — sticky image */}
-      <div className="lg:sticky lg:top-[120px] self-start">
+      <div
+        style={{
+          position: "sticky",
+          top: 100,
+          alignSelf: "start",
+          height: "fit-content",
+        }}
+      >
         <div
           className="relative w-full overflow-hidden"
-          style={{ aspectRatio: "4 / 3", borderRadius: 12 }}
+          style={{ aspectRatio: "3 / 4", borderRadius: 12 }}
         >
           {STEP_IMAGES.map((src, i) => (
             <img

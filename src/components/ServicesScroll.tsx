@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Service = { img: string; name: string; desc: string };
 
@@ -26,6 +27,7 @@ export function ServicesScroll({ items }: { items: Service[] }) {
   const list = order.length === 9 ? order : items.map((s, i) => ({ ...s, idx: i }));
 
   const [r1a, r1b, r2a, r2b, r2c, feat, r4a, r4b, r4c] = list;
+  const isMobile = useIsMobile();
 
   let n = 0;
   const next = () => n++;
@@ -42,6 +44,10 @@ export function ServicesScroll({ items }: { items: Service[] }) {
         </p>
       </div>
 
+      {isMobile ? (
+        <MobileCarousel list={list} />
+      ) : (
+        <>
       {/* Row 1: 60 / 40 */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
         <div className="md:col-span-3">
@@ -70,6 +76,8 @@ export function ServicesScroll({ items }: { items: Service[] }) {
         <Card s={r4b} i={next()} ratio="4 / 3" />
         <Card s={r4c} i={next()} ratio="4 / 3" />
       </div>
+        </>
+      )}
     </div>
   );
 }
@@ -175,3 +183,92 @@ function FeatureCard({ s, i }: { s: Service & { idx: number }; i: number }) {
     </article>
   );
 }
+
+function MobileCarousel({ list }: { list: (Service & { idx: number })[] }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [hintVisible, setHintVisible] = useState(true);
+
+  const onScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    if (hintVisible) setHintVisible(false);
+    const cardW = el.clientWidth * 0.8 + 16;
+    const i = Math.round(el.scrollLeft / cardW);
+    setActive(Math.max(0, Math.min(list.length - 1, i)));
+  };
+
+  return (
+    <div>
+      <div
+        ref={scrollerRef}
+        onScroll={onScroll}
+        className="services-mobile-scroller"
+        style={{
+          display: "flex",
+          overflowX: "auto",
+          overflowY: "hidden",
+          scrollSnapType: "x mandatory",
+          gap: 16,
+          padding: "0 20px",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
+        }}
+      >
+        {list.map((s) => (
+          <article
+            key={s.name}
+            className="bg-white overflow-hidden"
+            style={{
+              flex: "0 0 80vw",
+              scrollSnapAlign: "start",
+            }}
+          >
+            <div className="overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+              <img src={s.img} alt={s.name} loading="lazy" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-5">
+              <div className="flex items-baseline gap-3">
+                <span className="font-serif text-[var(--tra)] text-[14px]">
+                  {String(s.idx + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-sans font-medium text-[18px] text-[var(--kol)]">{s.name}</h3>
+              </div>
+              <p className="mt-2 text-[14px] text-[#666] leading-relaxed">{s.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <div className="flex justify-center gap-2 mt-6">
+        {list.map((_, i) => (
+          <span
+            key={i}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: i === active ? "#C4A97D" : "transparent",
+              border: `1px solid ${i === active ? "#C4A97D" : "#D4C5A9"}`,
+              transition: "background .2s ease",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Swipe hint */}
+      <div
+        className="text-center mt-3 text-[13px] text-[#999]"
+        style={{
+          opacity: hintVisible ? 1 : 0,
+          transition: "opacity .4s ease",
+          pointerEvents: "none",
+        }}
+      >
+        Svep →
+      </div>
+    </div>
+  );
+}
+

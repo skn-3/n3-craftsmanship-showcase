@@ -302,3 +302,6 @@
   }
   .trust-badges > span { display: inline-block; }
 }
+
+/* Services mobile carousel: hide scrollbar */
+.services-mobile-scroller::-webkit-scrollbar { display: none; }

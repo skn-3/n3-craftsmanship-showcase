@@ -67,13 +67,4 @@ function ServicesPage() {
     </main>
   );
 }
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+

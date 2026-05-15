@@ -201,7 +201,7 @@ function AboutPage() {
 function Stat({ n, l }: { n: string; l: string }) {
   return (
     <div>
-      <div className="font-serif text-[36px] leading-none text-[var(--tra)]">{n}</div>
+      <CountUp value={n} className="font-serif text-[36px] leading-none text-[var(--tra)] block" />
       <div className="text-[12px] tracking-widest uppercase text-[#888] mt-2">{l}</div>
     </div>
   );

@@ -1,0 +1,40 @@
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useLocation } from "@tanstack/react-router";
+
+/**
+ * Crossfade page transitions + scroll-to-top on route change.
+ * Pure CSS, no framer-motion dependency.
+ */
+export function PageTransition({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  const [displayed, setDisplayed] = useState(children);
+  const [shown, setShown] = useState(true);
+  const prev = useRef(pathname);
+
+  useEffect(() => {
+    if (prev.current === pathname) {
+      setDisplayed(children);
+      return;
+    }
+    setShown(false);
+    const fadeOut = window.setTimeout(() => {
+      setDisplayed(children);
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      prev.current = pathname;
+      requestAnimationFrame(() => setShown(true));
+    }, 300);
+    return () => window.clearTimeout(fadeOut);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, children]);
+
+  return (
+    <div
+      style={{
+        opacity: shown ? 1 : 0,
+        transition: "opacity .3s ease",
+      }}
+    >
+      {displayed}
+    </div>
+  );
+}

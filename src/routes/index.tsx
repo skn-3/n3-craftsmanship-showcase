@@ -1,7 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Nav } from "@/components/Nav";
-import { MobileCTABar } from "@/components/MobileCTABar";
 
 import { Reveal } from "@/components/Reveal";
 import { IntroOverlay } from "@/components/IntroOverlay";
@@ -14,20 +12,12 @@ import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { BeforeAfterRow } from "@/components/BeforeAfterRow";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { services } from "@/lib/site-data";
 
 import heroVideo from "@/assets/hero.mp4";
 import heroMobile from "@/assets/hero-mobile.png";
 import featured from "@/assets/villa-saltsjobad-n3.png";
 import about from "@/assets/team.png";
-import sTotal from "@/assets/s-total.png";
-import sBath from "@/assets/s-bath.png";
-import sKitchen from "@/assets/s-kitchen.png";
-import sRoof from "@/assets/s-roof.png";
-import sFacade from "@/assets/s-facade.png";
-import sTerrace from "@/assets/s-terrace.png";
-import sExtension from "@/assets/s-extension.png";
-import sPainting from "@/assets/s-painting.png";
-import sInterior from "@/assets/s-interior.jpg";
 import baKitchenBefore from "@/assets/ba-kitchen-before.png";
 import baKitchenAfter from "@/assets/ba-kitchen-after.png";
 import baBathBefore from "@/assets/ba-bath-before.png";
@@ -51,17 +41,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const services = [
-  { img: sTotal, name: "Totalrenovering", desc: "Komplett förvandling av ditt hem, från golv till tak." },
-  { img: sBath, name: "Badrum", desc: "Lyxiga badrum med känsla för material och funktion." },
-  { img: sKitchen, name: "Kök", desc: "Skräddarsydda kök där design möter vardagsliv." },
-  { img: sRoof, name: "Tak", desc: "Takbyten och takrenovering med kvalitetsmaterial." },
-  { img: sFacade, name: "Fasad", desc: "Fasadrenovering som ger ditt hem nytt liv." },
-  { img: sTerrace, name: "Altan & Terrass", desc: "Uterum och altaner byggda för skandinaviskt klimat." },
-  { img: sExtension, name: "Tillbyggnad", desc: "Mer utrymme, smart planerat och sömlöst integrerat." },
-  { img: sPainting, name: "Målning & Tapetsering", desc: "Professionell målning och tapetsering som ger rummet ny karaktär." },
-  { img: sInterior, name: "Inredning", desc: "Inredningshjälp som sätter pricken över i." },
-];
 
 const steps = [
   { n: "01", t: "Kostnadsfritt möte", d: "Vi kommer till dig, lyssnar på dina önskemål och tar mått. Helt utan förpliktelser." },
@@ -110,7 +89,6 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 function Index() {
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.1);
-  const [policy, setPolicy] = useState<null | "integritet" | "cookies">(null);
   const isMobile = useIsMobile();
 
   // Featured project curtain reveal
@@ -158,8 +136,6 @@ function Index() {
     <div id="top">
       <SmoothScroll />
       <IntroOverlay />
-      <Nav />
-      <MobileCTABar />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -424,83 +400,8 @@ function Index() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[var(--kol)] text-white pt-20 pb-10 relative z-[2]">
-        <div className="container-x">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            <Reveal variant="up" delay={0}>
-              <div className="font-serif text-[28px]">N3</div>
-              <p className="mt-3 text-[12px] text-[#666]">SmartKlimat N3prenad AB</p>
-              <p className="text-[12px] text-[#555]">Bygger med omtanke</p>
-            </Reveal>
-            <Reveal variant="up" delay={0.1}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Tjänster</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                {["Totalrenovering", "Badrum", "Kök", "Tak", "Fasad", "Altan"].map((s) => (
-                  <li key={s}><a href="#tjanster" className="hover:text-white transition-colors">{s}</a></li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal variant="up" delay={0.2}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Kontakt</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li>Telefon: 08-123 45 67</li>
-                <li>E-post: info@smartklimatn3.se</li>
-                <li>Adress: Stockholm</li>
-              </ul>
-            </Reveal>
-            <Reveal variant="up" delay={0.3}>
-              <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Följ oss</h4>
-              <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-                <li><a href="https://instagram.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
-                <li><a href="https://facebook.com/n3smartklimat" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Facebook</a></li>
-              </ul>
-            </Reveal>
-          </div>
-
-          <div className="mt-16 pt-6 border-t border-[#333] flex flex-col md:flex-row gap-4 justify-between items-center text-[12px] text-[#666]">
-            <p>© 2026 SmartKlimat N3prenad AB</p>
-            <div className="flex items-center gap-4">
-              <button type="button" onClick={() => setPolicy("integritet")} className="hover:text-white transition-colors">Integritetspolicy</button>
-              <span>|</span>
-              <button type="button" onClick={() => setPolicy("cookies")} className="hover:text-white transition-colors">Cookies</button>
-            </div>
-            <div className="inline-flex items-center gap-2 opacity-60">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--skog)" }} />
-              CO2 Kompenserad
-            </div>
-          </div>
-        </div>
-      </footer>
       </div>
 
-      {policy && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
-          onClick={() => setPolicy(null)}
-        >
-          <div
-            className="bg-white text-[var(--kol)] max-w-md w-full p-8 rounded-sm shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="font-serif text-[24px] mb-3">
-              {policy === "integritet" ? "Integritetspolicy" : "Cookie-policy"}
-            </h3>
-            <p className="text-sm text-[#555] leading-relaxed">
-              {policy === "integritet"
-                ? "Integritetspolicy kommer snart."
-                : "Cookie-policy kommer snart."}
-            </p>
-            <button
-              type="button"
-              onClick={() => setPolicy(null)}
-              className="mt-6 text-[12px] tracking-widest uppercase text-[var(--kol)] hover:opacity-60 transition-opacity"
-            >
-              Stäng
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

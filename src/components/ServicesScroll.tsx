@@ -156,8 +156,10 @@ function Card({
 function FeatureCard({ s, i }: { s: Service & { idx: number }; i: number }) {
   const { ref, visible } = useReveal();
   return (
-    <article
-      ref={ref}
+    <Link
+      to="/tjanster/$slug"
+      params={{ slug: s.slug }}
+      ref={ref as React.Ref<HTMLAnchorElement>}
       className="group bg-white overflow-hidden grid grid-cols-1 md:grid-cols-2 cursor-pointer"
       style={{
         opacity: visible ? 1 : 0,
@@ -185,8 +187,11 @@ function FeatureCard({ s, i }: { s: Service & { idx: number }; i: number }) {
           <h3 className="font-sans font-medium text-[24px] md:text-[28px] text-[var(--kol)]">{s.name}</h3>
         </div>
         <p className="mt-4 text-[15px] md:text-[16px] text-[#666] leading-relaxed max-w-[460px]">{s.desc}</p>
+        <span className="mt-6 inline-block text-[14px] tracking-wide text-[var(--tra)] group-hover:translate-x-1 transition-transform">
+          Läs mer →
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 

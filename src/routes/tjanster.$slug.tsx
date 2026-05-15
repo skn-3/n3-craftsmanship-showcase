@@ -173,7 +173,7 @@ function ServicePage() {
               <h2 className="font-serif text-[var(--kol)] mt-3 text-[32px] md:text-[44px]">Galleri</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-              {service.gallery.map((src, i) => (
+              {service.gallery.map((src: string, i: number) => (
                 <Reveal key={src + i} variant="fade" delay={i * 0.08}>
                   <button
                     type="button"

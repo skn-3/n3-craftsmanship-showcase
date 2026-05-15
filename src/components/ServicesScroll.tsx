@@ -227,9 +227,11 @@ function MobileCarousel({ list }: { list: (Service & { idx: number })[] }) {
         }}
       >
         {list.map((s) => (
-          <article
+          <Link
+            to="/tjanster/$slug"
+            params={{ slug: s.slug }}
             key={s.name}
-            className="bg-white overflow-hidden"
+            className="bg-white overflow-hidden block"
             style={{
               flex: "0 0 80vw",
               scrollSnapAlign: "start",
@@ -246,8 +248,9 @@ function MobileCarousel({ list }: { list: (Service & { idx: number })[] }) {
                 <h3 className="font-sans font-medium text-[18px] text-[var(--kol)]">{s.name}</h3>
               </div>
               <p className="mt-2 text-[14px] text-[#666] leading-relaxed">{s.desc}</p>
+              <span className="mt-3 inline-block text-[13px] text-[var(--tra)]">Läs mer →</span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 

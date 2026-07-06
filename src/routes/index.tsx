@@ -11,20 +11,21 @@ import { TestimonialsStack } from "@/components/TestimonialsStack";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { BeforeAfterRow } from "@/components/BeforeAfterRow";
 import { SeasonalBanner } from "@/components/SeasonalBanner";
+import ScrollBuildSequence from "@/components/ScrollBuildSequence";
 import { useCountUp, useParallax } from "@/hooks/use-reveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { services } from "@/lib/site-data";
 
 import heroVideo from "@/assets/hero.mp4";
-import heroMobile from "@/assets/hero-mobile.png";
-import featured from "@/assets/villa-saltsjobad-n3.png";
-import about from "@/assets/team.png";
-import baKitchenBefore from "@/assets/ba-kitchen-before.png";
-import baKitchenAfter from "@/assets/ba-kitchen-after.png";
-import baBathBefore from "@/assets/ba-bath-before.png";
-import baBathAfter from "@/assets/ba-bath-after.png";
-import baFacadeBefore from "@/assets/ba-facade-before.png";
-import baFacadeAfter from "@/assets/ba-facade-after.png";
+import heroMobile from "@/assets/hero-mobile.webp";
+import featured from "@/assets/villa-saltsjobad-n3.webp";
+import about from "@/assets/team.webp";
+import baKitchenBefore from "@/assets/ba-kitchen-before.webp";
+import baKitchenAfter from "@/assets/ba-kitchen-after.webp";
+import baBathBefore from "@/assets/ba-bath-before.webp";
+import baBathAfter from "@/assets/ba-bath-after.webp";
+import baFacadeBefore from "@/assets/ba-facade-before.webp";
+import baFacadeAfter from "@/assets/ba-facade-after.webp";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -211,6 +212,8 @@ function Index() {
           </svg>
         </div>
       </section>
+
+      <ScrollBuildSequence />
 
       <SeasonalBanner />
 

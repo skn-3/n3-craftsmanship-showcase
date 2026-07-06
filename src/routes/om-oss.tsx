@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { ParallaxImage } from "@/components/ParallaxImage";
 import { CountUp } from "@/components/CountUp";
-import team from "@/assets/team.png";
+import team from "@/assets/team.webp";
 import { Award, Eye, Leaf, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/om-oss")({

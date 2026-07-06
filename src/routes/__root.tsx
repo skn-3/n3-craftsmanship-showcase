@@ -87,11 +87,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       { property: "og:description", content: "Hantverk med skandinavisk precision" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       { name: "twitter:description", content: "Hantverk med skandinavisk precision" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a7b4373-73ec-478e-8d49-d8481e0e89eb/id-preview-d464e770--18dafc34-7b4c-44d4-853a-9cac35e7e408.lovable.app-1778659303225.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a7b4373-73ec-478e-8d49-d8481e0e89eb/id-preview-d464e770--18dafc34-7b4c-44d4-853a-9cac35e7e408.lovable.app-1778659303225.png" },
+      { property: "og:image", content: "https://n3prenad.se/og.jpg" },
+      { name: "twitter:image", content: "https://n3prenad.se/og.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -106,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="sv">
       <head>
         <HeadContent />
       </head>

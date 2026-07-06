@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import mote from "@/assets/n3-mote.png";
-import planering from "@/assets/n3-planering.png";
-import montage from "@/assets/n3-montage.png";
-import resultat from "@/assets/n3-resultat.png";
+import mote from "@/assets/n3-mote.webp";
+import planering from "@/assets/n3-planering.webp";
+import montage from "@/assets/n3-montage.webp";
+import resultat from "@/assets/n3-resultat.webp";
 
 type Step = { n: string; t: string; d: string };
 

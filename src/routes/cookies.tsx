@@ -26,8 +26,18 @@ function CookiesPage() {
           <h2 className="font-serif text-[24px] text-[var(--kol)] mt-10">Cookies vi använder</h2>
           <ul className="list-disc pl-5 space-y-2">
             <li><strong>Nödvändiga cookies</strong> — krävs för att webbplatsen ska fungera.</li>
-            <li><strong>Analyscookies</strong> — anonym statistik via Plausible/GA4 för att förbättra innehållet.</li>
+            <li><strong>Analyscookies</strong> — anonym statistik via Google Analytics 4 (t.ex. _ga) för att förbättra innehållet. Sätts endast med ditt samtycke.</li>
+            <li><strong>Marknadsföringscookies</strong> — mäter våra annonser via Google Ads och Meta (t.ex. _fbp). Sätts endast med ditt samtycke.</li>
           </ul>
+          <p>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("n3-open-consent"))}
+              className="rounded-full bg-[var(--kol)] px-5 py-2.5 text-[13px] font-medium text-white transition-transform active:scale-95"
+            >
+              Hantera cookie-inställningar
+            </button>
+          </p>
           <h2 className="font-serif text-[24px] text-[var(--kol)] mt-10">Hantera cookies</h2>
           <p>Du kan när som helst stänga av cookies i din webbläsares inställningar.</p>
         </div>

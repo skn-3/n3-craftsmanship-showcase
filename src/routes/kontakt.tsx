@@ -2,6 +2,8 @@ import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
 import { sendQuoteRequest, type QuotePayload } from "@/lib/send-quote";
+import { trackLead } from "@/lib/tracking";
+import { getConsent } from "@/lib/consent";
 import { Phone, Mail, MapPin, Clock, Check } from "lucide-react";
 
 export const Route = createFileRoute("/kontakt")({
@@ -56,6 +58,7 @@ function ContactPage() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const files = fd.getAll("bilder").filter((f): f is File => f instanceof File && f.size > 0);
+    const eventId = crypto.randomUUID();
     const payload: QuotePayload = {
       namn: String(fd.get("namn") ?? ""),
       email: String(fd.get("email") ?? ""),
@@ -66,9 +69,12 @@ function ContactPage() {
       start: String(fd.get("start") ?? ""),
       meddelande: String(fd.get("meddelande") ?? ""),
       bilder: files.map((f) => f.name).join(", "),
+      eventId,
+      marketingConsent: getConsent()?.marketing ?? false,
     };
     try {
       await sendQuoteRequest({ data: payload });
+      trackLead(eventId);
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {

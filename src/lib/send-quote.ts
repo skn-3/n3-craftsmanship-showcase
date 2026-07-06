@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { META_PIXEL_ID } from "./tracking-config";
 
 /**
  * Skickar offertförfrågan via Resend (send.smartklimat.org).
@@ -16,7 +17,17 @@ export type QuotePayload = {
   start?: string;
   meddelande?: string;
   bilder?: string;
+  eventId?: string;
+  marketingConsent?: boolean;
 };
+
+async function sha256Hex(input: string): Promise<string> {
+  const bytes = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 const REQUIRED = ["namn", "email", "telefon", "typ"] as const;
 
@@ -83,6 +94,36 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
     if (!res.ok) {
       const body = await res.text().catch(() => "");
       throw new Error(`Resend svarade ${res.status}: ${body.slice(0, 200)}`);
+    }
+
+    // Meta Conversions API — endast med marknadsföringssamtycke.
+    // Fel här får ALDRIG fälla leadet; mejlet är redan skickat.
+    const capiToken = process.env.META_CAPI_TOKEN;
+    if (data.marketingConsent && data.eventId && META_PIXEL_ID && capiToken) {
+      try {
+        const em = await sha256Hex(data.email.trim().toLowerCase());
+        await fetch(
+          `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${capiToken}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              data: [
+                {
+                  event_name: "Lead",
+                  event_time: Math.floor(Date.now() / 1000),
+                  action_source: "website",
+                  event_id: data.eventId,
+                  event_source_url: "https://n3prenad.se/kontakt",
+                  user_data: { em: [em] },
+                },
+              ],
+            }),
+          },
+        );
+      } catch {
+        /* CAPI-fel ignoreras medvetet */
+      }
     }
 
     return { ok: true as const };

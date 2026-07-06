@@ -17,6 +17,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { MagneticButtons } from "@/components/MagneticButtons";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import CookieConsent from "@/components/CookieConsent";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { MobileCTABar } from "@/components/MobileCTABar";
@@ -134,6 +135,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LoadingScreen />
+        <CookieConsent />
       <ScrollProgress />
       <CustomCursor />
       <MagneticButtons />

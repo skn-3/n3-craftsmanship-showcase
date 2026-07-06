@@ -55,7 +55,7 @@ const LOOP_SRC = "/videos/n3-build-loop.mp4";
 const POSTER = "/videos/n3-build-poster.jpg";
 const POSTER_MOBILE = "/videos/n3-build-poster-mobile.jpg";
 const FPS = 24; // matchar pipelinens utfil (veo levererar 24 fps)
-const SMOOTH = 6.5; // lerp-hastighet; lägre = tyngre, mjukare känsla
+const SMOOTH = 6.0; // lerp-hastighet; lägre = tyngre, mjukare känsla
 
 const ScrollBuildSequence = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -73,6 +73,8 @@ const ScrollBuildSequence = () => {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [scrubSrc, setScrubSrc] = useState<string | null>(null);
   const [loopReady, setLoopReady] = useState(false);
+  const loopVideoRef = useRef<HTMLVideoElement>(null);
+  const [needsTap, setNeedsTap] = useState(false);
 
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -116,6 +118,23 @@ const ScrollBuildSequence = () => {
     io.observe(el);
     return () => io.disconnect();
   }, [mounted, scrubEnabled, loopReady]);
+
+  /* Mobil: iOS blockerar autoplay i Lågenergiläge — försök aktivt, annars tap-läge */
+  useEffect(() => {
+    if (!loopReady || scrubEnabled || reducedMotion) return;
+    const v = loopVideoRef.current;
+    if (!v) return;
+    const attempt = v.play();
+    if (attempt) attempt.catch(() => setNeedsTap(true));
+  }, [loopReady, scrubEnabled, reducedMotion]);
+
+  const startLoop = () => {
+    const v = loopVideoRef.current;
+    if (!v) return;
+    v.play()
+      .then(() => setNeedsTap(false))
+      .catch(() => {});
+  };
 
   /* Scroll-scrub-loopen */
   useEffect(() => {
@@ -204,18 +223,36 @@ const ScrollBuildSequence = () => {
           {/* Double-bezel-ram runt loop-videon */}
           <Reveal variant="up" delay={0.12}>
             <div className="mt-8 rounded-[2rem] bg-[#1A1F1E]/5 p-1.5 ring-1 ring-black/5">
-              <div className="aspect-[4/5] overflow-hidden rounded-[calc(2rem-0.375rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[calc(2rem-0.375rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
                 {loopReady && !reducedMotion ? (
-                  <video
-                    src={LOOP_SRC}
-                    poster={POSTER_MOBILE}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="block h-full w-full object-cover"
-                  />
+                  <>
+                    <video
+                      ref={loopVideoRef}
+                      src={LOOP_SRC}
+                      poster={POSTER_MOBILE}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="block h-full w-full object-cover"
+                      onClick={startLoop}
+                    />
+                    {needsTap && (
+                      <button
+                        type="button"
+                        onClick={startLoop}
+                        aria-label="Spela upp byggsekvensen"
+                        className="absolute inset-0 flex items-center justify-center"
+                      >
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1A1F1E]/70 shadow-lg backdrop-blur-sm transition-transform active:scale-95">
+                          <svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true">
+                            <path d="M2 2.5v21l18-10.5L2 2.5z" fill="#F5F2ED" />
+                          </svg>
+                        </span>
+                      </button>
+                    )}
+                  </>
                 ) : (
                   <img
                     src={POSTER_MOBILE}
@@ -256,7 +293,7 @@ const ScrollBuildSequence = () => {
 
   /* ---------------- Desktop: scroll-scrub ---------------- */
   return (
-    <section ref={wrapRef} className="relative h-[340vh]" aria-label="Så bygger vi">
+    <section ref={wrapRef} className="relative h-[500vh]" aria-label="Så bygger vi">
       <div className="sticky top-0 min-h-[100dvh] overflow-hidden">
         {/* Videon — fyller hela viewporten; src sätts först nära viewport */}
         <video

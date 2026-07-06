@@ -30,7 +30,7 @@ const PHASES = [
     no: "01",
     label: "Huset",
     heading: "Från grund till nock",
-    body: "Stomme, tak och fasad — vi bygger hela hem med precision i varje moment.",
+    body: "Hela hem från stommen och uppåt, byggda som om de var våra egna.",
   },
   {
     no: "02",
@@ -42,7 +42,7 @@ const PHASES = [
     no: "03",
     label: "Köket",
     heading: "Hjärtat får ta plats",
-    body: "Skräddarsytt ner till sista lucka — där livet händer.",
+    body: "Platsbyggt ner till sista luckan.",
   },
 ] as const;
 

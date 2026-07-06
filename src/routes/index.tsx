@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
           "N3 bygger hem som håller i generationer. Totalrenoveringar, badrum, kök, tak och fasad i Stockholm.",
       },
       { property: "og:title", content: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
-      { property: "og:description", content: "Totalrenoveringar, badrum, kök, tak och fasad – byggt med omtanke." },
+      { property: "og:description", content: "Totalrenoveringar, badrum, kök, tak och fasad – med fast pris och 5 års garanti." },
     ],
   }),
 });
@@ -48,8 +48,8 @@ export const Route = createFileRoute("/")({
 const steps = [
   { n: "01", t: "Kostnadsfritt möte", d: "Vi kommer till dig, lyssnar på dina önskemål och tar mått. Helt utan förpliktelser." },
   { n: "02", t: "Design & offert", d: "Du får en detaljerad offert med 3D-visualisering och materialförslag inom 5 arbetsdagar." },
-  { n: "03", t: "Byggnation", d: "Vårt team tar hand om allt — från rivning till slutbesiktning. Du har en fast kontaktperson hela vägen." },
-  { n: "04", t: "Överlämning", d: "Slutbesiktning tillsammans, genomgång av garantier, och ditt drömhem är redo att flytta in i." },
+  { n: "03", t: "Byggnation", d: "Vårt team tar hand om allt från rivning till slutbesiktning. Du har en fast kontaktperson hela vägen." },
+  { n: "04", t: "Överlämning", d: "Slutbesiktning tillsammans, genomgång av garantier, och hemmet är klart att flytta in i." },
 ];
 
 const testimonials = [

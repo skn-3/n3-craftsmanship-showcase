@@ -33,7 +33,7 @@ const VALUES = [
   {
     icon: Leaf,
     title: "Hållbarhet",
-    desc: "Vi CO2-kompenserar varje projekt och väljer material med omtanke. Inte för att det ser bra ut — utan för att det är rätt.",
+    desc: "Vi CO2-kompenserar varje projekt och väljer material med omtanke. Det kostar lite mer och är värt det.",
   },
 ];
 

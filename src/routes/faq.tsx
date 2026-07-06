@@ -31,7 +31,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Vad är ROT-avdrag och hur funkar det?",
-    a: "ROT-avdrag innebär att du får 30% skattereduktion på arbetskostnaden (inte materialkostnaden). Max 50 000 kr per person och år. Vi drar av det direkt på fakturan, så du betalar mindre. Det gäller för privatpersoner som äger sin bostad.",
+    a: "ROT-avdrag innebär att du får 30% skattereduktion på arbetskostnaden (inte materialkostnaden). Max 50 000 kr per person och år. Vi drar av det direkt på fakturan, så du betalar mindre. Äger ni bostaden tillsammans kan ni kombinera avdragen, upp till 100 000 kr per år. Det gäller privatpersoner som äger sin bostad.",
   },
   {
     q: "Har ni garanti på arbetet?",
@@ -47,7 +47,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Hur går det till att begära offert?",
-    a: "Enkelt! Fyll i formuläret på vår kontaktsida eller ring oss. Vi bokar ett kostnadsfritt hembesök där vi lyssnar på dina önskemål, tar mått och fotar. Inom 5 arbetsdagar får du en detaljerad offert med fast pris.",
+    a: "Fyll i formuläret på vår kontaktsida eller ring oss. Vi bokar ett kostnadsfritt hembesök där vi lyssnar på dina önskemål, tar mått och fotar. Inom 5 arbetsdagar får du en detaljerad offert med fast pris.",
   },
   {
     q: "Är ni CO₂-kompenserade?",
@@ -55,7 +55,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Kan jag se referensprojekt?",
-    a: "Absolut! Kolla in vår projektsida för bilder och beskrivningar av genomförda projekt. Vi kan även lämna kontaktuppgifter till tidigare kunder som referens.",
+    a: "Ja. På projektsidan finns bilder och beskrivningar av genomförda projekt, och vi lämnar gärna kontaktuppgifter till tidigare kunder.",
   },
 ];
 

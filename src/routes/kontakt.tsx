@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/Reveal";
+import { sendQuoteRequest, type QuotePayload } from "@/lib/send-quote";
 import { Phone, Mail, MapPin, Clock, Check } from "lucide-react";
 
 export const Route = createFileRoute("/kontakt")({
   component: ContactPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/kontakt" }],
     meta: [
       { title: "Kontakta oss — N3 SmartKlimat" },
       { name: "description", content: "Berätta om ditt projekt — vi återkommer inom 24 timmar." },
@@ -43,14 +45,37 @@ function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!consent) return;
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    // eslint-disable-next-line no-console
-    console.log("Offertförfrågan:", data);
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!consent || sending) return;
+    setSending(true);
+    setSendError(false);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const files = fd.getAll("bilder").filter((f): f is File => f instanceof File && f.size > 0);
+    const payload: QuotePayload = {
+      namn: String(fd.get("namn") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      telefon: String(fd.get("telefon") ?? ""),
+      typ: String(fd.get("typ") ?? ""),
+      adress: String(fd.get("adress") ?? ""),
+      budget: String(fd.get("budget") ?? ""),
+      start: String(fd.get("start") ?? ""),
+      meddelande: String(fd.get("meddelande") ?? ""),
+      bilder: files.map((f) => f.name).join(", "),
+    };
+    try {
+      await sendQuoteRequest({ data: payload });
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -146,12 +171,20 @@ function ContactPage() {
                   </label>
                   <button
                     type="submit"
-                    disabled={!consent}
+                    disabled={!consent || sending}
                     className="w-full py-4 text-[13px] tracking-[0.15em] uppercase text-white rounded-[4px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ background: "#2D5A3D" }}
                   >
-                    Skicka förfrågan
+                    {sending ? "Skickar…" : "Skicka förfrågan"}
                   </button>
+                  {sendError && (
+                    <p className="text-center text-[14px] leading-relaxed" style={{ color: "#9B3B2E" }}>
+                      Något gick fel när förfrågan skulle skickas. Ring oss på{" "}
+                      <a href="tel:+46707197235" className="underline">070-719 72 35</a> eller mejla{" "}
+                      <a href="mailto:n3prenad@smartklimat.org" className="underline">n3prenad@smartklimat.org</a>{" "}
+                      så hjälper vi dig direkt.
+                    </p>
+                  )}
                   <p className="text-center text-[13px] text-[#666] -mt-2">
                     ⚡ Svar inom 24 timmar · Kostnadsfritt &amp; utan förpliktelser
                   </p>
@@ -168,11 +201,11 @@ function ContactPage() {
                 <h3 className="font-serif text-[22px] text-[var(--kol)]">Direktkontakt</h3>
                 <ul className="mt-6 space-y-5">
                   <InfoRow icon={<Phone size={18} strokeWidth={1.5} />} label="Telefon">
-                    <a href="tel:+4681234567" className="hover:text-[var(--tra)]">08-123 45 67</a>
+                    <a href="tel:+46707197235" className="hover:text-[var(--tra)]">070-719 72 35</a>
                   </InfoRow>
                   <InfoRow icon={<Mail size={18} strokeWidth={1.5} />} label="E-post">
-                    <a href="mailto:info@smartklimatn3.se" className="hover:text-[var(--tra)] break-all">
-                      info@smartklimatn3.se
+                    <a href="mailto:n3prenad@smartklimat.org" className="hover:text-[var(--tra)] break-all">
+                      n3prenad@smartklimat.org
                     </a>
                   </InfoRow>
                   <InfoRow icon={<MapPin size={18} strokeWidth={1.5} />} label="Adress">

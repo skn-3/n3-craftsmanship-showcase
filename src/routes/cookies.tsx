@@ -4,6 +4,7 @@ import { PageHero } from "@/components/PageHero";
 export const Route = createFileRoute("/cookies")({
   component: CookiesPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/cookies" }],
     meta: [
       { title: "Cookie-policy — N3 SmartKlimat" },
       { name: "description", content: "Information om hur vi använder cookies på vår webbplats." },

@@ -7,8 +7,9 @@ export function LoadingScreen() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem(KEY)) {
+    if (sessionStorage.getItem(KEY) || window.location.pathname === "/") {
       setPhase("done");
+      sessionStorage.setItem(KEY, "1");
       return;
     }
     const t1 = setTimeout(() => setPhase("line"), 250);

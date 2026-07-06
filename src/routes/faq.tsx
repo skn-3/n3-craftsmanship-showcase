@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 export const Route = createFileRoute("/faq")({
   component: FAQPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/faq" }],
     meta: [
       { title: "Vanliga frågor — N3 SmartKlimat" },
       { name: "description", content: "Svar på vanliga frågor om renovering, offert, ROT-avdrag och garantier." },

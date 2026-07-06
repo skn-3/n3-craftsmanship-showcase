@@ -64,7 +64,7 @@ export function MobileCTABar() {
           Begär offert
         </a>
         <a
-          href="tel:08-1234567"
+          href="tel:+46707197235"
           className="flex items-center justify-center gap-2 text-white"
           style={{
             width: "40%",

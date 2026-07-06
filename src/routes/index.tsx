@@ -30,6 +30,7 @@ import baFacadeAfter from "@/assets/ba-facade-after.webp";
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/" }],
     meta: [
       { title: "N3 SmartKlimat – Renovering & Bygg i Stockholm" },
       {
@@ -90,6 +91,10 @@ function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 function Index() {
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
+  useEffect(() => {
+    if (window.matchMedia("(min-width: 768px)").matches) setShowHeroVideo(true);
+  }, []);
   const [ctaOffset, ctaRef] = useParallax<HTMLDivElement>(0.1);
   const isMobile = useIsMobile();
 
@@ -144,7 +149,7 @@ function Index() {
         <div className="absolute inset-0 hero-clip">
           <img
             src={heroMobile}
-            alt="N3 hem"
+            alt="Nyrenoverat hem i Stockholm, byggt av N3 SmartKlimat"
             loading="eager"
             // @ts-expect-error fetchpriority is valid
             fetchpriority="high"
@@ -152,6 +157,7 @@ function Index() {
             height={1920}
             className="md:hidden absolute inset-0 w-full h-full object-cover object-center hero-zoom"
           />
+          {showHeroVideo && (
           <video
             src={heroVideo}
             autoPlay
@@ -161,6 +167,7 @@ function Index() {
             preload="auto"
             className="hidden md:block absolute inset-0 w-full h-full object-cover hero-zoom"
           />
+          )}
           <div
             className="absolute inset-0"
             style={{ background: "linear-gradient(to bottom, rgba(26,31,30,0.85), rgba(26,31,30,0.3) 60%, rgba(26,31,30,0.6))" }}
@@ -414,7 +421,7 @@ function Index() {
           </Reveal>
           <Reveal variant="fade" delay={0.5}>
             <p className="mt-6 text-white/60 text-sm">
-              Eller ring oss: <a href="tel:+4681234567" className="underline hover:text-white">08-123 45 67</a>
+              Eller ring oss: <a href="tel:+46707197235" className="underline hover:text-white">070-719 72 35</a>
             </p>
           </Reveal>
         </div>

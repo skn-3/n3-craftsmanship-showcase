@@ -31,8 +31,8 @@ export function Footer() {
           <Reveal variant="up" delay={0.2}>
             <h4 className="font-sans font-medium text-[13px] tracking-widest uppercase text-white">Kontakt</h4>
             <ul className="mt-4 space-y-2 text-[14px] text-[#888]">
-              <li>Telefon: 08-123 45 67</li>
-              <li>E-post: info@smartklimatn3.se</li>
+              <li>Telefon: 070-719 72 35</li>
+              <li>E-post: n3prenad@smartklimat.org</li>
               <li>Adress: Stockholm</li>
               <li className="pt-2">
                 <Link to="/faq" className="hover:text-white transition-colors">Vanliga frågor</Link>

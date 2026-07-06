@@ -28,6 +28,7 @@ export const Route = createFileRoute("/tjanster/$slug")({
     return { service };
   },
   head: ({ loaderData }) => ({
+    links: [{ rel: "canonical", href: `https://n3prenad.se/tjanster/${loaderData?.service?.slug ?? ""}` }],
     meta: loaderData
       ? [
           { title: `${loaderData.service.name} — N3 SmartKlimat` },
@@ -290,7 +291,7 @@ function ServicePage() {
           </button>
           <img
             src={lightbox}
-            alt=""
+            alt="Förstorad projektbild"
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />

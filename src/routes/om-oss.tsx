@@ -8,6 +8,7 @@ import { Award, Eye, Leaf, ShieldCheck } from "lucide-react";
 export const Route = createFileRoute("/om-oss")({
   component: AboutPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/om-oss" }],
     meta: [
       { title: "Om N3 — Hantverk med modern precision" },
       { name: "description", content: "Vi bygger som om det vore vårt eget hem. Möt teamet bakom N3 SmartKlimat." },

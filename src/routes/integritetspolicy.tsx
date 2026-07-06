@@ -4,6 +4,7 @@ import { PageHero } from "@/components/PageHero";
 export const Route = createFileRoute("/integritetspolicy")({
   component: PrivacyPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/integritetspolicy" }],
     meta: [
       { title: "Integritetspolicy — N3 SmartKlimat" },
       { name: "description", content: "Hur vi hanterar dina personuppgifter enligt GDPR." },
@@ -32,7 +33,7 @@ function PrivacyPage() {
           <h2 className="font-serif text-[24px] text-[var(--kol)] mt-10">Hur vi använder uppgifterna</h2>
           <p>Vi använder uppgifterna för att svara på din förfrågan, skicka offert och hålla dig informerad om ditt projekt.</p>
           <h2 className="font-serif text-[24px] text-[var(--kol)] mt-10">Dina rättigheter</h2>
-          <p>Du har rätt att begära ut, rätta eller radera dina uppgifter. Kontakta oss på info@smartklimatn3.se.</p>
+          <p>Du har rätt att begära ut, rätta eller radera dina uppgifter. Kontakta oss på n3prenad@smartklimat.org.</p>
         </div>
       </section>
     </main>

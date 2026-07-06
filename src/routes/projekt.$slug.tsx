@@ -11,6 +11,7 @@ export const Route = createFileRoute("/projekt/$slug")({
     return { project };
   },
   head: ({ loaderData }) => ({
+    links: [{ rel: "canonical", href: `https://n3prenad.se/projekt/${loaderData?.project?.slug ?? ""}` }],
     meta: loaderData
       ? [
           { title: `${loaderData.project.title} — N3 SmartKlimat` },
@@ -203,7 +204,7 @@ function ProjectPage() {
           </button>
           <img
             src={lightbox}
-            alt=""
+            alt="Förstorad projektbild"
             className="max-w-full max-h-full object-contain rounded-[8px]"
             onClick={(e) => e.stopPropagation()}
           />

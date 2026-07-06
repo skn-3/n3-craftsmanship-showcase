@@ -6,6 +6,7 @@ import { projects } from "@/lib/site-data";
 export const Route = createFileRoute("/projekt/")({
   component: ProjectsPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://n3prenad.se/projekt" }],
     meta: [
       { title: "Projekt — N3 SmartKlimat" },
       { name: "description", content: "Ett urval av genomförda renoveringar och byggen i Stockholmsområdet." },

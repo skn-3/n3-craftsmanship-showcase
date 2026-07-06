@@ -110,6 +110,24 @@ const ScrollBuildSequence = () => {
     let lastPhase = 0;
     let lastTime = performance.now();
 
+    // iOS målar inga frames förrän videon "väckts" av play() — som bara är
+    // garanterat tillåtet i en användargest. Prima tyst på första touchen.
+    let primed = false;
+    const prime = () => {
+      if (primed) return;
+      primed = true;
+      const attempt = video.play();
+      if (attempt) {
+        attempt.then(() => video.pause()).catch(() => {
+          primed = false; // blockerad utanför gest — nästa gest försöker igen
+        });
+      }
+    };
+    prime();
+    window.addEventListener("touchstart", prime, { passive: true });
+    window.addEventListener("wheel", prime, { passive: true });
+    window.addEventListener("pointerdown", prime, { passive: true });
+
     const onScroll = () => {
       const rect = wrap.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
@@ -126,8 +144,9 @@ const ScrollBuildSequence = () => {
       const next = current.current + (target.current - current.current) * k;
       current.current = next;
 
-      // Scrubba videon — kvantiserat till framegrid, fastSeek där det finns
-      if (video.duration) {
+      // Scrubba videon — kvantiserat till framegrid, fastSeek där det finns.
+      // readyState-vakten hindrar seeks innan iOS har data => postern sitter kvar.
+      if (video.duration && video.readyState >= 2) {
         const t = Math.min(
           video.duration - 1 / FPS,
           Math.round(next * video.duration * FPS) / FPS,
@@ -161,6 +180,9 @@ const ScrollBuildSequence = () => {
     raf = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("touchstart", prime);
+      window.removeEventListener("wheel", prime);
+      window.removeEventListener("pointerdown", prime);
       cancelAnimationFrame(raf);
     };
   }, [mounted, reducedMotion]);
@@ -206,6 +228,14 @@ const ScrollBuildSequence = () => {
   return (
     <section ref={wrapRef} className="relative h-[500vh]" aria-label="Så bygger vi">
       <div className="sticky top-0 min-h-[100dvh] overflow-hidden bg-[#F5F2ED]">
+        {/* Posterlager bakom videon — syns tills iOS målat första framen */}
+        <img
+          src={posterSrc}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+
         {/* Videon — fyller hela viewporten; src och format sätts efter mount */}
         <video
           ref={videoRef}

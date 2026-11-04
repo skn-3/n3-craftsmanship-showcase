@@ -2,9 +2,10 @@ import { createServerFn } from "@tanstack/react-start";
 import { META_PIXEL_ID } from "./tracking-config";
 
 /**
- * Skickar offertförfrågan via Resend (send.smartklimat.org).
- * Kräver RESEND_API_KEY som secret i deploy-miljön (Lovable → Settings → Secrets).
- * Körs enbart på servern — nyckeln når aldrig klienten.
+ * Skickar offertförfrågan via Resend genom Lovables connector-gateway
+ * (https://connector-gateway.lovable.dev/resend), avsändare offert@smartklimat.org.
+ * Kräver LOVABLE_API_KEY och RESEND_API_KEY (från den länkade Resend-connectorn).
+ * Körs enbart på servern — nycklarna når aldrig klienten.
  */
 
 export type QuotePayload = {
@@ -48,9 +49,11 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    const key = process.env.RESEND_API_KEY;
-    if (!key) {
-      throw new Error("Mailtjänsten är inte konfigurerad (RESEND_API_KEY saknas)");
+    const lovableKey = process.env.LOVABLE_API_KEY;
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!lovableKey || !resendKey) {
+      console.error("sendQuoteRequest: LOVABLE_API_KEY eller RESEND_API_KEY saknas");
+      throw new Error("Förfrågan kunde inte skickas");
     }
 
     const rows: Array<[string, string | undefined]> = [
@@ -76,14 +79,15 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
       ? `<p style="margin:20px 0 6px;color:#888;font-size:13px">Beskrivning</p><p style="margin:0;color:#1A1F1E;font-size:14px;line-height:1.6;white-space:pre-wrap">${esc(data.meddelande)}</p>`
       : "";
 
-    const res = await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://connector-gateway.lovable.dev/resend/emails", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${key}`,
+        Authorization: `Bearer ${lovableKey}`,
+        "X-Connection-Api-Key": resendKey,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "N3 Offertförfrågan <no-reply@send.smartklimat.org>",
+        from: "Offertförfrågan n3prenad.se <offert@smartklimat.org>",
         to: ["n3prenad@smartklimat.org"],
         reply_to: data.email,
         subject: `Offertförfrågan: ${data.typ} — ${data.namn}`,
@@ -93,8 +97,10 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
 
     if (!res.ok) {
       const body = await res.text().catch(() => "");
-      throw new Error(`Resend svarade ${res.status}: ${body.slice(0, 200)}`);
+      console.error(`sendQuoteRequest: Resend svarade ${res.status}: ${body.slice(0, 500)}`);
+      throw new Error("Förfrågan kunde inte skickas");
     }
+    const sent = (await res.json().catch(() => ({}))) as { id?: string };
 
     // Meta Conversions API — endast med marknadsföringssamtycke.
     // Fel här får ALDRIG fälla leadet; mejlet är redan skickat.
@@ -126,5 +132,5 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
       }
     }
 
-    return { ok: true as const };
+    return { ok: true as const, id: sent.id };
   });

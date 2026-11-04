@@ -100,7 +100,6 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
       console.error(`sendQuoteRequest: Resend svarade ${res.status}: ${body.slice(0, 500)}`);
       throw new Error("Förfrågan kunde inte skickas");
     }
-    const sent = (await res.json().catch(() => ({}))) as { id?: string };
 
     // Meta Conversions API — endast med marknadsföringssamtycke.
     // Fel här får ALDRIG fälla leadet; mejlet är redan skickat.
@@ -132,5 +131,5 @@ export const sendQuoteRequest = createServerFn({ method: "POST" })
       }
     }
 
-    return { ok: true as const, id: sent.id };
+    return { ok: true as const };
   });
